@@ -16,8 +16,8 @@ class Index extends Controller
     	// dump($admin);die;
     	// $this->assign('adminInfo',$adminInfo);
 
-    	$employee = Employee::get(30000001);
-    	echo $employee->name;
+    	// $employee = Employee::get(30000001);
+    	// echo $employee->name;
 
 
 
@@ -42,7 +42,7 @@ class Index extends Controller
     	// 助手函数调用格式：
     	// view('[模板文件]'[,'模板变量（数组）'][,模板替换（数组）])
     	// 无论你是否继承think\Controller类，助手函数都可以使用，也是最方便的一种。
-    	return view();
+    	// return view();
 
     }
 }
