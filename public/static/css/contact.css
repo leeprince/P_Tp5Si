@@ -1,0 +1,5 @@
+/*联系我们*/
+.container{max-width:800px}
+@media (min-width: 26px) {.container{width:auto}}
+.error{color:red;padding:5px 0 0 10px}
+.purpleButton:hover{color:#fff}

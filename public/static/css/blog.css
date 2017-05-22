@@ -1,0 +1,6 @@
+/*博客*/
+@media (min-width: 26px) {.container {width:auto !important}}
+.container{max-width:1200px}
+.article{padding-left:9px;padding-right:9px}
+.article p{text-indent:1.8em}
+.article-figure img{max-width:622px}

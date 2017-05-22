@@ -1,0 +1,48 @@
+/*修复导入bootstrap.min.css导致的样式问题*/
+body{line-height:1}
+
+/**
+ *dealManager页面
+ */
+.container{max-width:1200px}
+.orderDetail .orderDetail-title{font-size:14px;line-height:1.5}
+.orderDetail .orderDetail-image{width:160px;max-height:200px;overflow:hidden}
+.orderDetail .orderDetail-image img{width:160px}
+.orderDetail .origin-price{color: #acacac;text-decoration: line-through;font-size: 14px;}
+.orderDetail a{text-decoration:none}
+.orderDetail a p:hover{color:#863b84}
+#blogMenu{left:160px !important}
+@media (min-width: 280px) {.container {width: 100%}}
+@media (min-width: 26px) {.container {width: 100%}}
+/*面包屑导航*/
+.crumbs ul li{float:left;}
+.crumbs ul li a{display:block;float:left;height:40px;background:#ddd;text-align:center;padding:10px 20px 10px 25px;position:relative;margin:0 10px 0 0;font-size:16px;text-decoration:none;color:#666;}
+.crumbs ul li a:after{content: "";position: absolute;right: -20px;top: 0;border-top: 20px solid transparent;border-bottom: 20px solid transparent;border-left: 20px solid #ddd;z-index:2;}
+.crumbs ul li a:before{content: "";border-top: 20px solid transparent;border-bottom: 20px solid transparent;border-left: 20px solid #ededed;position: absolute;left: 0;top: 0;}
+.crumbs ul li:first-child a{border-top-left-radius: 10px;border-bottom-left-radius: 10px;}
+.crumbs ul li:first-child a:before{display: none;}
+.crumbs ul li:last-child a{padding-right: 30px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;}
+.crumbs ul li:last-child a:after{display: none;}
+.crumbs ul li:last-child a:after{display: none;}
+.crumbs .active a{background-color:#666;color:#fff;}
+.crumbs .active a:after{border-left-color:#666;}
+@media only screen and (max-width:1040px) {
+    .crumbs ul{padding-left:0}
+    .crumbs ul li a{height:30px;padding:5px 5px 5px 12px;font-size:12px}
+    .crumbs ul li a:after{right:-10px;border-top: 15px solid transparent;border-bottom: 15px solid transparent;border-left: 10px solid #ddd}
+    .crumbs ul li a:before{border-top: 15px solid transparent;border-bottom: 15px solid transparent;border-left: 10px solid #ededed}
+    .crumbs ul li:last-child a{padding-right: 10px}
+    .crumbs ul li:last-child a:last-child{margin-right: 0}
+    .crumbs ul li a i.iconfont{font-size:16px;margin-right:3px}
+}
+@media only screen and (min-width:768px) and (max-width:991px) {
+    .action-box h2{margin-left:-35px}
+    .action-box .btn-box{margin-left:-35px}
+}
+@media only screen and (max-width:320px) {.limit-link{font-size:12px}}
+label.error{margin-bottom:0;position: absolute;top: 30px;right: 1px;padding: 0 8px;color: #c33;cursor: text;line-height:30px;background: #fff;background: -webkit-linear-gradient(left,rgba(255,255,255,0),#fff 8px);background: linear-gradient(to right,rgba(255,255,255,0),#fff 8px);visibility: hidden;opacity: 0;-ms-filter: "alpha(Opacity=0)";-webkit-transform: translate(20px,0);-ms-transform: translate(20px,0);transform: translate(20px,0);-webkit-transition: .25s ease-out;transition: .25s ease-out;}
+label.is-visible{visibility: visible;opacity: 1;-ms-filter: "alpha(Opacity=100)";-webkit-transform: translate(0,0);-ms-transform: translate(0,0);transform: translate(0,0);}
+
+a.findreviewurl{
+	color:blue;
+}

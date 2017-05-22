@@ -1,0 +1,220 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,700,700i,900,900i';
+@import 'https://fonts.googleapis.com/css?family=Droid+Sans:400,700';
+
+.how-body {
+	margin: 0;
+	padding: 0;
+}
+
+.how-wrapper {
+	font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
+	text-align: center;
+	color: #2f2d35;
+	font-size: 16px;
+}
+.how-wrapper img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.how-section-header {
+	margin-bottom: 34px;
+}
+.how-section-header .how-title {
+	font-size: 44px;
+	margin-top: 0;
+	padding-bottom: 18px;
+	border-bottom: 1px solid #dddcdf;
+	margin-bottom: 25px;
+	font-weight: normal;
+	margin-left: 10px;
+	margin-right: 10px;
+	color: #413d4b;
+	font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
+}
+.how-section-header .how-blue {
+	color:  #017dd4;
+	font-weight: bold;
+}
+.how-section-header .how-green {
+	color:  #43bd49;
+	font-weight: bold;
+}
+.how-section-header .how-desc {
+	font-size: 18px;
+	line-height: 24px;
+	color: #78777b;
+}
+
+.how-banner-section {
+	margin-bottom: 55px;
+}
+.how-banner-section .how-title {
+	background-color: #3e3e3f;
+	color:  #fff;
+	margin:  0;
+	font-size: 24px;
+	text-transform: uppercase;
+	padding-top: 12px;
+	padding-bottom: 10px;
+
+	-webkit-box-shadow: 0 5px 20px -2px #3e3e3f;
+	-moz-box-shadow: 0 5px 20px -2px #3e3e3f;
+	box-shadow: 0 5px 20px -2px #3e3e3f;
+
+}
+
+.how-deal-section {
+	margin-bottom: 40px;
+}
+.how-deal-section .how-title {
+	margin-bottom: 20px;
+}
+.how-deal-section .how-desc {
+	line-height: 24px;
+	font-weight: bold;
+	color: #78777b;
+	font-size: 18px;
+}
+
+
+.how-cols-section {
+	-moz-box-shadow: 0  8px 40px 0px #eeeeee, 0 -8px 40px 0px #eeeeee;
+	-webkit-box-shadow: 0  8px 40px 0px #eeeeee, 0 -8px 40px 0px #eeeeee;
+	box-shadow: 0  8px 40px 0px #eeeeee, 0 -8px 40px 0px #eeeeee;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	margin-bottom: 55px;
+}
+.how-cols-set {
+	
+}
+.how-cols-set:after {
+	content: '';
+	clear: both;
+	display: table;
+}
+.how-cols-set img {
+	margin-bottom: 20px;
+}
+.how-cols-set .how-col {
+	margin-bottom: 40px;
+	box-sizing: border-box;
+	padding-left: 10px;
+	padding-right:  10px;
+	position: relative;
+}
+.how-cols-set .how-col:last-child {
+	margin-bottom: 0;
+}
+.how-cols-set .how-col-title {
+	color: #ff7436;
+	font-size:  18px;
+	margin-top: 0;
+	margin-bottom: 20px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	text-transform: uppercase;
+}
+.how-cols-set .how-col-desc {
+	line-height: 24px;
+	color: #7a7a7a;
+	font-family: 'Roboto', sans-serif;
+}
+
+.how-deal-cols-section .how-col-title {
+	color: #3e3e3f;
+}
+
+
+
+ 
+@media only screen and (min-width: 1023px) {
+
+	.how-cols-3 .how-col {
+		width: calc(100% / 3);
+		float: left;
+		margin-bottom: 0;
+	}
+
+	.how-cols-3 .how-col:after {
+		content: '';
+		position: absolute;
+		top: 5%;
+		right: 0;
+		height: 90%;
+		width: 1px;
+		background-color: #d4d4d4;
+	}
+	.how-cols-3 .how-col:last-child:after {
+		width: 0;
+	}
+
+} 
+
+
+
+@media only screen  and (min-width : 1224px) {
+
+	.how-wrapper { 
+		font-size: 24px;
+	}
+
+	.how-section-header {
+		margin-bottom: 80px;
+	}
+	.how-section-header .how-title {
+		font-size: 76px;
+		margin-top: 80px;
+		margin-left: auto;
+		margin-right: auto;
+		display: inline-block;
+		padding-bottom: 22px;
+		margin-bottom: 27px;
+	}
+	.how-section-header .how-desc {
+		font-size: 28px;
+	}
+
+
+	.how-banner-section .how-title {
+		font-size: 48px;
+		padding-top: 20px;
+		padding-bottom: 18px;
+	}
+
+	.how-cols-section {
+		padding: 0;
+	}
+	.how-cols-3 .how-col {
+		margin-top: 45px;
+		margin-bottom: 35px;
+		padding-top: 35px;
+		padding-bottom: 70px;
+	}
+	.how-cols-3 .how-col:after {
+		height: 100%;
+		top: 0;
+	}
+	.how-cols-set img {
+		margin-bottom: 45px;
+	}
+	.how-cols-set .how-col-title {
+		font-size: 24px;
+		margin-bottom: 30px;
+	}
+	.how-cols-set .how-col-desc {
+		line-height: 35px;
+		padding-left: 12%;
+		padding-right: 12%;
+	}
+
+
+	.how-deal-section .how-title {
+		margin-bottom: 40px;
+	}
+	.how-deal-section .how-desc {
+		font-size: 30px;
+	}
+}

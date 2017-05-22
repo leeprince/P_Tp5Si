@@ -1,0 +1,897 @@
+.centerColumnBox{background-color: #fff; margin-bottom: 10px; padding: 15px; border: 1px solid #ccc}
+@-ms-viewport{width: device-width; zoom: 1}
+html,
+body{margin: 0; padding: 0; min-height: 100%; font-family: 'Lato', Helvetica, Arial, sans-serif; background: #ededed; color: #353535; font-size: 13px}
+strong,
+b{font-weight: bold}
+img{border: none}
+a{text-decoration: none; color: #863b84}
+a:hover{color: #b14faf}
+.pageTitle{position: relative; width: 100%; text-align: center; background: #ededed}
+.pageTitle span{position: relative; z-index: 10; background: #ededed; padding: 0 10px}
+.pageTitle:after{content: ' '; position: absolute; border-bottom: 1px solid #d6d6d6; width: 100%; top: 50%; left: 0; z-index: 0}
+.container{margin-right: auto; margin-left: auto}
+.container:before,
+.container:after{display: table; content: " "}
+.container:after{clear: both}
+.contentContainer{max-width: 1200px}
+#oldMainContent #main_content h3{font-size: 16px}
+#mainContent{background: #ededed; padding: 47px 0 40px}
+.rightColumnBox{width: 218px}
+h3{font-size: 16px; font-weight: bold; margin: 0}
+.bold{font-weight: bold}
+ul,
+ol{padding: 0 0 0 25px}
+.clear{clear: both; height: 0}
+.gridWidth{margin: 0 auto}
+.hidden{display: none}
+.expandMenuBar ul li a:hover{color: #6f727d}
+@media only screen and (max-width: 770px){.expandMenuBar{position: relative} .expandMenuBar .dropdownArrow{display: block; height: 20px; width: 22px; float: right; position: absolute; top: 7px; right: 15px; z-index: 1} .expandMenuBar ul{position: relative; z-index: 2} .expandMenuBar ul li{display: none !important} .expandMenuBar ul li a{display: block; height: 100%; width: 100%} .expandMenuBar ul li.active a{color: #4f234e; font-weight: bold; border-bottom: none; border-top: none}}
+@media only screen and (max-width: 675px){html, body{overflow-x: hidden; min-height: 600px} .expandMenuBar{position: relative} .expandMenuBar .dropdownArrow{display: block; height: 20px; width: 22px; float: right; position: absolute; right: 15px; top: 10px; z-index: 1} .expandMenuBar ul{position: relative; z-index: 2} .expandMenuBar ul li{display: none !important} .expandMenuBar ul li a{display: block; height: 100%; width: 100%} .expandMenuBar ul li.active, .expandMenuBar ul li.openMenuItem{width: 100%; font-size: 14px; text-align: left; display: block !important} .expandMenuBar ul li.active a{color: #4f234e; font-weight: bold; border-bottom: none}}
+@media only screen and (max-width: 483px){.grid-sizer{width: 146px !important} .pageTitle{font-size: 1.3em} .pageTitle span, .pageTitle a{width: 94%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.5em; height: 30px}}
+#header{width: 100%; position: fixed; z-index: 100; top: 0; left: 0; background: #ededed}
+#header #topNavigation{z-index: 1; position: relative; background: #4f234e; height: 46px; ;border-bottom: 1px solid #4f234e;box-shadow: 0 1px 2px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.15);}
+#header #topNavigation .container{max-width: 1170px; padding: 0 15px}
+#header #topNavigation ul:not(.menu-category-list){margin: 8.5px 0; height: 30px; padding: 0}
+#header #topNavigation ul:not(.menu-category-list) li{float: left}
+#header #topNavigation ul:not(.menu-category-list){list-style: none; font-size: 14px}
+#header #topNavigation ul:not(.menu-category-list) li.active a span{border-left: 0}
+#header #topNavigation ul:not(.menu-category-list) li.active+li a span{border-left: 0}
+#header #topNavigation ul:not(.menu-category-list) li:first-child span{border-left: 0}
+#header #topNavigation ul:not(.menu-category-list)#topNavLeftMenu{float: left}
+#header #topNavigation ul:not(.menu-category-list)#topNavRightMenu{float: right}
+#header #topNavigation ul:not(.menu-category-list) a{color: #fff; text-decoration: none; display: block}
+#header #topNavigation ul:not(.menu-category-list) a:hover {color: #c28bc1}
+#header #topNavigation ul:not(.menu-category-list) a span{padding: 5px; border-left: 1px solid #7e5a81}
+#header #topNavigation ul:not(.menu-category-list) a img{vertical-align: middle}
+#header #topNavigation ul:not(.menu-category-list) a img#userImage{vertical-align: top}
+#header #topNavigation #blogMenu{padding: 10px}
+#header #topNavigation #blogMenu hr{margin: 15px 15px 8px; border: none; border-top: 1px solid #d6d6d6}
+#header #topNavigation #blogMenu .see-more{float: right; margin-right: 15px; color: #b5b5b5}
+#header #topNavigation #blogMenu .blog-post-menu{height: auto}
+#header #topNavigation #blogMenu .blog-post-menu li{float: none}
+#header #topNavigation #blogMenu .blog-post-menu a{color: #000}
+#header #topNavigation #blogMenu .blog-post-menu a:hover{background-color: #fff}
+#header #topNavigation #blogMenu .blog-post-menu .blog-post .blog-title:hover{text-decoration: underline}
+#header #topNavigation #blogMenu .blog-post-menu .featured-blog-post{display: block; position: relative; height: 165px; margin: 10px auto; width: 285px; background-size: cover; background-repeat: no-repeat; padding: 0}
+#header #topNavigation #blogMenu .blog-post-menu .featured-blog-post .featured-title{position: absolute; bottom: 0; width: 285px; min-height: 40px; background-color: rgba(0, 0, 0, 0.6); color: #fff}
+#header #topNavigation #blogMenu .blog-post-menu .featured-blog-post .featured-title .blog-title{padding: 3px 8px 0}
+#header #topNavigation #blogMenu .blog-post-menu .featured-blog-post .featured-title .blog-title:hover{text-decoration: underline}
+#header #topNavigation #userInfoRow a:hover{background: none}
+#header #topNavigation #user-submenu-links>li{padding: 0; width: 100%}
+#header #topNavigation #user-submenu-links>li:first-child{padding-top: 0}
+#header #topNavigation #user-submenu-links a:hover{color: #b14faf; background: #fff}
+#header #topNavigation #user-submenu-links+ul{border-top: 1px solid #b6b6b6}
+#header #topNavigation #user-submenu-links #addToDPUserButton:hover{background: #863b84}
+#header #topNavigation #userNav .icon-font-user{display: none}
+#header #searchContainer{max-width: 1170px; height: 47px; position: relative; top: 0; z-index: 2}
+#header #searchContainer #mainLogo{float: left; margin-top: 4px}
+#header #searchContainer #mainLogo:hover{background: none}
+#header #searchContainer #searchBar{margin: 11px 248px 11px 0; float: right}
+#header #searchContainer #searchBarSmall{margin: 11px 0; float: left}
+#header #searchContainer #searchBar,
+#header #searchContainer #searchBarSmall{width: 226px; border: 1px solid #b6b6b6; height: 25px; background: #fff; position: relative; border-radius: 3px}
+#header #searchContainer #searchBar input[type=text],
+#header #searchContainer #searchBarSmall input[type=text]{margin: 0; background: none; padding: 0 0 0 27px; height: 25px; width: 201px; font-size: 12px; border: 0; line-height: 16px}
+#header #searchContainer #searchBar input[type=text]:focus,
+#header #searchContainer #searchBarSmall input[type=text]:focus{outline: none}
+#header #searchContainer #searchBar .tt-query,
+#header #searchContainer #searchBarSmall .tt-query{min-width: 190px}
+#header #searchContainer #searchBar .icon-font-search,
+#header #searchContainer #searchBarSmall .icon-font-search{font-size: 17px; color: #4f234e}
+#header #searchContainer #searchBar #submitSearch,
+#header #searchContainer #searchBarSmall #submitSearchSmall{width: 25px; height: 100%; position: absolute; top: 0; left: 0; margin: 0; border: 0; padding: 0; color: #c9c; cursor: pointer; background-color: #fff}
+#header #searchContainer #searchBar #submitSearch:focus,
+#header #searchContainer #searchBarSmall #submitSearch:focus,
+#header #searchContainer #searchBar #submitSearchSmall:focus,
+#header #searchContainer #searchBarSmall #submitSearchSmall:focus{outline: none}
+#header #searchContainer #searchBar #submitSearch:hover,
+#header #searchContainer #searchBarSmall #submitSearch:hover,
+#header #searchContainer #searchBar #submitSearchSmall:hover,
+#header #searchContainer #searchBarSmall #submitSearchSmall:hover{color: #652a6c}
+#header #searchContainer #searchBarSmall{display: none; margin-top: 0; width: 228px; height: 32px}
+#header #searchContainer #searchBarSmall .tt-query{min-width: 0}
+#header #searchContainer #searchBarSmall input[type=text]{font-size: 16px; width: 203px; height: 32px}
+#header .userPlusIcon{margin: 11px 0; position: absolute; top: 0; right: 0}
+#header .userPlusIcon .icon-font-plus{background-color: #efefef; height: 24px; width: 24px; line-height: 24px; font-size: 14px; color: #4f234e; text-align: center; border: 1px solid #efefef; border-radius: 3px}
+#header .userPlusIcon .icon-font-plus:hover{background-color: #c28bc1; border-color: #c28bc1}
+#header .feedMenu{float: left;}
+#header .feedMenu a{font-size: 16px; font-weight: bold; line-height: 48px; height: 48px; display: inline-block; margin: 0 0 0 24px; color: #fff;text-decoration:none}
+#header .feedMenu a:hover{color: #c28bc1}
+#header .menuIcon{position: relative; float: left; top: 1px; width: 23px; margin: 11px 15px 11px 0}
+#header #menuButton{font-size: 23px; display: none;color: #fff;line-height:1}
+#header #menuButton:hover{color: #c28bc1}
+#header #userNav{position: absolute; top: 0; right: 37px; padding: 0; list-style: none; font-size: 13px; line-height: 30px; height: 30px; margin: 11px 0}
+@media (max-width: 798px){#header #userNav{right: 27px}}
+#header #userNav>li{padding: 0; float: left; text-align: center; position: relative}
+#header #userNav > li:first-child span{border-left: 0}
+#header #userNav>li>a{float: left; display: block; color: #fff; text-decoration: none; padding: 0}
+#header #userNav>li>a>span{padding: 0 10px; border-left: 1px solid #d0d0d0; position: relative; line-height: 20px}
+#header #userNav #userNavLink:hover .user-menu-caret{border-top: 5px solid #c28bc1}
+#header .userSubMenu #userInfoRow a:hover{background-color: #fff}
+#header .userSubMenu #userInfoRow a:hover span{color: #b14faf}
+#header .userSubMenu .arrow:after,
+#header .userSubMenu .arrow:before{border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none}
+#header .userSubMenu .arrow:after{border-color: transparent; border-width: 5px}
+#header .userSubMenu .arrow:before{border-color: transparent; border-width: 6px}
+#header .userSubMenu .arrow:after,
+#header .userSubMenu .arrow:before{bottom: 100%; left: 50%}
+#header .userSubMenu .arrow:after{border-bottom-color: #fff; margin-left: -5px}
+#header .userSubMenu .arrow:before{border-bottom-color: #929292; margin-left: -6px}
+.tt-dropdown-menu{background: #fff; width: 226px; border: 1px solid #b6b6b6; margin-left: -1px}
+.tt-dropdown-menu .autoCompleteRow:hover{background: #ddf0ff}
+.tt-hint{visibility: hidden}
+#addToDPDialog .dialogContent .dialogBody .addItems .itemContainer:hover{background: #f3edf3}
+#dealCategoryMenu .menuWrapper,
+#couponCategoryMenu .menuWrapper{overflow: hidden}
+#categoryMenu,
+#dealCategoryMenu,
+#couponCategoryMenu,
+#userSubMenu,
+#blogMenu{position: absolute; background: #fff; border: 1px solid #b6b6b6; left: -8px; top: 47px; padding: 0; border-radius: 5px; box-shadow: 0 0 10px rgba(50, 50, 50, 0.5); display: none}
+#userSubMenu{left:auto;right:10px;width:40%}
+#categoryMenu .arrow,
+#dealCategoryMenu .arrow,
+#couponCategoryMenu .arrow,
+#userSubMenu .arrow,
+#blogMenu .arrow{position: absolute; background: #fff; top: 0; left: 50%; right: 140px}
+#categoryMenu .arrow:after,
+#dealCategoryMenu .arrow:after,
+#couponCategoryMenu .arrow:after,
+#blogMenu .arrow:after,
+#categoryMenu .arrow:before,
+#dealCategoryMenu .arrow:before,
+#couponCategoryMenu .arrow:before,
+#userSubMenu .arrow:before,
+#blogMenu .arrow:before{border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none}
+#categoryMenu .arrow:after,
+#dealCategoryMenu .arrow:after,
+#couponCategoryMenu .arrow:after,
+#userSubMenu .arrow:after,
+#blogMenu .arrow:after{border-color: transparent; border-width: 10px}
+#categoryMenu .arrow:before,
+#dealCategoryMenu .arrow:before,
+#couponCategoryMenu .arrow:before,
+#blogMenu .arrow:before{border-color: transparent; border-width: 11px}
+#categoryMenu .arrow:after,
+#dealCategoryMenu .arrow:after,
+#couponCategoryMenu .arrow:after,
+#blogMenu .arrow:after,
+#categoryMenu .arrow:before,
+#dealCategoryMenu .arrow:before,
+#couponCategoryMenu .arrow:before,
+#blogMenu .arrow:before{bottom: 100%; left: 50%}
+#categoryMenu .arrow:after,
+#dealCategoryMenu .arrow:after,
+#couponCategoryMenu .arrow:after,
+#blogMenu .arrow:after{border-bottom-color: #fff; margin-left: -10px}
+#categoryMenu .arrow:before,
+#dealCategoryMenu .arrow:before,
+#couponCategoryMenu .arrow:before,
+#blogMenu .arrow:before{border-bottom-color: #b6b6b6; margin-left: -11px}
+#couponCategoryMenu .menu-category-list.coupon-category-list,
+#dealCategoryMenu .menu-category-list.deal-category-list{height: auto; padding: 10px 0}
+#couponCategoryMenu .menu-category-list.coupon-category-list li,
+#dealCategoryMenu .menu-category-list.deal-category-list li,
+#userSubMenu .menu-user-list li{}
+#couponCategoryMenu .menu-category-list.coupon-category-list li:hover,
+#dealCategoryMenu .menu-category-list.deal-category-list li:hover,
+#userSubMenu .menu-user-list li:hover{background-color:#eee}
+#couponCategoryMenu .menu-category-list.coupon-category-list li+li,
+#dealCategoryMenu .menu-category-list.deal-category-list li+li,
+#userSubMenu .menu-user-list li+li{border-top: 1px solid #eee}
+#couponCategoryMenu .menu-category-list.coupon-category-list li a,
+#dealCategoryMenu .menu-category-list.deal-category-list li a,
+#userSubMenu .menu-user-list li a{text-align: left; display: block; padding: 6px 20px; text-decoration:none}
+#couponCategoryMenu .menu-category-list.coupon-category-list li .menu-category-list-link,
+#dealCategoryMenu .menu-category-list.deal-category-list li .menu-category-list-link,
+#userSubMenu .menu-user-list li .menu-user-list-link{color: #863b84}
+#categoryMenu .menu-category-list.coupon-category-list li .menu-category-list-link:hover,
+#dealCategoryMenu .menu-category-list.coupon-category-list li .menu-category-list-link:hover,
+#couponCategoryMenu .menu-category-list.coupon-category-list li .menu-category-list-link:hover,
+#blogMenu .menu-category-list.coupon-category-list li .menu-category-list-link:hover,
+#categoryMenu .menu-category-list.deal-category-list li .menu-category-list-link:hover,
+#dealCategoryMenu .menu-category-list.deal-category-list li .menu-category-list-link:hover,
+#couponCategoryMenu .menu-category-list.deal-category-list li .menu-category-list-link:hover,
+#userSubMenu .menu-user-list li .menu-user-list-link:hover,
+#blogMenu .menu-category-list.deal-category-list li .menu-category-list-link:hover{background: none; color: #b14faf}
+#categoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons,
+#dealCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons,
+#couponCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons,
+#blogMenu .menuWrapper .menuTopIcons#deal-menu-top-icons,
+#categoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons,
+#dealCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons,
+#couponCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons,
+#blogMenu .menuWrapper .menuTopIcons#category-menu-top-icons{float: left; height: auto; display: block; margin: 0 0 20px 0; padding: 10px 0; width: 100%}
+#categoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li,
+#dealCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li,
+#couponCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li,
+#blogMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li,
+#categoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li,
+#dealCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li,
+#couponCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li,
+#blogMenu .menuWrapper .menuTopIcons#category-menu-top-icons li{padding-left: 17px; width: 70px; display: inline-block; vertical-align: top}
+#categoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li span,
+#dealCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li span,
+#couponCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li span,
+#blogMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li span,
+#categoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li span,
+#dealCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li span,
+#couponCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li span,
+#blogMenu .menuWrapper .menuTopIcons#category-menu-top-icons li span{color: #4f234e; font-size: 40px; text-align: center; height: 45px; width: 60px; border-left: 0; display: block; padding: 0; margin: 0 auto 5px}
+#categoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li span:hover,
+#dealCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li span:hover,
+#couponCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li span:hover,
+#blogMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li span:hover,
+#categoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li span:hover,
+#dealCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li span:hover,
+#couponCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li span:hover,
+#blogMenu .menuWrapper .menuTopIcons#category-menu-top-icons li span:hover{color: #4f234e}
+#categoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li .icon-font-dealsplus-exclusive,
+#dealCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li .icon-font-dealsplus-exclusive,
+#couponCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li .icon-font-dealsplus-exclusive,
+#blogMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li .icon-font-dealsplus-exclusive,
+#categoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li .icon-font-dealsplus-exclusive,
+#dealCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li .icon-font-dealsplus-exclusive,
+#couponCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li .icon-font-dealsplus-exclusive,
+#blogMenu .menuWrapper .menuTopIcons#category-menu-top-icons li .icon-font-dealsplus-exclusive{font-size: 48px; margin-top: -4px; margin-bottom: 9px}
+#categoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li img,
+#dealCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li img,
+#couponCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li img,
+#blogMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li img,
+#categoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li img,
+#dealCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li img,
+#couponCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li img,
+#blogMenu .menuWrapper .menuTopIcons#category-menu-top-icons li img{height: 35px; width: 35px}
+#categoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li .menuTopIconTitle,
+#dealCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li .menuTopIconTitle,
+#couponCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li .menuTopIconTitle,
+#blogMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li .menuTopIconTitle,
+#categoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li .menuTopIconTitle,
+#dealCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li .menuTopIconTitle,
+#couponCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li .menuTopIconTitle,
+#blogMenu .menuWrapper .menuTopIcons#category-menu-top-icons li .menuTopIconTitle{width: 70px; font-size: 13px; text-align: center}
+#categoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li:first-child,
+#dealCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li:first-child,
+#couponCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li:first-child,
+#blogMenu .menuWrapper .menuTopIcons#deal-menu-top-icons li:first-child,
+#categoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li:first-child,
+#dealCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li:first-child,
+#couponCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons li:first-child,
+#blogMenu .menuWrapper .menuTopIcons#category-menu-top-icons li:first-child{padding-left: 0}
+#categoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a,
+#dealCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a,
+#couponCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a,
+#blogMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a,
+#categoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons a,
+#dealCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons a,
+#couponCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons a,
+#blogMenu .menuWrapper .menuTopIcons#category-menu-top-icons a{color: #863b84}
+#categoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a:hover,
+#dealCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a:hover,
+#couponCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a:hover,
+#blogMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a:hover,
+#categoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons a:hover,
+#dealCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons a:hover,
+#couponCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons a:hover,
+#blogMenu .menuWrapper .menuTopIcons#category-menu-top-icons a:hover{background: none; color: #b14faf}
+#categoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a.strong,
+#dealCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a.strong,
+#couponCategoryMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a.strong,
+#blogMenu .menuWrapper .menuTopIcons#deal-menu-top-icons a.strong,
+#categoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons a.strong,
+#dealCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons a.strong,
+#couponCategoryMenu .menuWrapper .menuTopIcons#category-menu-top-icons a.strong,
+#blogMenu .menuWrapper .menuTopIcons#category-menu-top-icons a.strong{font-weight: bold}
+#categoryMenu .menuWrapper .menuTopIcons.sixSpacing#deal-menu-top-icons li,
+#dealCategoryMenu .menuWrapper .menuTopIcons.sixSpacing#deal-menu-top-icons li,
+#couponCategoryMenu .menuWrapper .menuTopIcons.sixSpacing#deal-menu-top-icons li,
+#blogMenu .menuWrapper .menuTopIcons.sixSpacing#deal-menu-top-icons li,
+#categoryMenu .menuWrapper .menuTopIcons.sixSpacing#category-menu-top-icons li,
+#dealCategoryMenu .menuWrapper .menuTopIcons.sixSpacing#category-menu-top-icons li,
+#couponCategoryMenu .menuWrapper .menuTopIcons.sixSpacing#category-menu-top-icons li,
+#blogMenu .menuWrapper .menuTopIcons.sixSpacing#category-menu-top-icons li{padding-left: 26px}
+#categoryMenu .menuWrapper .menuTopIcons.sixSpacing#deal-menu-top-icons li:first-child,
+#dealCategoryMenu .menuWrapper .menuTopIcons.sixSpacing#deal-menu-top-icons li:first-child,
+#couponCategoryMenu .menuWrapper .menuTopIcons.sixSpacing#deal-menu-top-icons li:first-child,
+#blogMenu .menuWrapper .menuTopIcons.sixSpacing#deal-menu-top-icons li:first-child{padding: 10px 0}
+#categoryMenu .aboutUsLinks .aboutUsSection{padding: 10px 0}
+#categoryMenu .aboutUsLinks a{display: block; padding: 6px 20px;text-decoration: none}
+#categoryMenu .aboutUsLinks a+a{border-top:1px solid #eee}
+#categoryMenu .aboutUsLinks a:hover{display: block; padding: 6px 20px; background-color: #eee}
+@media (max-width: 768px){#categoryMenu .categoryMenuSocial div, #dealCategoryMenu .categoryMenuSocial div, #couponCategoryMenu .categoryMenuSocial div, #blogMenu .categoryMenuSocial div{width: 100%}}
+#categoryMenu .categoryMenuSocial .socialItems .icon-font-twitter,
+#dealCategoryMenu .categoryMenuSocial .socialItems .icon-font-twitter,
+#couponCategoryMenu .categoryMenuSocial .socialItems .icon-font-twitter,
+#blogMenu .categoryMenuSocial .socialItems .icon-font-twitter{color: #47b4da}
+#categoryMenu .categoryMenuSocial .socialItems .icon-font-facebook,
+#dealCategoryMenu .categoryMenuSocial .socialItems .icon-font-facebook,
+#couponCategoryMenu .categoryMenuSocial .socialItems .icon-font-facebook,
+#blogMenu .categoryMenuSocial .socialItems .icon-font-facebook{color: #305891}
+#categoryMenu .categoryMenuSocial .socialItems .icon-font-pinterest,
+#dealCategoryMenu .categoryMenuSocial .socialItems .icon-font-pinterest,
+#couponCategoryMenu .categoryMenuSocial .socialItems .icon-font-pinterest,
+#blogMenu .categoryMenuSocial .socialItems .icon-font-pinterest{color: #c82727}
+#categoryMenu{width: 130px; left: 330px !important}
+@media (max-width: 785px){#categoryMenu{left: 0 !important}}
+#categoryMenu .arrow{left: 50%; right: 50%}
+#categoryMenu .hidden-large,
+#categoryMenu .closeCategoryAccordion{display: none}
+#dealCategoryMenu{width: 150px; left: 95px !important}
+#dealCategoryMenu .arrow{left: 75px}
+#couponCategoryMenu{width: 150px; left: 175px !important}
+#couponCategoryMenu .arrow{left: 80px}
+#blogMenu{width: 325px; left: 142px !important}
+@media only screen and (max-width: 869px) and (
+max-width: 868px){#blogMenu{margin: 0 0 0 8px}
+}
+@media only screen and (max-width: 869px) and (max-width: 799px){#blogMenu{margin-right: 152px}}
+@media only screen and (max-width: 869px) and (max-width: 774px){#blogMenu{margin-right: 144px}}
+@media only screen and (max-width: 869px) and (max-width: 767px){#blogMenu{margin-right: 92px}}
+@media only screen and (max-width: 940px){
+    #header #topNavigation #mainLoginButton{display: none}
+    #header #topNavigation #userNav #userNavLink:hover{background-color: #4f234e}
+    #header #topNavigation #searchBar{margin-right: 95px}}
+@media only screen and (max-width: 785px){
+    #mainContent{padding-top: 33px}
+    #header #topNavigation{height: 38px}
+    #header #topNavigation #userNav{right: 0; height: 25px; line-height: 25px; padding: 0; margin: 5px 10px 0 0}
+    #header #topNavigation #userNav .icon-font-user{display: block; color: #4f234e; font-size: 20px}
+    #header #topNavigation #userNav .icon-font-user:hover{color: #4f234e}
+    #header #topNavigation .logInButton{height: 22px; width: 22px; line-height: 24px; display: block; margin-top: 2px; border-radius: 3px; background-color: #efefef; padding: 2px}
+    /*#header #topNavigation .logInButton:hover{background-color: #c28bc1}*/
+    #header #topNavigation #headerContainer{padding: 0;width:100%}
+    #header #topNavigation #headerContainer #searchContainer{padding: 7px 10px 0; height: auto}
+    #header #topNavigation #headerContainer #searchContainer #searchBar{display: none}
+    #header #topNavigation #headerContainer #searchContainer .smallSearchContainer{height: 35px; background-color: #4f234e; padding: 15px; position: relative}
+    #header #topNavigation #headerContainer #searchContainer .smallSearchContainer #searchBarSmall{display: block; width: 190px}
+    #header #topNavigation #headerContainer #searchContainer .smallSearchContainer #searchBarSmall input[type=text]{font-size: 14px; width: 150px}
+    #header #topNavigation #headerContainer #searchContainer .smallSearchContainer .closeCategoryAccordion{position: absolute; right: 5px; border: none; background-color: transparent; color: #fff; font-size: 16px; margin-top: 7px}
+    #header #topNavigation #headerContainer #searchContainer .smallSearchContainer .closeCategoryAccordion:focus{outline: none}
+    #header #topNavigation #headerContainer #searchContainer .menuIcon{margin: 6px 0; position: absolute}
+    #header #topNavigation #headerContainer #searchContainer .menuIcon #menuButton{display: block}
+    #header #topNavigation #headerContainer #searchContainer #mainLogo{left: 50%; float: none; text-align: center; display: block; margin: -6px 0 0 0}
+    #header #topNavigation #headerContainer #searchContainer #mainLogo img{width: 120px; height: 38px}
+    #header #topNavigation #headerContainer #searchContainer .feedMenu{display: none}
+    #header #addToDPButton{display: none} #header #categoryMenu{background-color: #b683b5}
+    #header #categoryMenu .hidden-large, #header #categoryMenu .closeCategoryAccordion{display: block}
+    #header #categoryMenu .aboutUsLinks{background-color: #b683b5; display: inherit; padding: 0; overflow: hidden; left: 0; width: 50%}
+    #header #categoryMenu .aboutUsLinks .aboutUsSection{padding: 15px 0 15px 26px}
+    #header #categoryMenu .aboutUsLinks .aboutUsSection a{display: block; margin-right: 0; color: #fff; margin-top: 5px}
+    #header #deals-coupons-accordions{padding-top: 20px; padding-bottom: 60px; background-color: #fff}
+    #header #deals-coupons-accordions .deals-accordion, #header #deals-coupons-accordions .coupons-accordion, #header #deals-coupons-accordions .blog-accordion{margin: 10px 15px; border: 1px solid #b683b5; border-radius: 2px; padding: 0 15px 0 10px}
+    #header #deals-coupons-accordions .deals-accordion .deals-accordion-toggle,
+    #header #deals-coupons-accordions .coupons-accordion .coupons-accordion-toggle,
+    #header #deals-coupons-accordions .blog-accordion .blog-accordion-button{color: #b683b5;font-weight: bold;width: 100%;text-align: left;font-size: 16px;border: none;background-color: #fff;padding: 12px 0;-webkit-tap-highlight-color: transparent}
+    #header #deals-coupons-accordions .deals-accordion .deals-accordion-toggle:focus,
+    #header #deals-coupons-accordions .coupons-accordion .deals-accordion-toggle:focus,
+    #header #deals-coupons-accordions .blog-accordion .deals-accordion-toggle:focus,
+    #header #deals-coupons-accordions .deals-accordion .coupons-accordion-toggle:focus,
+    #header #deals-coupons-accordions .coupons-accordion .coupons-accordion-toggle:focus,
+    #header #deals-coupons-accordions .blog-accordion .coupons-accordion-toggle:focus,
+    #header #deals-coupons-accordions .deals-accordion .blog-accordion-button:focus,
+    #header #deals-coupons-accordions .coupons-accordion .blog-accordion-button:focus,
+    #header #deals-coupons-accordions .blog-accordion .blog-accordion-button:focus{outline: none;background-color: #fff}
+    #header #deals-coupons-accordions .deals-accordion .deals-accordion-toggle span,
+    #header #deals-coupons-accordions .coupons-accordion .coupons-accordion-toggle span{float: right;font-size: 14px}
+    #header #deals-coupons-accordions .deals-accordion a, #header #deals-coupons-accordions .coupons-accordion a, #header #deals-coupons-accordions .blog-accordion a{display: block;margin: 0 0 10px 0;color: #b683b5}
+    #header .menuMask{width: 815px;height: 1100px;display: none;background-color: #4b4b4b;opacity: 0.5;position: absolute;top: -15px;left: -30px;z-index: 101}
+    #header #categoryMenu, #header .userSubMenu{width: 260px;height: 100%;padding: 0 0 0 0;position: fixed;top: 0;z-index: 102;overflow-y: scroll;-webkit-overflow-scrolling: touch;border: 0}
+    #header .userSubMenu{right: -600px;left: auto}
+    #header #categoryMenu{left: -600px}
+    #header #categoryMenu .aboutUsLinks a{display: block;margin-bottom: 15px}
+    #header .arrow{left: 25px;right: auto}}
+@media only screen and (max-width: 480px){
+    #addToDPDialog .dialogBody #addDealLink{margin: 0 0 10px 10px}
+}
+@media only screen and (max-width: 440px){
+    #addToDPDialog .dialogBody #addDealLink, #addToDPDialog .dialogBody #addCouponLink, #addToDPDialog .dialogBody #addTopicLink, #addToDPDialog .dialogBody #addLinkLink{display: block; margin: 10px auto; float: none}}
+@media only screen and (max-width: 425px){
+    #addToDPDialog .dialogBody #addDealLink .itemContainer{width: 115px;height: 115px;margin: 0 10px 10px 0}
+    #addToDPDialog .dialogBody #addLinkLink .itemContainer{float: none;clear: both;margin: 0 auto 10px}
+}
+@media only screen and (orientation: landscape) and (max-device-width: 768px){
+    #header{position: fixed} #mainContent{padding-top: 0}
+}
+#footer .moreInfoTab:hover{cursor: pointer}
+#footer>.footerMenu{overflow: hidden; background-color: #4f234e; border-top: 3px solid #381537; padding: 20px 0 30px}
+#footer>.footerMenu>.container{padding: 0; width: 1170px; overflow: hidden}
+#footer > .footerMenu > .container .column a:hover{color: #863b84}
+#footer > .footerMenu > .container .column#leftFooterColumn{float: left; padding: 0 15px 0 15px; line-height: 15px}
+#footer > .footerMenu > .container .column#centerFooterColumn{width: 254px; padding: 0 30px; line-height: 15px}
+#footer > .footerMenu > .container .footerLinks a:hover{color: #c28bc1}
+#footer > .footerMenu > .container .social>a{float: left; border-radius: 3px}
+#footer > .footerMenu > .container .social>a:hover{text-decoration: none}
+#footer > .footerMenu > .container .social > a:hover span{color: #c28bc1}
+@media only screen and (max-width: 1025px){#footer{display: none}}
+.purpleButton,
+.lightPurpleButton{color: #fff; padding: 5px; height: auto !important; display: inline-block; font-weight: bold; border: 0}
+.saveButton:hover,
+.blueButton:hover,
+.greenButton:hover,
+.darkBlueButton:hover,
+.followButton:hover,
+.purpleButton:hover,
+.lightPurpleButton:hover{color: #fff}
+.saveButton[disabled="disabled"],
+.blueButton[disabled="disabled"],
+.greenButton[disabled="disabled"],
+.darkBlueButton[disabled="disabled"],
+.followButton[disabled="disabled"],
+.purpleButton[disabled="disabled"],
+.lightPurpleButton[disabled="disabled"]{background: #8d8d8d; cursor: not-allowed}
+.saveButton[disabled="disabled"]:hover,
+.blueButton[disabled="disabled"]:hover,
+.greenButton[disabled="disabled"]:hover,
+.darkBlueButton[disabled="disabled"]:hover,
+.followButton[disabled="disabled"]:hover,
+.purpleButton[disabled="disabled"]:hover,
+.lightPurpleButton[disabled="disabled"]:hover{background: #8d8d8d}
+.saveButton{background: #4f234e; padding: 5px 12px 5px 11px}
+.saveButton:hover{background: #652a6c}
+.addToFavoritesButton>img{margin-top: -3px; margin-right: 5px; vertical-align: middle}
+.addToFavoritesButton:hover{background: #863b84; color: #fff}
+@media (max-width: 413px){
+    .addToFavoritesButton{margin-left: 0}
+}
+@media (max-width: 404px){
+    .addToFavoritesButton{margin: 8px 0 0}
+}
+.blueButton{background: #6279c9; padding: 5px 9px 5px 9px}
+.blueButton:hover{background-color: #526abe}
+.greenButton{background: #25a1ac}
+.greenButton:hover{background-color: #158892}
+.darkBlueButton,
+.followButton{background: #204395}
+.darkBlueButton:hover,
+.followButton:hover{background-color: #193475}
+.purpleButton{background-color: #4f234e; border-radius: 3px; border: 2px solid #4f234e}
+.purpleButton:hover{background-color: #652a6c}
+.purpleButton:focus{color:#fff}
+.lightPurpleButton{background: #c469c2; padding: 8px 12px; font-size: 14px; border-radius: 3px}
+.lightPurpleButton:hover{background-color: #652a6c}
+.followStore:hover,
+.addToCollectionLarge .addToCollection:hover{background-color: #006370; color: #fff}
+.whiteButton:hover,
+.followCollectionSmall:hover{color: #863b84}
+.followCollectionLarge:hover,
+.followCategoryButton:hover{color: #fff; background: #863b84}
+.followCollectionSmall{border: none}
+.followCollectionLarge img{margin-top: -2px}
+.followStore{border: 0; text-align: center}
+.followStore.active:hover{background-color: #b5b5b5}
+.followCategoryButton{background: #b1b1b1}
+.followCategoryButton:hover{background: #e84242}
+.followCategoryButton img{margin-top: -2px}
+.addToCollectionSmall{background: #4ec9d6}
+.addToCollectionSmall:hover{background: #1c96a3}
+.voteItemUp{background: #ff7575}
+.voteItemUp:hover{background: #e84242}
+.voteUp:hover{background: #e84242}
+.addToCollectionLarge .addToCollection{border: 1px solid #006370; padding: 0; display: inline-block}
+.addToCollectionLarge .addToCollection img{float: left; margin: 4px 5px 3px 6px}
+.shareButtonSmall{background: #c28bc1}
+.shareButtonSmall:hover{background: #824381}
+.secondaryButton:hover{color: #fff; background: #1c96a3}
+@media only screen and (max-width: 946px){#zoomWrapper{width: 696px}}
+@media only screen and (max-width: 767px){#zoomWrapper{margin: 5px auto}}
+@media only screen and (max-width: 708px){#zoomWrapper{width: 501px}}
+@media only screen and (max-width: 600px){#zoomClose{right: 0}}
+.didItWork .didItWorkDown>a{display: block; margin: 10px 0}
+.didItWork .didItWorkUp{margin-right: 10px; background-position: -22px 0}
+.didItWork .didItWorkUp a:hover .icon-vote-up{background-position: -22px -22px}
+.didItWork .didItWorkDown{background-position: -22px -110px}
+.didItWork .didItWorkDown a:hover .icon-vote-down{background-position: -22px -88px}
+.loginSignupContent{margin: 0 auto; width: 60%; text-align: center}
+.loginSignupContent p{text-align: center !important; font-size: 13px}
+.loginSignupContent .loginSignupHeader{font-weight: bold; color: #592758; padding: 15px 15px 5px; font-size: 18px; text-transform: capitalize; text-align: center; border-bottom: 1px solid #592758; width: 88%; margin: 0 auto 15px}
+.loginSignupContent .submit-content{text-align: left}
+.loginSignupContent .submit-edit{width: 100%}
+.loginSignupContent .submit-edit input{width: 100%}
+.loginSignupContent .submit-edit input[type="submit"]{width: auto; padding: 7px 15px; float: none}
+.loginSignupContent #signup-submit-field{text-align: center}
+.loginSignupContent .submit-edit-header{font-size: 16px; color: #353535; margin: 0 15px 0; float: left; text-align: right; width: 35%; background-color: #ededed; position: relative; top: -3px}
+.loginSignupContent .submit-content{float: left; width: 35%}
+.loginSignupContent .submit-content input[name="title"]{min-width: 49%}
+.loginSignupContent .forgotPassword{margin: 10px 0}
+@media only screen and (max-width: 1024px){.frame_associate textarea{width: 60%; height: 100px}}
+@media only screen and (max-width: 640px){#oldMainContent{margin-top: 0 !important} .loginSignupContent .submit-edit-header{width: 100%; text-align: center; margin: 0 !important} .loginSignupContent .submit-content{width: 100%} .loginSignupContent .submit-content input{clear: both; width: 100%}}
+@media only screen and (max-width: 375px){.frame_associate textarea{width: 80%}}
+@media only screen and (max-width: 350px){.loginSignupContent .fbButton{margin-left: -20px}}
+@media only screen and (max-width: 485px){.dialogHolder .dialogContent .dialogHeader .userCollectionName{max-width: 57%} .dialogHolder .bigDialogBox{margin: 20px auto 0 !important}}
+@media only screen and (max-width: 450px){.dialogHolder .dialogContent .dialogBody .chooseCollectionDialog .collectionDialogImage{width: 93%} .dialogHolder .dialogContent .dialogBody .chooseCollectionDialog .collectionInfoDiv{width: 93%; max-width: 93%}}
+@media only screen and (max-width: 400px){.userCollectionName{max-width: 45%}}
+.collectionBox>a{display: block; margin: 10px}
+.collectionBox .collectionName:hover{color: #863b84}
+.collectionBox .collectionOwner:hover{color: #6f727d}
+.grid-sizer{width: 222px; height: 335px; margin-bottom: 10px; position: absolute}
+.collectionInfoBox .collectionInfoLeft .collectionName input[name="collectionName"]{width: 300px}
+.collectionInfoBox .collectionInfoLeft .collectionName a:hover{color: #863b84}
+.collectionInfoBox .collectionInfoLeft .followersAndItems a:hover{color: #863b84}
+.collectionInfoBox .collectionInfoLeft .deleteCollection:hover{color: #e84242}
+.collectionInfoBox .profileInfo .usernameAndImage .username:hover{color: #863b84}
+.inviteUserBox .inviteBoxRight>a{float: left}
+.inviteUserBox .inviteBoxRight>a.inviteUserIgnore{margin-right: 10px}
+.collection-category a:hover{color: #863b84}
+@media only screen and (max-width: 483px){.grid-sizer{width: 146px !important} .collectionBox{height: 285px; width: 144px !important} .collectionBox .collectionImage{width: 120px; height: 120px; line-height: 120px} .collectionBox .collectionItem{margin-left: 4px} .collectionBox .collectionItem span{width: 32px; height: 32px; line-height: 30px} .collectionBox .collectionBottom{text-align: center} .collectionBox .collectionFollowers{float: none} .collectionBox .collectionFollowers strong{display: inline} .collectionBox .collectionFollowButton{float: none; margin-top: 10px} .collectionInfoLeft input[name="collectionName"]{width: 100% !important} .collection-category h2{padding: 5px; font-size: 14px} .collection-category a{margin: 5px; font-size: 13px}}
+@media only screen and (max-width: 320px){.otherCollections .collectionBox:last-child{display: none}}
+.howTo{background-color: #fff; margin-bottom: 10px; padding: 15px; border: 1px solid #ccc}
+.store-content-main .coupons .featuredCoupons h2>img{margin-right: 5px}
+.store-content-side a:hover{color: #006370}
+.store-content-side .relatedStores,
+.store-content-side #popularPostSection{margin-top: 10px}
+.store-content-side .topStoreInfoImage a>img{vertical-align: middle; max-width: 100%; max-height: 100%}
+@media only screen and (max-width: 768px){.topStoreInfo .topStoreInfoContent .titles-email-subscribe input[type=email]{width: 155px}}
+.topStoreInfo .topStoreInfoContent .filterMenuButtons .filterMenu li a:hover{text-decoration: none}
+@media (max-width: 420px){#suggestedStoreInfo .suggestedStore{width: 45%}}
+@media (max-width: 320px){#suggestedStoreInfo .suggestedStore .storeBoxButton .followStoreButton.followStore{width: 86px}}
+.coupon{overflow: hidden; border-radius: 3px; padding: 15px}
+.coupon .leftColumn .title:hover{color: #863b84 !important}
+#perCouponDialog .dialogHeader a:hover{color: #863b84}
+#perCouponDialog .leftColumn .title:hover{color: #863b84}
+.relatedStoresSlider{padding-top: 15px}
+.relatedStoresSlider .relatedStoresTitle>a{font-weight: bold; font-size: 16px}
+.relatedStoresSlider .sliderContainer .sliderInternalWrapper .itemImg>a{line-height: 80px; max-height: 80px}
+.permCoupon{border-top: 1px solid #e1e1e1; margin-top: 15px}
+.storeBox>div{padding: 17px 10px}
+.storeBox .storeName>a{color: #353535; font-weight: bold}
+.couponContainer .coupon .title:hover{color: #863b84}
+.couponContainer .couponDialogHeader a:hover{color: #863b84}
+@media only screen and (max-width: 955px){#about-store{display: none} .store-content-main{width: 100%} .store-content-side{width: 100%; margin-top: 20px}}
+@media only screen and (max-width: 920px){.contentContainer{width: auto !important}}
+@media only screen and (max-width: 770px){.store-content-main{max-width: 700px; width: 100%}}
+@media only screen and (max-width: 600px){#perCouponDialog .leftColumn{width: 100%} .store-content-side{float: left} #mainContentRight{display: none} .coupon{padding: 10px} .coupon .leftColumn{width: auto; margin-bottom: 10px} .coupon .leftColumn .descSpacing{padding: 5px 0 20px 0} #mainContentLeft{width: auto !important; margin-right: 0} .howTo{padding: 0 0 15px} .topStoreInfo .topStoreInfoImage {line-height:60px} img{max-width: 94%} .topStoreInfo .topStoreInfoContent{margin: 0; clear: both} .topStoreInfo .topStoreInfoContent h1{padding-top: 10px}}
+@media only screen and (max-width: 745px){.topStoreInfo .topStoreInfoContent .titles-email-subscribe{padding-left: 14px; padding-right: 14px} .topStoreInfo .topStoreInfoContent .filterMenuButtons{padding-left: 9px; padding-right: 9px} .topStoreInfo .topStoreInfoContent .filterMenuButtons .filterMenu{width: calc(100% - 18px)} .topStoreInfo .topStoreInfoContent .filterMenuButtons .filterMenu li{width: calc((100% - 45px) / 4)} .topStoreInfo .topStoreInfoContent .filterMenuButtons .filterMenu li.printable{margin-right: 0} .topStoreInfo .topStoreInfoContent .filterMenuButtons .filterMenu li a{font-size: 11px}}
+@media only screen and (max-width: 515px){.topStoreInfo .topStoreInfoContent .filterMenuButtons{padding-left: 10px; padding-right: 10px} .topStoreInfo .topStoreInfoContent .filterMenuButtons .filterMenu{width: 100%} .topStoreInfo .topStoreInfoContent .filterMenuButtons .filterMenu li{width: calc((100% - 45px) / 4); height: 70px; padding: 4px; font-size: 12px; position: relative} .topStoreInfo .topStoreInfoContent .filterMenuButtons .filterMenu li strong{display: block; width: calc(100% - 8px); text-align: center; position: absolute; bottom: 4px}}
+.pagination ul li a:hover{border-color: #592758; background: #592758; color: #fff}
+.flickity-prev-next-button:hover{background-color: #b6b !important}
+.item{z-index: 2}
+.grid-sizer{width: 222px; margin-bottom: 10px; position: absolute; z-index: 1}
+.itemTile{position: relative; background-color: #fff; border: 1px solid #ccc; border-radius: 3px; float: left; width: 180px; z-index: 2;}
+.itemTile .itemImg{background: #fff; text-align: center; position: relative; overflow: hidden}
+.itemTile .itemImg>a{display: block}
+.itemTile .itemImg.hasWhiteBG{padding-top: 20px;border-radius: 3px;text-align: center;overflow:hidden;height:170px}
+.itemTile .itemImg img{vertical-align: middle;width:170px}
+.itemTile .itemContent{height:113px;padding: 0 15px; font-size: 12px; overflow: hidden}
+.itemTile .itemContent .itemTitle{font-size: 13px; text-overflow: ellipsis; line-height: 16px; margin: 15px 0 10px}
+.itemTile .itemContent .itemTitle>a{color: #353535;display:block;height:48px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.itemTile .itemContent .itemTitle>a:hover{text-decoration: underline}
+.itemTile .itemContent .extraInfo{font-size: 11px; color: #b1b1b1; margin-top:10px; height: 13px}
+.itemTile .itemButtonHolder .voteItemTile.icon-font-upvote.active:hover{color: #64bb65}
+.itemTile .itemButtonHolder .voteItemTile.icon-font-upvote:hover{color: #9dbb9d}
+.itemTile .itemButtonHolder .voteItemTile.icon-font-downvote.active:hover{color: #f05454}
+.itemTile .itemButtonHolder .voteItemTile.icon-font-downvote:hover{color: #edbaba}
+.itemTile .itemButtonHolder .voteUpFeedback{width: 100%}
+.itemTile .itemButtonHolder .voteUpFeedback .voteUpFeedbackSubmit{background-color: #64bb65}
+.itemTile .itemButtonHolder .voteDownFeedback .voteDownFeedbackSubmit{background-color: #f05454}
+.itemTile .itemButtonHolder .voteDownFeedback .voteDownFeedbackSubmit:nth-child(odd){margin-right: 5px}
+.itemTile .itemUser .itemUserContent a:hover{text-decoration: underline}
+.itemTile .itemUser .itemUserContent .itemUserName,
+.itemTile .itemUser .itemUserContent .itemUserCollection{margin-bottom: 2px; color: #6f727d; font-weight: bold}
+.itemTile .bottom{height: 45px;box-sizing: border-box;}
+.itemTile .tileDoubleAction{border-top: 1px solid #ebebeb;box-sizing: border-box;height: 100%;}
+.itemTile .tileDoubleAction .tileLikeButton, .tileDoubleAction .tileCommentButton {display: inline-block;box-sizing: border-box;width: 50%;height: 100%;text-align: center;padding-top: 13px;color: #acacac;}
+.itemTile .tileDoubleAction .tileLikeButton .actionIcon, .tileDoubleAction .tileCommentButton .actionIcon {font-size: 14px;display: inline-block;}
+.itemTile .tileDoubleAction .tileLikeButton:first-child{border-right: 1px solid #ebebeb;}
+.itemTile .tileDoubleAction .tileLikeButton .actionText, .tileDoubleAction .tileCommentButton .actionText {text-align:center;font-size: 12px;display: inline-block;-webkit-user-select:none;-ms-user-select:none;-moz-user-select:none;user-select:none}
+.itemTile .tileDoubleAction .tileLikeButton .actionText {vertical-align: top;}
+.itemTile .tileDoubleAction .tileLikeButton, .tileDoubleAction .tileCommentButton {margin-left:-2px;display: inline-block;box-sizing: border-box;width: 50%;height: 100%;text-align: center;padding-top: 13px;color: #acacac;}
+.itemTile .tileDoubleAction .liked{color:#a55d8b}
+.itemTile .tileDoubleAction .tileCommentButton .actionIcon, .itemTile .tileDoubleAction .tileCommentButton .actionText{vertical-align: bottom;}
+.itemTile .tileDealPrice{font-size: 18px;line-height: 18px;height: 18px;box-sizing: border-box;margin-bottom: 9px;}
+.itemTile .tileDealPrice .currentPrice{color: #c33;font-weight: 700;}
+.itemTile .tileDealPrice .originalPrice{color: #acacac;text-decoration: line-through;font-size: 14px;}
+#addAnItem:hover{background: #ccc}
+@media only screen and (max-width: 1330px){#trendingCollections .flickity-prev-next-button.previous{left: -10px}}
+@media only screen and (max-width: 503px){
+    .itemTile{margin-bottom: 10px; width: calc((100% - 14px) / 2)}
+    .itemTile .interestTags a.interestTag~a.interestTag{display: none}
+    .grid-sizer{width: calc((100% - 10px) / 2) !important}
+    .gutter-sizer{width: 10px} #addAnItem .addAnItemText{padding: 52.5% 0}
+    #trendingCollections .itemTile{margin-right: 10px}
+}
+@-moz-keyframes wiggle{0%{transform: rotateZ(0.5deg); -webkit-transform: rotateZ(0.5deg)} 50%{transform: rotate(-0.5deg); -webkit-transform: rotateZ(-0.5deg)} 100%{transform: rotate(0.5deg); -webkit-transform: rotateZ(0.5deg)}}
+@-webkit-keyframes wiggle{0%{transform: rotateZ(0.5deg); -webkit-transform: rotateZ(0.5deg)} 50%{transform: rotate(-0.5deg); -webkit-transform: rotateZ(-0.5deg)} 100%{transform: rotate(0.5deg); -webkit-transform: rotateZ(0.5deg)}}
+@-o-keyframes wiggle{0%{transform: rotateZ(0.5deg); -webkit-transform: rotateZ(0.5deg)} 50%{transform: rotate(-0.5deg); -webkit-transform: rotateZ(-0.5deg)} 100%{transform: rotate(0.5deg); -webkit-transform: rotateZ(0.5deg)}}
+@keyframes wiggle{0%{transform: rotateZ(0.5deg); -webkit-transform: rotateZ(0.5deg)} 50%{transform: rotate(-0.5deg); -webkit-transform: rotateZ(-0.5deg)} 100%{transform: rotate(0.5deg); -webkit-transform: rotateZ(0.5deg)}}
+.searchFilterSection>ul{list-style: none; padding: 0; margin: 0}
+.searchFilterSection>ul>li{padding: 2px 0; color: #4b4b4b}
+.searchFilterSection > ul > li.active a:before{content: "\00BB"}
+.searchFilterSection input[type="checkbox"]{margin-right: 5px}
+.searchFilterSection label:hover{color: #353535}
+.searchFilterSection .priceInput input[type="text"]{background: #fff; padding: 2px 5px; border: 1px solid #dbdbdb; width: 25px; margin-left: 2px}
+.searchFilterSection .priceInput input[type="text"]:focus{outline: 0}
+.searchFilterSection .priceInput>a{background: #4f234e; color: #fff; border: 0; padding: 2px 5px}
+.searchFilterSection .priceInput>a:hover{background: #652a6c}
+@media only screen and (max-width: 770px){.icon-font-down{font-size: 20px; top: 10px !important} div.singleRowContainer div#storeResults div.storeBox div div.storeImage{width: 60px; height: 44px; line-height: 44px; padding: 0px 0 2px 10px} div.singleRowContainer div#storeResults div.storeBox div div.storeName{text-align: left; padding-left: 30px; width: 100px}}
+@media only screen and (max-width: 600px){.searchResultsTitle h1{width: 80%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis}}
+@media only screen and (max-width: 503px){div.itemTile{margin-right: 10px !important}}
+@media only screen and (max-width: 400px){.searchResultsTitle h1{width: 72%}}
+@media only screen and (max-width: 780px){#home-welcome h1{margin: 10px 0} #home-welcome h2{margin: 10px 5%}}
+@media only screen and (max-width: 480px){#home-welcome{background: none} #home-welcome h1{color: #353535; font-size: 18px; margin-bottom: 20px} #home-welcome h2{display: none} #home-welcome a{display: block; margin: 5px 10%; width: auto}}
+.pagination ul li span,
+.pagination ul li a:hover{border-color: #863b84; background: #863b84; color: #fff}
+.pagination{padding: 15px; overflow: hidden}
+.pagination ul li>*{padding: 4px 7px; border: 1px solid #b6b6b6}
+.pagination ul li span{display: block}
+.select2-container{-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box}
+html[dir="rtl"] .select2-container .select2-choice{padding: 0 8px 0 0}
+.select2-container .select2-choice>.select2-chosen{margin-right: 26px; display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; float: none; width: auto}
+html[dir="rtl"] .select2-container .select2-choice>.select2-chosen{margin-left: 26px; margin-right: 0}
+.select2-container .select2-choice abbr:hover{background-position: right -11px; cursor: pointer}
+.select2-drop{width: 100%; margin-top: -1px; position: absolute; z-index: 9999; top: 100%; background: #fff; color: #000; border: 1px solid #aaa; border-top: 0; border-radius: 0 0 4px 4px; -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15); box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15)}
+html[dir="rtl"] .select2-container .select2-choice .select2-arrow{left: 0; right: auto; border-left: none; border-right: 1px solid #aaa; border-radius: 4px 0 0 4px}
+html[dir="rtl"] .select2-container .select2-choice .select2-arrow b{background-position: 2px 1px}
+.select2-search{display: inline-block; width: 100%; min-height: 26px; margin: 0; padding-left: 4px; padding-right: 4px; position: relative; z-index: 10000; white-space: nowrap}
+.select2-search input{width: 100%; height: auto !important; min-height: 26px; padding: 4px 20px 4px 5px; margin: 0; outline: 0; font-family: sans-serif; font-size: 1em; border: 1px solid #aaa; border-radius: 0; -webkit-box-shadow: none; box-shadow: none; background: #fff url("/images/v4/select2.png") no-repeat 100% -22px; background: url("/images/v4/select2.png") no-repeat 100% -22px, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, #fff), color-stop(0.99, #eee)); background: url("/images/v4/select2.png") no-repeat 100% -22px, -webkit-linear-gradient(center bottom, #fff 85%, #eee 99%); background: url("/images/v4/select2.png") no-repeat 100% -22px, -moz-linear-gradient(center bottom, #fff 85%, #eee 99%); background: url("/images/v4/select2.png") no-repeat 100% -22px, linear-gradient(to bottom, #fff 85%, #eee 99%) 0 0}
+html[dir="rtl"] .select2-search input{padding: 4px 5px 4px 20px; background: #fff url("/images/v4/select2.png") no-repeat -37px -22px; background: url("/images/v4/select2.png") no-repeat -37px -22px, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, #fff), color-stop(0.99, #eee)); background: url("/images/v4/select2.png") no-repeat -37px -22px, -webkit-linear-gradient(center bottom, #fff 85%, #eee 99%); background: url("/images/v4/select2.png") no-repeat -37px -22px, -moz-linear-gradient(center bottom, #fff 85%, #eee 99%); background: url("/images/v4/select2.png") no-repeat -37px -22px, linear-gradient(to bottom, #fff 85%, #eee 99%) 0 0}
+html[dir="rtl"] .select2-dropdown-open .select2-choice .select2-arrow{border-right: none}
+html[dir="rtl"] .select2-dropdown-open .select2-choice .select2-arrow b{background-position: -16px 1px}
+html[dir="rtl"] .select2-results{padding: 0 4px 0 0; margin: 4px 0 4px 4px}
+.select2-results li.select2-result-with-children>.select2-result-label{font-weight: bold}
+html[dir="rtl"] .select2-container-multi .select2-choices{padding: 0 0 0 5px}
+.select2-container-multi .select2-choices{min-height: 26px}
+html[dir="rtl"] .select2-container-multi .select2-choices li{float: right}
+html[dir="rtl"] .select2-container-multi .select2-choices .select2-search-choice{margin: 3px 5px 3px 0; padding: 3px 18px 3px 5px}
+html[dir="rtl"] .select2-search-choice-close{right: auto; left: 3px}
+html[dir="rtl"] .select2-container-multi .select2-search-choice-close{left: auto; right: 2px}
+.select2-container-multi .select2-choices .select2-search-choice .select2-search-choice-close:hover{background-position: right -11px}
+.select2-offscreen:focus{clip: rect(0 0 0 0) !important; width: 1px !important; height: 1px !important; border: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; position: absolute !important; outline: 0 !important; left: 0px !important; top: 0px !important}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min-resolution: 2dppx){.select2-search input, .select2-search-choice-close, .select2-container .select2-choice abbr, .select2-container .select2-choice .select2-arrow b{background-image: url("/images/v4/select2x2.png") !important; background-repeat: no-repeat !important; background-size: 60px 40px !important} .select2-search input{background-position: 100% -21px !important}}
+.profileInfoContainer .profileInfo .username a.writerName:hover{color: #b6b}
+.interestBox.item .interestName>a{color: #000; font-weight: bold}
+.userOptionsMenu{float: left; width: 20%; margin-right: 10px}
+.profileSettings{float: right; width: 70%; overflow: hidden}
+.profileSettings .emailNotifications input[type="checkbox"]{margin-right: 5px}
+.profileSettings .dealAlerts .alertContainer .keywordActions .icon-font-edit:hover,
+.profileSettings .dealAlerts .alertContainer .keywordActions .icon-font-close-2:hover{color: #c269bf}
+.profileSettings .dealAlerts .alertContainer .keywordActions .confirmEdit:hover,
+.profileSettings .dealAlerts .alertContainer .keywordActions .cancelEdit:hover{background-color: #c269bf}
+.notificationButtonsRight>a{margin-left: 5px; margin-top: 0 !important; float: left}
+.notificationButtonsRight>a.purpleButton{color: #fff !important}
+.notificationButtonsRight>a:first-child{margin-left: 0}
+.friendsSearchContainer .inviteFriends>input{padding: 4px}
+@media only screen and (max-width: 890px){.submit-edit .submit-content{width: inherit}}
+@media only screen and (max-width: 770px){.profileSettings, .userOptionsMenu{width: inherit; float: none} .userOptionsMenu{padding: 0; margin-right: 0} .userOptionsMenu h3{display: none} .notification{line-height: 19px}}
+@media only screen and (max-width: 675px){#header{margin-bottom: 0} .profileSettings .question_table .emailType{display: none} .profileSettings .question_table .emailStatus{width: 30%} .profileSettings .question_table .emailAddr{width: 55%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis} .profileInfoContainer{padding: 15px} .profileInfoContainer .profileInfo{clear: both; margin: 0} .profileInfoContainer .profileInfo .memberSince{margin-bottom: 0} .profileSettings .submit-content input{width: 90% !important}}
+@media only screen and (max-width: 600px){.profileSettings .newEmailAddr{width: 85%} .profileSettings .dealAlerts #keyword, .profileSettings .dealAlerts #keywordAlertSubmit, .profileSettings .dealAlerts .alertContainer{font-size: 16px} .profileSettings .dealAlerts .alertContainer .keywordEdit{width: 100%; max-width: 270px} .profileSettings .dealAlerts .alertContainer .keywordActions .confirmEdit, .profileSettings .dealAlerts .alertContainer .keywordActions .cancelEdit{font-size: 16px}}
+@media only screen and (max-width: 540px){.profileSettings .dealAlerts .alertContainer{padding: 10px} .profileSettings .dealAlerts .alertContainer .keywordEdit{max-width: 240px} .profileSettings .dealAlerts .alertContainer .keywordActions .confirmEdit, .profileSettings .dealAlerts .alertContainer .keywordActions .cancelEdit{margin-left: 5px; padding: 3px 5px}}
+@media only screen and (max-width: 458px){.profileSettings .dealAlerts .alertContainer .keywordEdit{width: 200px}}
+@media only screen and (max-width: 407px){.profileSettings .dealAlerts .alertContainer .keywordEdit{width: 170px}}
+@media only screen and (max-width: 377px){.profileSettings .dealAlerts .alertInfo{font-size: 14px} .profileSettings .dealAlerts #keyword, .profileSettings .dealAlerts #keywordAlertSubmit{font-size: 14px} .profileSettings .dealAlerts #keyword{margin-right: 5px} .profileSettings .dealAlerts .alertContainer{font-size: 14px; padding: 10px} .profileSettings .dealAlerts .alertContainer .keywordEdit{width: 150px} .profileSettings .dealAlerts .alertContainer .keywordActions .confirmEdit, .profileSettings .dealAlerts .alertContainer .keywordActions .cancelEdit{margin-left: 5px; padding: 3px 5px; font-size: 14px} .profileSettings .dealAlerts .alertContainer .keywordActions .icon-font-edit, .profileSettings .dealAlerts .alertContainer .keywordActions .icon-font-close-2{font-size: 18px}}
+@media only screen and (max-width: 345px){.profileSettings .dealAlerts .alertContainer .keywordEdit{width: 125px}}
+article.post{width: 935px; margin: auto; zoom: 1;position:relative;margin-bottom: 50px}
+article.post:before,
+article.post:after{content: ''; display: table}
+article.post:after{clear: both}
+article.post main{width: 655px; float: left;margin-bottom: 10px}
+article.post main section{padding: 15px 25px 25px}
+article.post main section.comments textarea{border: 1px solid #ccc}
+article.post main section .changePhoto>a{line-height: 22px; display: block; color: #6f727d; font-size: 12px}
+article.post main section .howTo{margin-top: 15px; background: #fdfdfd; line-height: 17px; clear: both}
+article.post main section .howTo{font-family: 'Helvetica', 'Arial', sans-serif}
+article.post main section .howToContent{word-wrap: break-word}
+article.post main section .howToContent li{padding:5px 0}
+article.post main h1{margin: 0 0 5px 0;font-size:18px}
+article.post main .info #mainImage{width: 100%; border: 1px solid #ccc; text-align: center; box-sizing: border-box; padding: 20px}
+article.post main .info #mainImage img{max-width: 100%; max-height: 500px}
+article.post aside{width: 269px; float: right}
+article.post aside h3{font-weight: bold; font-size: 18px; margin: 20px 0 10px}
+article.post aside .actions{zoom: 1}
+article.post aside .actions:before,
+article.post aside .actions:after{content: ''; display: table}
+article.post aside .actions:after{clear: both}
+article.post aside section{padding: 15px}
+article.post aside section .sharePost{position: relative; width: 40px; height: 40px; font-size: 28px; padding-top: 5px; text-align: center; display: inline-block; vertical-align: middle; color: #a9a9a9}
+article.post aside section .sharePost.icon-font-pinterest:hover{color: #e91720}
+article.post aside section .sharePost.icon-font-facebook:hover{color: #1d5194}
+article.post aside section .sharePost.icon-font-twitter:hover{color: #00a2df}
+article.post aside section .shareURL{max-width: 300px; width: 100%; box-sizing: border-box}
+article.post aside section .votePost{float: left}
+article.post aside section .votePost div{margin-bottom: 5px; font-size: 12px; color: #b9b9b9}
+article.post aside section .votePost .feedbackMsg{color: #6f727d; display: none; text-align: center; padding: 10px 0}
+article.post aside section .votePost a{display: inline-block; width: 105px; height: 30px; box-sizing: border-box; border: 1px solid #b6b6b6; border-radius: 3px; color: #b6b6b6; text-align: center; line-height: 28px; font-size: 22px}
+article.post aside section .votePost a.active{color:#a55d8b;border:1px solid #a55d8b}
+article.post aside section .votePost a.voteUpDeal{margin-right: 22px}
+article.post aside section .votePost a.vote:hover{border: 1px solid #a55d8b; color: #a55d8b}
+article.post aside section .votePost .voteUpFeedback,
+article.post aside section .votePost .voteDownFeedback{display: none; margin-top: 15px; text-align: center}
+article.post aside section .votePost .voteUpFeedback textarea{width: 100%; height: 50px; resize: none; padding: 4px; box-sizing: border-box; border: 1px solid #b6b6b6; border-radius: 3px; font-size: 14px; line-height: 20px; margin-bottom: 10px}
+article.post aside section .votePost .voteUpFeedback .voteUpFeedbackSubmit{font-size: 16px; border: none; background-color: #64bb65; color: #fff}
+article.post aside section .votePost .voteDownFeedback .voteDownFeedbackSubmit{font-size: 16px; border: none; background-color: #f05454; color: #fff; margin-bottom: 9px}
+article.post aside section .votePost .voteDownFeedback .voteDownFeedbackSubmit:nth-child(odd){margin-right: 5px}
+article.post aside section .dealPrice,
+article.post aside section .amazonPrice,
+article.post aside section .shipPrice,
+article.post aside section .dealStore,
+article.post aside section .seeIt{margin-bottom: 10px}
+article.post aside section .dealPrice{font-size: 18px; color: #ff7575; font-weight: bold}
+article.post aside section .rebatePrice{font-size: 20px}
+article.post aside section .seeIt{box-sizing: border-box; display: block; font-size: 15px; text-align: center; margin-top: 20px; width: 100%}
+article.post aside section .requestMsg{margin-top:5px;color:#c33;font-size:14px;line-height:125%}
+article.post aside section .requestMsg a {text-decoration: underline; color: #337ab7}
+article.post aside section .requestMsg a:hover {color: #a55d8b}
+article.post aside section .user{zoom: 1; margin: 20px 0; color: #8d8d8d}
+article.post aside section .user:before,
+article.post aside section .user:after{content: ''; display: table}
+article.post aside section .user:after{clear: both}
+article.post aside section .user .userName{font-size: 14px; color: #6f727d; font-weight: bold; padding: 8px 0 3px; display: block}
+article.post aside section .user .avatar{float: left; margin-right: 15px}
+article.post aside section .user .avatar img{border-radius: 30px}
+
+article.post aside section .postInterest strong{position: absolute; top: 0; width: 180px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap}
+article.post aside section .postInterest em{position: absolute; top: 20px; color: #999}
+article.post section{box-sizing: border-box; border: 1px solid #ccc; background: #fff}
+@media only screen and (max-width: 935px){article.post{max-width: 700px; width: auto;margin-bottom:50px} article.post main{width: 100%} article.post aside{max-width: 700px; float: left; width: 100%}}
+article.post section.comments form{width: 100%; margin-bottom: 10px}
+article.post section.comments textarea{width: 100%; height: 50px; box-sizing: border-box; padding: 5px;resize:none}
+article.post section.comments input[type="submit"]{display: block}
+article.post section.comments .comment{zoom: 1; position: relative; padding: 15px; border-top: 1px solid #f2f2f5}
+article.post section.comments .comment:before,
+article.post section.comments .comment:after{content: ''; display: table}
+article.post section.comments .comment:after{clear: both}
+article.post section.comments .comment .avatar{float: left; margin: 0 15px 0 0; width: 48px}
+article.post section.comments .comment .avatar img{border-radius: 50%; width: 100%}
+article.post section.comments .comment .messageWrapper{width: 70%; float: left}
+article.post section.comments .comment .messageWrapper .message,
+article.post section.comments .comment .messageWrapper .reply{margin: 6px 0}
+article.post section.comments .comment .messageWrapper .message{width: 100%}
+article.post section.comments .comment .messageWrapper form{display: none}
+@media only screen and (max-width: 480px){article.post section.comments .comment{padding: 10px 0} article.post section.comments .comment .avatar{width: 40px; margin-right: 10px} article.post section.comments .comment .messageWrapper{width: 60%} article.post section.comments .comment .messageWrapper .author span{display: block} article.post section.comments .replies .comment{padding-left: 10px}}
+@font-face{font-family: 'icomoon'; src: url("/font/icomoon.eot?v=20"); src: url("/font/icomoon.eot?v=20#iefix") format('embedded-opentype'), url("/font/icomoon.ttf?v=20") format('truetype'), url("/font/icomoon.woff?v=20") format('woff'), url("/font/icomoon.svg?v=20#icomoon") format('svg'); font-weight: normal; font-style: normal}
+.singleCouponContainer #mobileStoreInfo:before{clear: both}
+.singleCouponContainer .couponDetail h4.couponTitleSection a:hover{color: #b14faf}
+.singleCouponContainer .couponDetail .additionalInfoSection .commentInfo:hover,
+.singleCouponContainer .couponDetail .additionalInfoSection .voteCount:hover{cursor: pointer; cursor: hand}
+.singleCouponContainer .couponDetail .iconSection span span:hover{color: #7b7b7b}
+.singleCouponContainer .redeemButton .shopStoreButton:hover{background-color: #60c7ce}
+.singleCouponContainer .showCodeButton div.linkButton:hover{background-position: 0 -36px}
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi){.singleCouponContainer .showCodeButton div.linkButton:hover{background-position: 0 -36px}}
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi){.singleCouponContainer .showCodeButton div.linkButton{background-size: 160px 72px; background-image: url("/images/v4/showCode@2x.png")}}
+.singleCouponContainer .arrow_box.commentsContainer:after,
+.singleCouponContainer .arrow_box.commentsContainer:before{left: 277px}
+.singleCouponContainer .arrow_box.voteUpCoupon:after,
+.singleCouponContainer .arrow_box.voteUpCoupon:before{left: 125px}
+.singleCouponContainer .arrow_box.voteDownCoupon:after,
+.singleCouponContainer .arrow_box.voteDownCoupon:before{left: 174px}
+.singleCouponContainer .arrow_box.shareCoupon:after,
+.singleCouponContainer .arrow_box.shareCoupon:before{left: 327px}
+.singleCouponContainer .arrow_box.shareCoupon a .icon-font-twitter,
+.singleCouponContainer .arrow_box.shareCoupon a .icon-font-facebook,
+.singleCouponContainer .arrow_box.shareCoupon a .icon-font-pinterest{font-size: 20px; padding: 0 5px}
+.singleCouponContainer .arrow_box.shareCoupon a .shareCount{font-size: 12px; color: #adadad}
+.singleCouponContainer .arrow_box.shareCoupon a .icon-font-twitter{color: #00a2df}
+.singleCouponContainer .arrow_box.shareCoupon a .icon-font-facebook{color: #1d5194}
+.singleCouponContainer .arrow_box.shareCoupon a .icon-font-pinterest{color: #e91720}
+.singleCouponContainer .arrow_box.shareCoupon a .icon-font-mail{font-size: 18px; color: #adadad; margin-left: 6px; margin-right: 6px}
+.singleCouponContainer .arrow_box{position: relative; background: #fff; border-top: 1px solid #d3d3d3; text-align: left; padding: 20px 20px 0; margin: 20px -20px 0; max-width: 700px}
+.singleCouponContainer .arrow_box:after,
+.singleCouponContainer .arrow_box:before{bottom: 100%; left: 50%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none}
+.singleCouponContainer .arrow_box:after{border-color: rgba(255, 255, 255, 0); border-bottom-color: #fff; border-width: 10px; margin-left: -10px}
+.singleCouponContainer .arrow_box:before{border-color: rgba(211, 211, 211, 0); border-bottom-color: #d3d3d3; border-width: 11px; margin-left: -11px}
+.singleCouponContainer .commentsContainer .commentButtonHolder .postCommentButton:hover,
+.singleCouponContainer .voteUpCoupon .commentButtonHolder .postCommentButton:hover,
+.singleCouponContainer .voteDownCoupon .commentButtonHolder .postCommentButton:hover{background-color: #60c7ce}
+.singleCouponContainer .commentsContainer .comments .commentsList .comment .commentTextDetails .commentContent .icon-font-upvote,
+.singleCouponContainer .voteUpCoupon .comments .commentsList .comment .commentTextDetails .commentContent .icon-font-upvote,
+.singleCouponContainer .voteDownCoupon .comments .commentsList .comment .commentTextDetails .commentContent .icon-font-upvote{color: #64bb65}
+.singleCouponContainer .commentsContainer .comments .commentsList .comment .commentTextDetails .commentContent .icon-font-downvote,
+.singleCouponContainer .voteUpCoupon .comments .commentsList .comment .commentTextDetails .commentContent .icon-font-downvote,
+.singleCouponContainer .voteDownCoupon .comments .commentsList .comment .commentTextDetails .commentContent .icon-font-downvote{color: #f25353}
+.singleCouponContainer.popUpCoupon .mobileShopNow .mobileRedeemButton>div{text-align: center}
+.singleCouponContainer.popUpCoupon .mobileShopNow .mobileRedeemButton > div div:hover,
+.singleCouponContainer.popUpCoupon .mobileShopNow .mobileRedeemButton > div a:hover{background-color: #60c7ce}
+.singleCouponContainer.popUpCoupon .arrow_box.voteUpCoupon:after,
+.singleCouponContainer.popUpCoupon .arrow_box.voteUpCoupon:before{left: 30px}
+.singleCouponContainer.popUpCoupon .arrow_box.voteDownCoupon:after,
+.singleCouponContainer.popUpCoupon .arrow_box.voteDownCoupon:before{left: 79px}
+.singleCouponContainer.popUpCoupon .arrow_box.commentsContainer:after,
+.singleCouponContainer.popUpCoupon .arrow_box.commentsContainer:before{left: 182px}
+.singleCouponContainer.popUpCoupon .arrow_box.shareCoupon:after,
+.singleCouponContainer.popUpCoupon .arrow_box.shareCoupon:before{left: 231px}
+@media only screen and (max-width: 745px){.singleCouponContainer{width: 100%} .singleCouponContainer .couponDetail{position: relative; width: calc(100% - 110px); margin-right: 0} .singleCouponContainer .couponDetail .shopArrow{display: inline-block; width: 20px; position: absolute; top: calc(50% - 20px); right: -30px}}
+@media only screen and (orientation: landscape) and (max-device-width: 768px){.singleCouponContainer.mobile.popUpCoupon{margin-top: -15px}}
+@media only screen and (max-width: 515px){.singleCouponContainer{padding: 10px} .singleCouponContainer .exclusiveBanner{margin-left: -20px} .singleCouponContainer .discountValueSection{margin-right: 10px; width: 50px} .singleCouponContainer .discountValueSection .discountValue .value{font-size: 18px; line-height: 20px; margin: 4px 0; height: 40px; width: 48px} .singleCouponContainer .discountValueSection .discountValue .value.icon-font-coupons, .singleCouponContainer .discountValueSection .discountValue .value.icon-font-weeklyad{font-size: 22px; margin: 12px 0; height: 24px; line-height: 24px} .singleCouponContainer .discountValueSection .discountValue .value.icon-font-tag{font-size: 24px; margin: 12px 0; height: 24px; line-height: 1} .singleCouponContainer .discountValueSection .discountValue .value.free-shipping{font-size: 10px; margin: 10px 0; height: 28px; line-height: 14px} .singleCouponContainer .discountValueSection .discountValue .value.free-gift{font-size: 14px; line-height: 16px; height: 32px; margin: 8px 0} .singleCouponContainer .discountValueSection .discountValue .type{font-size: 11px; padding: 6px 0} .singleCouponContainer .couponDetail{width: calc(100% - 80px)} .singleCouponContainer .couponDetail h4.couponTitleSection{margin-bottom: 10px} .singleCouponContainer .couponDetail h4.couponTitleSection a{font-weight: bold; font-size: 20px; color: #353535} .singleCouponContainer .couponDetail .couponDescSection{display: none} .singleCouponContainer .couponDetail .additionalInfoSection{font-size: 12px; color: #999; margin-bottom: 10px} .singleCouponContainer .couponDetail .iconSection span{margin-right: calc((100% - 111px) / 5)} .singleCouponContainer .couponDetail .shopArrow{display: inline-block; width: 20px; position: absolute; top: calc(50% - 20px); right: -25px} .singleCouponContainer.popUpCoupon .arrow_box.voteUpCoupon:after, .singleCouponContainer.popUpCoupon .arrow_box.voteUpCoupon:before{left: 21px} .singleCouponContainer.popUpCoupon .arrow_box.voteDownCoupon:after, .singleCouponContainer.popUpCoupon .arrow_box.voteDownCoupon:before{left: calc(((100% - 131px) / 5) + 42px)} .singleCouponContainer.popUpCoupon .arrow_box.commentsContainer:after, .singleCouponContainer.popUpCoupon .arrow_box.commentsContainer:before{left: calc(((100% - 131px) * 0.6) + 88px)} .singleCouponContainer.popUpCoupon .arrow_box.shareCoupon:after, .singleCouponContainer.popUpCoupon .arrow_box.shareCoupon:before{left: calc(((100% - 131px) * 0.8) + 109px)}}
+html{font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%}
+body{margin: 0}
+article,
+aside,
+main,
+section{display: block}
+audio:not([controls]){display: none; height: 0}
+[hidden],
+a{background: transparent}
+a:hover{outline: 0}
+abbr[title]{border-bottom: 1px dotted}
+b,
+strong{font-weight: bold}
+h1{font-size: 2em; margin: 0.67em 0}
+sup{top: -0.5em}
+sub{bottom: -0.25em}
+img{border: 0}
+svg:not(:root){overflow: hidden}
+figure{margin: 1em 40px}
+hr{-moz-box-sizing: content-box; box-sizing: content-box; height: 0}
+pre{font-family: monospace, monospace; font-size: 1em}
+button,
+input,
+textarea{color: inherit; font: inherit; margin: 0}
+button{overflow: visible}
+button,
+select{text-transform: none}
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"]{-webkit-appearance: button; cursor: pointer}
+button[disabled],
+html input[disabled]{cursor: default}
+input{line-height: normal}
+input[type="checkbox"],
+input[type="radio"]{box-sizing: border-box; padding: 0}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button{height: auto}
+input[type="search"]{-webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration{-webkit-appearance: none}
+legend{border: 0; padding: 0}
+textarea{overflow: auto}
+optgroup{font-weight: bold}
+.loginSignupContent{position:relative;font-size: 14px; background: #fff; border-radius: 3px; border: 1px solid #ccc; padding-bottom: 15px; width: 100%; max-width: 600px;}
+.loginSignupContent .submit-edit .submit-edit-header{top: 6px; background: none;}
+.loginSignupContent .submit-edit-header{font-size: 14px; color: #353535; margin: 0 15px 0; float: left; text-align: right; width: 35%; background-color: #ededed; position: relative; top: -3px;}
+@media only screen and (max-width: 640px){
+    .container-mobile{padding:9px}
+    .loginSignupContent .submit-edit .submit-edit-header{display:block;top: -3px;text-align:center;float: none;width:100%; background: none;}
+    .loginSignupContent .submit-content {display:block;margin-left:auto;margin-right:auto;float:none;text-align: center;}
+    .loginSignupContent .submit-edit .unSubscribe{display:block;text-align:center}
+}
+.loginSignupContent .submit-edit .submit-content{max-width: 250px;width:100%}
+.loginSignupContent .loginSignupHeader{font-size: 20px;}
+.loginSignupContent p{width: 88%; margin: 0 auto; margin-bottom: 15px;}
+.loginSignupContent .already-have-account{padding: 10px 0; border-top: 1px solid #9f9f9f; border-bottom: 1px solid #9f9f9f; width: 84%; margin: 0 auto; margin-bottom: 20px;}
+.mainContent{margin: 50px auto;padding:9px; border-radius: 3px; max-width: 600px; font-size: 14px;}
+.mainContent .loginSignupHeader{font-weight: bold; color: #592758; padding: 15px 15px 5px; font-size: 20px; text-transform: capitalize; text-align: center; width: 88%; border-bottom: 1px solid #592758; margin: 0 auto 15px;}
+.mainContent .content{width: 88%; margin: 0 auto;}
+.blog-post-menu .blog{background-image:url("/Public/images/amazon-blog.jpg") !important}
+.ml23{margin-left:23px}
+.rank i{margin-right:3px}
+@media only screen and (max-width:480px) {.commentTrash i{font-size:20px}}
+@media only screen and (max-width:768px) {.productContainer{padding:9px}}
+.errorMsg{display:inline-block;margin-top:5px;color:#c33}
+/*移动端账户下拉列表*/
+.dropDownList{width:98%;position:fixed;z-index:99;border:1px solid #e5e5e5;border-radius:5px;top:50px;left:1%;background-color:#f4f4f4}
+/*manificPopup弹出层*/
+.mfp-wrap{top:20px}
+/*help页面*/
+.help-container{padding:30px 5%;border:1px solid #ccc;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
+.help-question-list li{color:#652a6c}
+.help-question-list a{color:#652a6c;text-decoration:none}
+.help-question-list a:hover{color:#b14faf}
+.help-detail{padding-bottom:10px}
+.help-detail .question{padding-bottom:10px;font-weight:normal;font-size:18px;line-height:1.5;color:#863b84}
+.help-detail .backToTop a{color:#863b84;text-decoration:none}
+.help-detail .backToTop a:hover{color:#b14faf}
+.help-detail .answer{padding:5px 0;font-size:14px;line-height:1.5}
+@media only screen and (max-width:1200px) {.help-container{margin-left:9px;margin-right:9px}}
+@media only screen and (max-width:991px) {
+	.userPlusIcon{display:none}
+}
+@media only screen and (max-width:768px) {
+    .help-question-list li{font-size:20px}
+    .help-detail .question{font-size:16px}
+}
+@media only screen and (max-width:768px) {
+    .help-question-list li{font-size:20px}
+    .help-detail .question{font-size:14px}
+    .help-detail .answer{font-size:12px}
+}
+label.error{font-size:12px;margin-bottom:0;position: absolute;top: 1px;right: -10px;padding: 0 8px;color: #c33;cursor: text;line-height:26px;background: #fff;background: -webkit-linear-gradient(left,rgba(255,255,255,0),#fff 8px);background: linear-gradient(to right,rgba(255,255,255,0),#fff 8px);visibility: hidden;opacity: 0;-ms-filter: "alpha(Opacity=0)";-webkit-transform: translate(20px,0);-ms-transform: translate(20px,0);transform: translate(20px,0);-webkit-transition: .25s ease-out;transition: .25s ease-out;}
+label.error-contact{top: 4px; right: 16px;}
+label.is-visible{visibility: visible;opacity: 1;-ms-filter: "alpha(Opacity=100)";-webkit-transform: translate(0,0);-ms-transform: translate(0,0);transform: translate(0,0);}
+
+a.howITwork{
+	color:blue;
+}
