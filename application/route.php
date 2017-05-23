@@ -11,6 +11,8 @@
 
 return [
 
-    'Account/signin'=>'Home/Account/signin/',
+    // 'Account/signin'=>'Home/Account/signin/',
+    // 'Account/check_account'=>'Home/Account/check_account',
+	':controller/:action'=> 'Home/:controller/:action',
 
 ];
