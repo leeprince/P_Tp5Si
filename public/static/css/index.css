@@ -864,7 +864,7 @@ optgroup{font-weight: bold}
 /*移动端账户下拉列表*/
 .dropDownList{width:98%;position:fixed;z-index:99;border:1px solid #e5e5e5;border-radius:5px;top:50px;left:1%;background-color:#f4f4f4}
 /*manificPopup弹出层*/
-.mfp-wrap{top:20px}
+.mfp-wrap{top:50px}
 /*help页面*/
 .help-container{padding:30px 5%;border:1px solid #ccc;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
 .help-question-list li{color:#652a6c}

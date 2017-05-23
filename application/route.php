@@ -10,6 +10,7 @@
 // +----------------------------------------------------------------------
 
 return [
-    'account/signin'=>'Home/Account/signin',
+
+    'Account/signin'=>'Home/Account/signin/',
 
 ];

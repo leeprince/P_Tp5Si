@@ -153,6 +153,8 @@ $(function() {
                     oDomForgot.find('i').removeClass('hide');
                 },
                 success: function(msg) {
+                    console.log(111);
+                    console.log(msg);
                     msg = msg.replace(/\s/g,'');
                     // 关闭等待提示
                     oDomForgot.find('i').addClass('hide');

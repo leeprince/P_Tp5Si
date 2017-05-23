@@ -1,13 +1,6 @@
 $(function() {
 
     /**
-     * 浏览器兼容性
-     */
-    if($.browser.msie && $.browser.version < 10){
-        $('body').addClass('ltie10');
-    }
-
-    /**
      * 图片延时加载
      */
     $('img.lazy').lazyload({
@@ -240,20 +233,31 @@ $(function() {
                                     $currentOrder.find('.J_statusSoon').removeClass("hide").siblings().addClass("hide");
 
                                 } else {
-
-                                    // 报错信息
                                     var errorMsg = '';
                                     if(resp == 'ASIN-WRONG') {
+
+                                        // 报错信息
                                         errorMsg = 'Oops, the review is not for this product';
+
                                     } else if(resp == 'PROFILE-WRONG') {
+
+                                        // 报错信息
                                         errorMsg = 'Oops, the review is not written by you';
                                     } else if(resp == 'SIGN-WRONG') {
+
+                                        // 报错信息
                                         errorMsg = 'Oops, the review is not verified purchase';
                                     } else if(resp == 'CHECK-WRONG') {
+
+                                        // 报错信息
                                         errorMsg = 'Oops, We can`t verify it this monment,Please try later';
                                     } else if(resp == 'DATE-WRONG') {
+
+                                        // 报错信息
                                         errorMsg = 'Oops, the review date is earlier than request date';
                                     } else if(resp == 'FORMAT-WRONG') {
+
+                                        //  报错信息
                                         errorMsg = 'Oops, the review url is invalid';
                                     }
 
@@ -264,7 +268,9 @@ $(function() {
                                     $posterError.html(errorMsg).show();
 
                                     // 订单状态改为Reviewed
-                                    $currentOrder.find('.J_reviewedStatus').parent().addClass('active').siblings().removeClass('active');
+                                    if(resp != 'DATE-WRONG' && resp != 'FORMAT-WRONG') {
+                                        $currentOrder.find('.J_reviewedStatus').parent().addClass('active').siblings().removeClass('active');
+                                    }
 
                                     // 显示Reviewed状态下的操作按钮
                                     $currentOrder.find('.J_notReview').removeClass("hide").siblings().addClass("hide").siblings(".J_reenterLink").removeClass("hide").siblings(".J_support").removeClass("hide").siblings(".J_statusInvalidlink").removeClass("hide");
@@ -288,7 +294,8 @@ $(function() {
                 $this.find('i').addClass('hide');
 
                 // 恢复表单可编辑状态，清空表单数据
-                $this.find('input').val('').removeAttr('disabled');
+                $this.find('input').removeAttr('disabled');
+                $this.find('input:not(#paypalAccount)').val('');
                 $this.find('[type=submit]').removeAttr('disabled').css('border', '2px solid #4f234e');
                 $this.find('.J_toolTip span').eq(0).removeClass('text-danger').next().html("Please make sure no typo in your paypal account, otherwise we can't pay you.").removeClass('text-danger');
             });

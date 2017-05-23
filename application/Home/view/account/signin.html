@@ -1,1 +1,121 @@
-<h1>buyer signin...</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <meta name="description" content="Amazon Free Samples"/>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <title>{:config('DOMAINTITLE')}</title>
+    <link rel="shortcut icon" href="__PUBLIC__{:config('DOMAINLOGOICON')}" type="image/x-icon" />
+    <link rel="stylesheet" href="__PUBLIC__{:config('DOMAINSIGNINLOGO')}">
+
+</head>
+<body class="zhi">
+<div class="index-main">
+    <div class="index-main-body">
+        <div class="index-header">
+            <h1 class="logo hide-text">{:config('DOMAINNAME')}</h1>
+            <h2 class="subtitle">{:config('DOMAINTITLE')}</h2>
+        </div>
+        <div class="desk-front sign-flow clearfix sign-flow-simple" id="tab">
+            <div class="index-tab-navs" id="tabon" data-active-index="">
+                <div class="navs-slider">
+                    <a href="javascript:void(0)" class="active">SignIn</a>
+                    {if condition="config('BUYERSIGNUPSWITCH') eq 'ON'"}
+                        <a href="javascript:void(0)">SignUp</a>
+                    {/if}
+                    <span class="navs-slider-bar"></span>
+                </div>
+            </div>
+            <div id="tabcon">
+                <!--登录-->
+                <div class="J_tabcon_item view view-signin" data-za-module="SignInForm">
+                    <form method="POST" id="signin-form" action="account/signin" autocomplete="off" >
+                        <div class="group-inputs">
+                            <div class="account input-wrapper">
+                                <input type="text" name="account" aria-label="email" id='accountLogin' placeholder="email" required>
+                            </div>
+                            <div class="verification input-wrapper">
+                                <input type="password" name="password" aria-label="password" id='passwordLogin' placeholder="password" onblur="emptyValue()" required />
+                            </div>
+                        </div>
+                        <div class="button-wrapper command">
+                            <button class="sign-button submit" type="submit" onclick="emptyValue()">Sign in</button>
+                        </div>
+                        <div class="signin-misc-wrapper clearfix">
+                            <a class="J_forgotPass unable-login" href="#">forgot your password？</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!--注册-->
+                {if condition="config('BUYERSIGNUPSWITCH') eq 'ON'"}
+                    <div class="J_tabcon_item view view-signup" data-za-module="SignUpForm" style="display:none">
+                    <form class="zu-side-login-box" action="accoutn/signup" id="sign-form-1" autocomplete="off" method="POST">
+                        <div class="group-inputs">
+                            <div class="email input-wrapper">
+                                <input required type="email" id="account" class="account" name="account" aria-label="account" placeholder="Email">
+                            </div>
+                            <div class="input-wrapper">
+                                <input required type="password" id="password" name="password" aria-label="password" placeholder="Password" autocomplete="off">
+                            </div>
+                            <div class="input-wrapper">
+                                <input required type="password" id="confirmPassword" name="confirmPassword" aria-label="password" placeholder="Re-enter password" autocomplete="off">
+                            </div>
+                            <div class="input-wrapper">
+                                <input required type="text" id="profileUrl" name="profileUrl" aria-label="profileUrl" placeholder="ProfileUrl">
+                            </div>
+                            <div class="tipbox">
+                                <h2>To find your profile URL:</h2>
+                                <p>1.Go here<br> <a href="https://www.amazon.com/profile" target="_blank">www.amazon.com/gp/profile/amzn1.account</a></p>
+                                <p>2.Log into your amazon account if you need</p>
+                                <p>3.The URL in the address bar is your profile URL</p>
+                            </div>
+                        </div>
+                        <div class="button-wrapper command">
+                            <button class="sign-button submit" type="submit">Sign up</button>
+                        </div>
+                    </form>
+                </div>
+                {/if}
+            </div>
+
+            <!--忘记密码弹窗-->
+            <div class="J_backdrop mutiview-dialog-bg show" style="display:none;opacity: 0.5; width: 100%; height: 100%;" aria-hidden="true"></div>
+            <div class="J_modalWrapper modal-wrapper" style="display:none">
+                <div class="mutiview-dialog SignFlow unable-login show" tabindex="0" role="dialog" aria-labelledby=":3">
+                    <div class="mutiview-dialog-title">
+                        <div class="title sms-login-verification">
+                            <h1>Forgot Password</h1>
+                            <h2>Enter your email address and your password will be reset and emailed to you.</h2>
+                        </div>
+                        <span class="J_close mutiview-dialog-title-close z-ico-close" role="button" tabindex="0" aria-label="Close"></span>
+                    </div>
+                    <div class="mutiview-dialog-content">
+                        <div class="view sms-login-verification" data-za-module="SMSVerificationForm">
+                            <form novalidate="novalidate" id="forgot-form">
+                                <div class="input-wrapper">
+                                    <input type="text" id="forgot-account" name="account" aria-label="email" placeholder="email" required="">
+                                </div>
+                                <div class="submit-wrapper">
+                                    <button class="J_sbtForgot submit blue-button"><i class="fa fa-spinner fa-spin hide"></i>Reset password</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="mutiview-dialog-buttons" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="particles-js"></div>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.validate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.validate.extend.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.form.js"></script>
+<script src="__PUBLIC__/js/particles.min.js"></script>
+<script src="__PUBLIC__/js/signin.js"></script>
+</body>
+</html>

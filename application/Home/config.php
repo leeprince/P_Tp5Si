@@ -1,5 +1,20 @@
 <?php
 //配置文件
 return [
-	'default_module'         => 'Home',
+	'DOMAINNAME'            => 'P_SI',
+	'DOMAINLOGO'            => '/images/art-logo_us.png',
+	'DOMAINLOGOICON'        => '/images/favicon.ico',
+	'DOMAINSIGNINLOGO'      => '/css/signin.css',
+	'DOMAINTITLE'           => 'P_Thinkphp 5',
+	'BUYERSENDEMAILFROM'    => 'P_Buyer',
+	'SELLERSENDEMAILFROM'   => 'P_Seller',
+	'HOSTADDRESS'           => 'www.amzreviewrebate.com',
+	'BUYERSENDEMAILSUJECT'  => 'Amzreviewrebate',
+	'SELLERSENDEMAILSUJECT' => 'P_Seller',
+
+	'BUYERSTART'            => '30000000',
+	'BUYEREND'              => '30001999',
+	'SELLERSTART'           => '10000000',
+	'SELLEREND'             => '10001999',
+	'BUYERSIGNUPSWITCH'     => 'ON',
 ];

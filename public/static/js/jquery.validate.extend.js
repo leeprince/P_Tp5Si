@@ -12,7 +12,7 @@ $.validator.addMethod('profileUrlFormat', function(value, element) {
 
 // 验证review url格式
 $.validator.addMethod('isViewUrl', function(value, element) {
-    var pattern = /^(\s*(https|http)?:\/\/+(www.amazon.com\/review|www.amazon.com\/gp\/customer-reviews\/|www.amazon.com\/gp\/review\/|www.amazon.com\/product-reviews\/|www.amazon.com\/gp\/cdp\/member-reviews\/|www.amazon.com\/gp\/aw\/review\/|www.amazon.com\/gp\/aw\/cr\/))[^\s]+/;
+    var pattern = /^(\s*(https|http)?:\/\/+(www.amazon.co.uk\/review|www.amazon.co.uk\/gp\/customer-reviews\/|www.amazon.co.uk\/gp\/review\/|www.amazon.co.uk\/product-reviews\/|www.amazon.co.uk\/gp\/cdp\/member-reviews\/|www.amazon.co.uk\/gp\/aw\/review\/|www.amazon.co.uk\/gp\/aw\/cr\/))[^\s]+/;
     return this.optional(element) || (pattern.test(value));
 }, 'The review url is not valid');
 
