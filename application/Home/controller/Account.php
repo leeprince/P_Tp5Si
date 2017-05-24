@@ -7,7 +7,7 @@ use app\Home\model\CheckAccountModel;
 // use \think\Db;//Request::instance();
 // use \think\Debug;//Request::instance();
 
-vendor("python");
+// vendor("python");
 
 class Account extends Controller
 {
@@ -19,7 +19,8 @@ class Account extends Controller
 		}else{
 			$shortProfileID = 'A3OAEFRIYGNK0L';
 			$cmd    ="python python/matchingshortprofileid.py ".$shortProfileID;
-			$data = system($cmd);
+			$data = exec($cmd);
+			// $data = system($cmd);
 			halt($data);
 			// return view();//助手函数
 			return $this->fetch();
