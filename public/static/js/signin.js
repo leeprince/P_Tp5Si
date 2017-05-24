@@ -10,7 +10,7 @@ $(function() {
                 email: true,
                 foreignEmail: true,  // 国外邮箱验证，自定义
                 remote: {
-                    url: "check_account",  // 注册账号后台验证接口
+                    url: "checkAccount",  // 注册账号后台验证接口
                     type: "post",
                     dataType: 'text'
                 }
@@ -29,7 +29,7 @@ $(function() {
                 url: true,
                 profileUrlFormat: true,  // profile url格式验证,自定义
                 remote: {
-                    url: 'check_profile_url',  // profile url后台验证接口
+                    url: 'checkProfileUrl',  // profile url后台验证接口
                     type: "post",
                     dataType: 'text'
                 }
