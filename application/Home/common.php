@@ -65,9 +65,9 @@
 
     function Send_Mail($to,$cc,$subject,$body)
     {
-       	import('Vendor.Mail');
         Vendor('PHPMailer.PHPMailerAutoload');
-        $from = "customerservice.iwh@gmail.com";
+        $from = "leeprincehz@gmail.com";
+        // $from = "customerservice.iwh@gmail.com";//有效的发件人
         $mail = new PHPMailer();
         $mail->SMTPDebug = 0;
         $mail->CharSet = "UTF-8";
@@ -81,8 +81,8 @@
         $mail->Port = 587;  // SMTP Port
         $mail->Username = "AKIAJIGDYWBCYUCRPCDA";  // SMTP  Username
         $mail->Password = "AtB2t01VswSHur/42mN7YLtbv0ZfWWmRTtbc5lAO8NTW";  // SMTP Password
-        $mail->SetFrom($from, C('BUYERSENDEMAILFROM'));
-        $mail->AddReplyTo($from,C('BUYERSENDEMAILFROM'));
+        $mail->SetFrom($from, config('BUYERSENDEMAILFROM'));
+        $mail->AddReplyTo($from,config('BUYERSENDEMAILFROM'));
         $mail->Subject = $subject;
         $mail->MsgHTML($body);
         $address = $to;

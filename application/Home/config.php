@@ -8,8 +8,8 @@ return [
 	'DOMAINTITLE'           => 'P_Thinkphp 5',
 	'BUYERSENDEMAILFROM'    => 'P_Buyer',
 	'SELLERSENDEMAILFROM'   => 'P_Seller',
-	'HOSTADDRESS'           => 'www.amzreviewrebate.com',
-	'BUYERSENDEMAILSUJECT'  => 'Amzreviewrebate',
+	'HOSTADDRESS'           => 'www.baidu.com',
+	'BUYERSENDEMAILSUJECT'  => 'P_Buyer',
 	'SELLERSENDEMAILSUJECT' => 'P_Seller',
 
 	'BUYERSTART'            => '30000000',
