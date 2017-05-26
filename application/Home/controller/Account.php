@@ -4,7 +4,6 @@ namespace app\Home\controller;
 use \think\Controller;
 use \think\Request;//Request::instance();
 use app\Home\model\CheckAccountModel;
-// use \think\Db;//Request::instance();
 // use \think\Debug;//Request::instance();
 
 
@@ -79,7 +78,8 @@ class Account extends Controller
 		$profile = $request->post('profileUrl');
 		$model = new CheckAccountModel;
 
-		// https://www.amazon.com/gp/profile/amzn1.account.A3OAEFRIYGNK0L
+		// https://www.amazon.com/gp/profile/A3OAEFRIYGNK0L
+		// profileID:AEX4YHNYKDFGWFXR67PX2FVTX7KQ
 		if(!empty($profile)){
 			$shortProfileID = '';
 			$regx = '/\/gp\/profile\/(A)\w+/';
@@ -111,7 +111,7 @@ class Account extends Controller
 					    . "Email:$exitProfilebuyerEmail<br/><br/>"
 					    . "ProfileID:$profile"
 					    . "<br/><br/>Reason:$reason"; // HTML  tags
-					Send_Mail($to, $cc, $subject, $body);
+					// Send_Mail($to, $cc, $subject, $body);
 
 					$check = $model::PROFILE_EXIST;
 				}else{

@@ -5,9 +5,9 @@ use \think\Model;
 use \think\Db;
 
 // import导入文件/文件夹,路径:vendor/python
-// 两种导入方式都可以
-// import(VENDOR_PATH.'python');
-import('vendor.python');
+// import('vendor.python');// import(VENDOR_PATH.'python');
+// vendor('python');//import() 的别名
+
 
 class CheckAccountModel extends Model
 {
@@ -34,9 +34,11 @@ class CheckAccountModel extends Model
 
 	// 买家用短的profile注册时 ,python爬出长的profile
 	public function matchShortProfile($shortProfileID){
+		
 		// $shortProfileID = 'A3OAEFRIYGNK0L';
-		$cmd    ="python matchingshortprofileid.py ".$shortProfileID;//先用import导入文件/文件夹
-		// $cmd    ="python ".VENDOR_PATH."python/matchingshortprofileid.py ".$shortProfileID;//绝对路径
+		// $cmd    ="python matchingshortprofileid.py ".$shortProfileID;//先用import导入文件/文件夹
+		$cmd    ="python ".VENDOR_PATH."python/matchingshortprofileid.py ".$shortProfileID;//绝对路径
+		// $cmd    ="python "."../vendor/python/matchingshortprofileid.py ".$shortProfileID;//绝对路径
 		$handle =popen($cmd,"r");
 		$returnID   =fread($handle,500);
 		pclose($handle);
