@@ -1,19 +1,22 @@
-<?php 	
-namespace app\Home\controller;	
-vendor('PHPMailer163.PHPMailerAutoload');
+<?php 
+namespace app\home\controller;
 
-// use think\Controller;	
+use \think\Controller;
 
-// use phpmailer\phpmailer;
-// import('PHPMailer163.PHPMailerAutoload');
+class SendEmailTest extends Controller
+{
 
-class Email163Test	{				
-// class Email163Test extends Controller	{				
-//发送邮箱验证码		
-	public function email()		
-	{			
+	//发送邮箱验证码		
+	public function sendEmail()
+	{		
+		/*两种方法返送邮件,一种直接在控制器中执行,手动加载类库文件;一种放到公共应用(函数)文件*/	
+
+		/*方法一*/
+		//两种导入vendor\PHPMailer163\PHPMailerAutoload.php的方式
+		// vendor('PHPMailer163.PHPMailerAutoload');//(建议)
+		// // Loader::import('PHPMailer163.PHPMailerAutoload',VENDOR_PATH);//use think\Loader;//助手函数:import('PHPMailer163.PHPMailerAutoload',VENDOR_PATH);
 		// $toemail = 'leeprince@foxmail.com';//定义收件人的邮箱			
-		// $mail = new PHPMailer();			
+		// $mail = new \PHPMailer();// 特别注意的是，如果你需要调用PHP内置的类库，或者第三方没有使用命名空间的类库，记得在实例化类库的时候加上 \			
 		// $mail->isSMTP();// 使用SMTP服务			
 		// $mail->CharSet = "utf8";// 编码格式为utf8，不设置编码的话，中文会出现乱码			
 		// $mail->Host = "smtp.163.com";// 发送方的SMTP服务器地址			
@@ -38,7 +41,10 @@ class Email163Test	{
 		// 	echo '发送成功';			
 		// }	
 
+		/*方法二*/
 		send_emial_163();	
-	}	
-} 
-?>
+	}
+}
+
+
+ ?>

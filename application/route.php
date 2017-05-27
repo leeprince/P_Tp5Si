@@ -13,7 +13,7 @@ return [
 
     // 'Account/signin'=>'Home/Account/signin/',
     // 'Account/check_account'=>'Home/Account/check_account',
-	''=>'index/index',
-	':controller/:action'=> 'Home/:controller/:action',
+	// ''=>'index/index',
+	// ':controller/:action'=> 'Home/:controller/:action',
 
 ];

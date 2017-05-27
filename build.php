@@ -14,7 +14,7 @@ return [
     '__file__' => ['common.php', 'config.php', 'database.php'],
 
     // 定义 Home 模块的自动生成 （按照实际定义的文件名生成）
-    'Home'     => [
+    'home'     => [
         '__file__'   => ['common.php','route.php'],
         '__dir__'    => ['behavior', 'controller', 'model', 'view'],
         'controller' => ['Index','Account'],

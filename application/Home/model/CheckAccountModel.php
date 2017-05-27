@@ -1,13 +1,8 @@
 <?php 
-namespace app\Home\model;
+namespace app\home\model;
 
 use \think\Model;
 use \think\Db;
-
-// import导入文件/文件夹,路径:vendor/python
-// import('vendor.python');// import(VENDOR_PATH.'python');
-// vendor('python');//import() 的别名
-
 
 class CheckAccountModel extends Model
 {
@@ -36,7 +31,6 @@ class CheckAccountModel extends Model
 	public function matchShortProfile($shortProfileID){
 		
 		// $shortProfileID = 'A3OAEFRIYGNK0L';
-		// $cmd    ="python matchingshortprofileid.py ".$shortProfileID;//先用import导入文件/文件夹
 		$cmd    ="python ".VENDOR_PATH."python/matchingshortprofileid.py ".$shortProfileID;//绝对路径
 		// $cmd    ="python "."../vendor/python/matchingshortprofileid.py ".$shortProfileID;//绝对路径
 		$handle =popen($cmd,"r");

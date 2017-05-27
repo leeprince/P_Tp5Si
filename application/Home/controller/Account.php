@@ -1,9 +1,9 @@
 <?php
-namespace app\Home\controller;
+namespace app\home\controller;
 
 use \think\Controller;
 use \think\Request;//Request::instance();
-use app\Home\model\CheckAccountModel;
+use app\home\model\CheckAccountModel;
 // use \think\Debug;//Request::instance();
 
 
@@ -17,12 +17,11 @@ class Account extends Controller
 		if($request->isPost()){
 
 		}else{
-			// $shortProfileID = 'A3OAEFRIYGNK0L';
-			// $cmd    ="python ".VENDOR_PATH."python/matchingshortprofileid.py ".$shortProfileID;
-			// $handle =popen($cmd,"r");
-			// $returnID   =fread($handle,500);
-			// pclose($handle);
-			// halt($returnID);
+			$to = "leeprince@foxmail.com";
+			$subject = "Sign Up Profile Valid.";
+			$body = "ProfileID:**********<br><br> "
+			    . "<div><br><br></div>About:config('EMAILABOUNT')"; // HTML  tags
+			$emailReturn = send_emial_163($to,$subject,$body);//163邮箱发送邮件
 
 			// return view();//助手函数
 			return $this->fetch();
@@ -49,7 +48,7 @@ class Account extends Controller
 				],
 			];
 
-			$model = new CheckAccountModel;
+			$model = new CheckAccountModel();
 			$isIpExist = $model->checkIp($data['ip']);
 			$isEmailExist = $model->checkEmail($data['email']);
 
@@ -76,7 +75,7 @@ class Account extends Controller
 	{
 		$request = Request::instance();
 		$profile = $request->post('profileUrl');
-		$model = new CheckAccountModel;
+		$model = new CheckAccountModel();
 
 		// https://www.amazon.com/gp/profile/A3OAEFRIYGNK0L
 		// profileID:AEX4YHNYKDFGWFXR67PX2FVTX7KQ
@@ -103,18 +102,23 @@ class Account extends Controller
 				if($isProfileExist){
 					$exitProfilebuyerEmail = $isProfileExist['buyerEmail'];
 
-					$reason = "Profile is already associated with an account, please contact admin.";
 					$to = "leeprince@foxmail.com";
-					$cc = "";
-					$subject = "Unable to sign up";
+					$subject = "Sign Up Profile Exist.";
 					$body = "Exit Profile buyerEmail:$exitProfilebuyerEmail<br/><br/> "
-					    . "Email:$exitProfilebuyerEmail<br/><br/>"
 					    . "ProfileID:$profile"
-					    . "<br/><br/>Reason:$reason"; // HTML  tags
-					// Send_Mail($to, $cc, $subject, $body);
+					    . "<br/><br/>About:config('EMAILABOUNT')"; // HTML  tags
+					$emailReturn = send_emial_163($to,$subject,$body);//163邮箱发送邮件
+
 
 					$check = $model::PROFILE_EXIST;
 				}else{
+					$exitProfilebuyerEmail = $isProfileExist['buyerEmail'];
+
+					$to = "leeprince@foxmail.com";
+					$subject = "Sign Up Profile Valid.";
+					$body = "ProfileID:$profile<br><br> "
+					    . "<br/><br/>About:config('EMAILABOUNT')"; // HTML  tags
+					$emailReturn = send_emial_163($to,$subject,$body);//163邮箱发送邮件
 					$check = 'successful.';
 				}
 			}
@@ -130,5 +134,6 @@ class Account extends Controller
 	{
 		return $this->fetch();
 	}
+
 
 }

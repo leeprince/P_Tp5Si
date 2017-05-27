@@ -25,7 +25,7 @@ return [
     // 是否支持多模块
     'app_multi_module'       => true,
     // 入口自动绑定模块
-    'auto_bind_module'       => false,
+    'auto_bind_module'       => true,
     // 注册的根命名空间
     'root_namespace'         => [],
     // 扩展函数文件
@@ -56,7 +56,7 @@ return [
     // +----------------------------------------------------------------------
 
     // 默认模块名
-    'default_module'         => 'Home',
+    'default_module'         => 'home',
     // 禁止访问模块
     'deny_module_list'       => ['common'],
     // 默认控制器名
@@ -89,11 +89,11 @@ return [
     // URL参数方式 0 按名称成对解析 1 按顺序解析
     'url_param_type'         => 0,
     // 是否开启路由
-    'url_route_on'           => true,
+    'url_route_on'           => false,
     // 路由使用完整匹配
     'route_complete_match'   => false,
     // 路由配置文件（支持配置多个）
-    'route_config_file'      => ['route'],
+    'route_config_file'      => [],
     // 是否强制使用路由
     'url_route_must'         => false,
     // 域名部署
@@ -101,7 +101,7 @@ return [
     // 域名根，如thinkphp.cn
     'url_domain_root'        => '',
     // 是否自动转换URL中的控制器和操作名
-    'url_convert'            => true,
+    'url_convert'            => false,
     // 默认的访问控制器层
     'url_controller_layer'   => 'controller',
     // 表单请求类型伪装变量
