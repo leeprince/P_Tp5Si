@@ -12,8 +12,9 @@ class CheckAccountModel extends Model
 	const EMAIL_EXIST = 'This email is already';
 	const EMAIL_NULL = 'Please fill in your email';
 
-	const PROFILE_EXIST = 'This Profile url is already';
+	const PROFILE_EXIST = 'This profile url is already';
 	const PROFILE_NULL = 'Please fill in profile url';
+	const PROFILE_ERROR = 'This profile url is error';
 
 	// 验证IP
 	public function checkIp($data){

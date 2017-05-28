@@ -11,7 +11,7 @@ return [
 	'HOSTADDRESS'           => 'www.baidu.com',
 	'BUYERSENDEMAILSUJECT'  => 'P_Buyer',
 	'SELLERSENDEMAILSUJECT' => 'P_Seller',
-	'EMAILABOUNT'           => '------------------<br>&nbsp;&nbsp;&nbsp;&nbsp;leeprince ,Think you for your cooperation .',
+	'EMAILABOUNT'           => "\n\n>>\n   leeprince ,Think you for your cooperation .",
 
 	'BUYERSTART'            => '30000000',
 	'BUYEREND'              => '30001999',

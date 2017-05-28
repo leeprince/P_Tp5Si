@@ -69,7 +69,7 @@
         $fromEmail = "leeprincehz@163.com";
         $fromName = 'LeePrince';   
         $toName = 'prince';    
-        $mail = new \PHPMailer();            
+        $mail = new \PHPMailer();// 特别注意的是，如果你需要调用PHP内置的类库，或者第三方没有使用命名空间的类库，记得在实例化类库的时候加上 \           
         $mail->isSMTP();// 使用SMTP服务         
         $mail->CharSet = "utf8";// 编码格式为utf8，不设置编码的话，中文会出现乱码            
         $mail->Host = "smtp.163.com";// 发送方的SMTP服务器地址           
@@ -85,7 +85,7 @@
         //$mail->addBCC("xxx@163.com");// 设置秘密抄送人(这个人也能收到邮件)            
         //$mail->addAttachment("p_avatar.jpg");// 添加附件          
         $mail->Subject = $subject;// 邮件标题          
-        $mail->Body = $body;// 邮件正文          
+        $mail->Body = $body;// 邮件正文     用:\n 换行;         
         //$mail->AltBody = "This is the plain text纯文本";// 这个是设置纯文本方式显示的正文内容，如果不支持Html方式，就会用到这个，基本无用         
         if(!$mail->send()){// 发送邮件              
             return "Failed";              
