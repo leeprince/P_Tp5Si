@@ -70,7 +70,7 @@ $(function() {
                 required: true,
                 email: true,
                 remote: {
-                    url: 'check_account_login',  // 登录账号后台验证接口
+                    url: 'loginCheckAccount',  // 登录账号后台验证接口
                     type: "post",
                     dataType: 'text'
                 }
@@ -79,7 +79,7 @@ $(function() {
                 required: true,
                 minlength: 5,
                 remote: {
-                    url: 'check_password_login',  // 登录密码后台验证接口
+                    url: 'loginCheckPassword',  // 登录密码后台验证接口
                     type: "post",
                     data: {
                         account: function() {

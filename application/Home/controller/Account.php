@@ -33,7 +33,8 @@ class Account extends Controller
 		if($request->isPost()){
 
 			$request = Request::instance();
-			$data['buyerEmail'] = $request->post('account');
+			$buyerEmail = $request->post('account');
+			$data['buyerEmail'] = $buyerEmail;
 			$password = $request->post('password');
 			$data['password'] = md5(md5('leeprince').md5($password));
 
@@ -53,7 +54,7 @@ class Account extends Controller
 			$data['unSubscribe'] = 0;
 			$data['reviewRebate'] = 'like';
 			$data['registerDate'] = date('Y-m-d H:i:s');
-			$data['activeCode'] = md5(md5(rand(000,999)).md5($data['buyerEmail']));
+			$data['activeCode'] = md5(md5(rand(000,999)).md5($buyerEmail));
 			session(null);
 			// halt($shortProfileID.$profileID);
 			$model = new AccountModel();
@@ -62,7 +63,7 @@ class Account extends Controller
 				$to = "leeprince@foxmail.com";
 				$subject = "Sign Up Successful.";
 				$body = "buyerID:$InsID\n
-						buyerEmail:$data['buyerEmail']\n
+						buyerEmail:$buyerEmail\n
 						profileID:$profileID"
 				    	.config('EMAILABOUNT'); // HTML  tags
 				$emailReturn = send_emial_163($to,$subject,$body);//163邮箱发送邮件
@@ -71,6 +72,8 @@ class Account extends Controller
 				session('BUYEREMAIL',$data['buyerEmail']);
 				// halt(session('BUYERID'));
 				// trace(session('BUYERID'),'debug');
+
+				// 重定向
 				// $this->redirect('Account/signin');
 				$this->success('registration success!');
 			}else{
@@ -84,7 +87,7 @@ class Account extends Controller
 		}
 	}
 
-	// 买家注册时验证IP, Email
+	// 注册_买家注册时验证IP, Email
 	public function checkAccount()
 	{
 
@@ -109,24 +112,24 @@ class Account extends Controller
 			$isEmailExist = $model->checkEmail($data['email']);
 
 			if($isIpExist){
-				$check = $model::IP_EXIST;
+				$check = AccountModel::IP_EXIST;
 				// $check = AccountModel::IP_EXIST;
 			}else{
 				if($isEmailExist){
-					$check = $model::EMAIL_EXIST;
+					$check = AccountModel::EMAIL_EXIST;
 				}else{
 					$check = true;
 				}
 			}
 		}else{
-			$check = $model::EMAIL_NULL;
+			$check = AccountModel::EMAIL_NULL;
 		}
 
 		// halt($check);
 		return $check;
 	}
 
-	//验证profile
+	//注册_验证profile
 	public function checkProfileUrl()
 	{
 		$request = Request::instance();
@@ -171,7 +174,7 @@ class Account extends Controller
 					$emailReturn = send_emial_163($to,$subject,$body);//163邮箱发送邮件
 
 
-					$check = $model::PROFILE_EXIST;
+					$check = AccountModel::PROFILE_EXIST;
 				}else{
 					$exitProfilebuyerEmail = $isProfileExist['buyerEmail'];
 
@@ -183,13 +186,54 @@ class Account extends Controller
 					$check = true;
 				}
 			}else{
-				$check = $model::PROFILE_ERROR;
+				$check = AccountModel::PROFILE_ERROR;
 			}
 
 		}else{
-			$check = $model::PROFILE_NULL;
+			$check = AccountModel::PROFILE_NULL;
 		}
 
+		return $check;
+	}
+
+	public function loginCheckAccount()
+	{
+		$request = Request::instance();
+		$model = new AccountModel();
+
+		if($request->isPost()){
+			$buyerEmail = $request->post('account');
+
+			$data['buyerEmail'] = $buyerEmail;
+
+			$accountExist = $model->checkEmail($data);
+			// trace($accountExist,'debug');
+
+			if(!$accountExist){
+				$check = AccountModel::EMAIL_NO_EXIST;
+			}else{
+				$accountValid = $model->checkAccountValid($data);
+
+				if(!$accountValid){
+					$check = AccountModel::EMAIL_NO_ACTICED;
+				}else{
+					$check = true;
+				}
+			}
+		}else{
+			$check = AccountModel::EMAIL_NULL;
+		}
+		return $check;
+	}
+
+	public function loginCheckPassword()
+	{
+		$request = Request::instance();
+		$buyerEmail = $request->post('account');
+		$password = $request->post('password');
+
+		$data['buyerEmail'] = $buyerEmail;
+		$data['password'] = md5(md5('leeprince').md5($password));
 		return $check;
 	}
 
