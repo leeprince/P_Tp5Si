@@ -7,6 +7,7 @@ b{font-weight: bold}
 img{border: none}
 a{text-decoration: none; color: #863b84}
 a:hover{color: #b14faf}
+ul, li {list-style-type: none}
 .pageTitle{position: relative; width: 100%; text-align: center; background: #ededed}
 .pageTitle span{position: relative; z-index: 10; background: #ededed; padding: 0 10px}
 .pageTitle:after{content: ' '; position: absolute; border-bottom: 1px solid #d6d6d6; width: 100%; top: 50%; left: 0; z-index: 0}
@@ -28,7 +29,7 @@ ol{padding: 0 0 0 25px}
 .expandMenuBar ul li a:hover{color: #6f727d}
 @media only screen and (max-width: 770px){.expandMenuBar{position: relative} .expandMenuBar .dropdownArrow{display: block; height: 20px; width: 22px; float: right; position: absolute; top: 7px; right: 15px; z-index: 1} .expandMenuBar ul{position: relative; z-index: 2} .expandMenuBar ul li{display: none !important} .expandMenuBar ul li a{display: block; height: 100%; width: 100%} .expandMenuBar ul li.active a{color: #4f234e; font-weight: bold; border-bottom: none; border-top: none}}
 @media only screen and (max-width: 675px){html, body{overflow-x: hidden; min-height: 600px} .expandMenuBar{position: relative} .expandMenuBar .dropdownArrow{display: block; height: 20px; width: 22px; float: right; position: absolute; right: 15px; top: 10px; z-index: 1} .expandMenuBar ul{position: relative; z-index: 2} .expandMenuBar ul li{display: none !important} .expandMenuBar ul li a{display: block; height: 100%; width: 100%} .expandMenuBar ul li.active, .expandMenuBar ul li.openMenuItem{width: 100%; font-size: 14px; text-align: left; display: block !important} .expandMenuBar ul li.active a{color: #4f234e; font-weight: bold; border-bottom: none}}
-@media only screen and (max-width: 483px){.grid-sizer{width: 146px !important} .pageTitle{font-size: 1.3em} .pageTitle span, .pageTitle a{width: 94%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.5em; height: 30px}}
+@media only screen and (max-width: 483px){.grid-sizer{width: 146px !important} .pageTitle{font-size: 1.3em} .pageTitle span, .pageTitle a{width: 94%; line-height: 1.5em; height: 30px}}
 #header{width: 100%; position: fixed; z-index: 100; top: 0; left: 0; background: #ededed}
 #header #topNavigation{z-index: 1; position: relative; background: #4f234e; height: 46px; ;border-bottom: 1px solid #4f234e;box-shadow: 0 1px 2px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.15);}
 #header #topNavigation .container{max-width: 1170px; padding: 0 15px}
@@ -864,7 +865,7 @@ optgroup{font-weight: bold}
 /*移动端账户下拉列表*/
 .dropDownList{width:98%;position:fixed;z-index:99;border:1px solid #e5e5e5;border-radius:5px;top:50px;left:1%;background-color:#f4f4f4}
 /*manificPopup弹出层*/
-.mfp-wrap{top:50px}
+.mfp-wrap{top:20px}
 /*help页面*/
 .help-container{padding:30px 5%;border:1px solid #ccc;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
 .help-question-list li{color:#652a6c}
@@ -893,5 +894,6 @@ label.error-contact{top: 4px; right: 16px;}
 label.is-visible{visibility: visible;opacity: 1;-ms-filter: "alpha(Opacity=100)";-webkit-transform: translate(0,0);-ms-transform: translate(0,0);transform: translate(0,0);}
 
 a.howITwork{
-	color:blue;
+	color:#337ab7;
 }
+.howToContent li {list-style-type: disc}

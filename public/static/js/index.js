@@ -1,3 +1,268 @@
+/**
+ * 头部导航
+ */
+function Header() {
+    var self = this;
+    $.extend(self, {
+        menus: {
+            "user": {
+                selector: $('#userSubMenu'),
+                visible: {
+                    right: 0
+                },
+                offset: 0,
+                offsetDirection: 'right',
+                buttonSelector: $('a#userNavLink'),
+                hidden: {
+                    right: -600
+                }
+            },
+            "deal": {
+                selector: $('#dealCategoryMenu'),
+                visible: {
+                    left: -12
+                },
+                offset: 200,
+                offsetDirection: 'left',
+                buttonSelector: $('a#dealMenuButton'),
+                hidden: {
+                    left: -600
+                }
+            },
+            "coupon": {
+                selector: $('#couponCategoryMenu'),
+                visible: {
+                    left: -12
+                },
+                offset: 250,
+                offsetDirection: 'left',
+                buttonSelector: $('a#couponMenuButton'),
+                hidden: {
+                    left: -600
+                }
+            },
+            "blog": {
+                selector: $('#blogMenu'),
+                visible: {
+                    left: -12
+                },
+                offset: 250,
+                offsetDirection: 'left',
+                buttonSelector: $('a#blogMenuButton'),
+                hidden: {
+                    left: -600
+                }
+            },
+            "category": {
+                selector: $('#categoryMenu'),
+                visible: {
+                    left: -12
+                },
+                offset: 0,
+                offsetDirection: 'left',
+                buttonSelector: $('a#menuButtonMore'),
+                hidden: {
+                    left: -600
+                }
+            }
+        },
+        init: function() {
+            self.registerEvents();
+            self.registerBodyEvents();
+            $(window).resize(self.registerEvents);
+        },
+        registerEvents: function() {
+            if (self.isMobile()) {
+                $('#menuButton').off();
+                $('#menuButton').on('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    self.toggleMenu(e, self.menus.category);
+                });
+                $('#categoryMenu').off('hover');
+                $('#userNavLink, #userSubMenu').off();
+                $('#userNavLink').on('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    self.toggleMenu(e, self.menus.user);
+                });
+                $('.menuMask').off();
+                $('.menuMask').on('click', self.hideMenus);
+            } else {
+                $('#menuButtonMore, #categoryMenu').off();
+                $('#menuButtonMore, #categoryMenu').on('hover', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var forceHide = (e.type == 'mouseleave');
+                    self.toggleMenu(e, self.menus.category, forceHide);
+                });
+                $('#menuButtonMore').on('click', function(e) {
+                    return false;
+                });
+                $('#menuButton').off('click');
+                $('#dealMenuButton, #dealCategoryMenu').off();
+                $('#dealMenuButton, #dealCategoryMenu').on('hover', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var forceHide = (e.type == 'mouseleave');
+                    self.toggleMenu(e, self.menus.deal, forceHide);
+                });
+                $('#couponMenuButton, #couponCategoryMenu').off();
+                $('#couponMenuButton, #couponCategoryMenu').on('hover', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var forceHide = (e.type == 'mouseleave');
+                    self.toggleMenu(e, self.menus.coupon, forceHide);
+                });
+                $('#blogMenuButton, #blogMenu').off();
+                $('#blogMenuButton, #blogMenu').on('hover', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var forceHide = (e.type == 'mouseleave');
+                    self.toggleMenu(e, self.menus.blog, forceHide);
+                });
+                $('#userNavLink, #userSubMenu').off();
+                $('#userNavLink, #userSubMenu').on('hover', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $(this).off('click');
+                    var forceHide = (e.type == 'mouseleave');
+                    self.toggleMenu(e, self.menus.user, forceHide);
+                });
+                $('.menuMask').off();
+            }
+        },
+        registerBodyEvents: function() {
+            $('body').on('click', '#addDealLink, #addLinkLink', self.showURL).on('click', '#addToDPBack', self.showDPButtons).on('submit', '#addToDPUrlForm', self.getWebsiteInfo).on('click', '.deals-accordion-toggle, .coupons-accordion-toggle', self.toggleAccordion).on('click', '.closeCategoryAccordion', function(e) {
+                self.toggleMenu(e, self.menus.category, true)
+            });
+        },
+        toggleAccordion: function() {
+            $(this).parent().find('.accordion-links').slideToggle();
+            $(this).find('span').toggleClass('icon-font-down icon-font-up');
+        },
+        isMobile: function() {
+            return $(window).width() <= 785;
+        },
+        toggleMenu: function(e, menu, forceHide) {
+            forceHide = forceHide || false;
+            $('.menu').each(function() {
+                if ("#" + $(this).attr('id') != menu.selector.selector) {
+                    $(this).removeClass('visible').hide();
+                }
+            });
+            if (menu.selector.hasClass('visible') || forceHide) {
+                menu.selector.removeClass('visible');
+                if (self.isMobile()) {
+                    menu.selector.animate(menu.hidden, {
+                        duration: 300,
+                        queue: false,
+                        complete: function() {
+                            if (!menu.selector.hasClass('visible')) {
+                                menu.selector.hide();
+                            }
+                        }
+                    });
+                } else {
+                    menu.selector.hide();
+                }
+                if (!$('.menu.visible').length) {
+                    $('.menuMask').hide();
+                }
+            } else {
+                menu.selector.addClass('visible').show();
+                if (self.isMobile()) {
+                    menu.selector.animate(menu.visible, {
+                        duration: 300,
+                        queue: false
+                    });
+                }
+                $('.menuMask').show();
+            }
+        },
+        hideMenus: function(e) {
+            var target = $(e.target);
+            if (target.hasClass('menu') || target.parents('.menu').length) {
+                return;
+            }
+            $.each(self.menus, function(key, menu) {
+                self.toggleMenu(e, menu, true);
+            });
+        },
+        showURL: function(e) {
+            var type = $(this).attr('data-type');
+            if (!type) {
+                return;
+            }
+            e.preventDefault();
+            e.stopPropagation();
+            $('#addToDPSubmitType').val(type);
+            $('#addToDPButtons').hide();
+            $('#addToDPUrl').show();
+            $('#addToDPSubmitURL').focus();
+        },
+        showDPButtons: function() {
+            $('#addToDPButtons').show();
+            $('#addToDPUrl').hide();
+        },
+        getWebsiteInfo: function() {
+            var urlInput = $('#addToDPSubmitURL');
+            var url = urlInput.val();
+            var type = $('#addToDPSubmitType').val();
+            var interestId = $('#addToDPSubmitButton').attr('data-interest-id');
+            if (interestId) {
+                var interestString = '?interestId=' + interestId;
+            } else {
+                var interestString = '';
+            }
+            var error = $('#addToDPUrlError');
+            if (!url) {
+                error.text('A URL is required to continue.').show();
+                urlInput.focus();
+                return;
+            }
+            error.hide();
+            var dpURL = $('#addToDPUrl');
+            var dpLoader = $('#addToDPLoader');
+            dpURL.hide();
+            dpLoader.show();
+            var timer = setTimeout(function() {
+                dpLoader.find('.loadingText').hide();
+                dpLoader.find('.skipContainer').show();
+            }, 10000);
+            $.get('/Submit/getProduct' + interestString, {
+                url: url,
+                type: type
+            }, function(res) {
+                clearTimeout(timer);
+                dpLoader.find('.loadingText').show();
+                dpLoader.find('.skipContainer').hide();
+                if (res.error) {
+                    if (res.errorCode == 200) {
+                        window.location = res.data;
+                        return;
+                    }
+                    dpLoader.hide();
+                    dpURL.show();
+                    error.html(res.errorMessage).show();
+                } else {
+                    if (res.data) {
+                        window.location = res.data;
+                    } else {
+                        dpLoader.hide();
+                        dpURL.show();
+                        error.text('Something went wrong. Please try again later.').show();
+                    }
+                }
+            });
+        }
+    });
+    self.init();
+}
+$(document).ready(function() {
+    new Header();
+});
+
 (function($) {
     var $container = $('#container');
 
@@ -64,7 +329,7 @@
     function replaceUrl(name) {
         var obj = new Object();
         obj.rand = Math.random();
-        History.replaceState(obj, '',name);
+        history.replaceState(obj, '',name);
     }
 })(jQuery);
 
@@ -148,7 +413,7 @@ function waterfall(options, condition) {
     function loadAjax(msg) {
         var productDetailUrl = $('#productDetailUrl').val();
         $.each(msg, function(i,item){
-            var content = '<div class="J_itemTile item itemTile bounceIn animated animate-delay-05 animate-name-bounceIn"><div class="itemImg hasWhiteBG"><a href="'+ productDetailUrl + '?orderid=' + item.orderid +  '" class="J_listingDetail listing-detail img-auto"><img class="lazy" data-original="' + item.smallphoto + '"  alt="" ></a></div><div class="itemContent"><div class="itemTitle"><div class="tileDealPrice"><span class="currentPrice">Free </span><span class="originalPrice">￡' + item.price + '</span></div><a href="'+ productDetailUrl + '?orderid=' + item.orderid + '" class="listing-detail">' + item.listingname + '</a></div></div></div>';
+            var content = '<div class="J_itemTile item itemTile bounceIn animated animate-delay-05 animate-name-bounceIn"><div class="itemImg hasWhiteBG"><a href="'+ productDetailUrl + '?orderid=' + item.orderid +  '" class="J_listingDetail listing-detail img-auto"><img class="lazy" data-original="' + item.smallphoto + '"  alt="" ></a></div><div class="itemContent"><div class="itemTitle"><div class="tileDealPrice"><span class="currentPrice">Free </span><span class="originalPrice">$' + item.price + '</span></div><a href="'+ productDetailUrl + '?orderid=' + item.orderid + '" class="listing-detail">' + item.listingname + '</a></div></div></div>';
             $('#container').append(content);
         });
     }
@@ -184,3 +449,13 @@ function getEvent(){
         }
     }while(f=f.caller);
 }
+
+/**
+ * 截取url中的参数
+ */
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)return  decodeURI(r[2]); return null;
+}
+

@@ -1,6 +1,13 @@
 $(function() {
 
     /**
+     * 浏览器兼容性
+     */
+    if($.browser.msie && $.browser.version < 10){
+        $('body').addClass('ltie10');
+    }
+
+    /**
      * 图片延时加载
      */
     $('img.lazy').lazyload({
@@ -233,32 +240,28 @@ $(function() {
                                     $currentOrder.find('.J_statusSoon').removeClass("hide").siblings().addClass("hide");
 
                                 } else {
+
+                                    // 报错信息
                                     var errorMsg = '';
-                                    if(resp == 'ASIN-WRONG') {
-
-                                        // 报错信息
-                                        errorMsg = 'Oops, the review is not for this product';
-
-                                    } else if(resp == 'PROFILE-WRONG') {
-
-                                        // 报错信息
-                                        errorMsg = 'Oops, the review is not written by you';
-                                    } else if(resp == 'SIGN-WRONG') {
-
-                                        // 报错信息
-                                        errorMsg = 'Oops, the review is not verified purchase';
-                                    } else if(resp == 'CHECK-WRONG') {
-
-                                        // 报错信息
-                                        errorMsg = 'Oops, We can`t verify it this monment,Please try later';
-                                    } else if(resp == 'DATE-WRONG') {
-
-                                        // 报错信息
-                                        errorMsg = 'Oops, the review date is earlier than request date';
-                                    } else if(resp == 'FORMAT-WRONG') {
-
-                                        //  报错信息
-                                        errorMsg = 'Oops, the review url is invalid';
+                                    switch(resp) {
+                                        case 'ASIN-WRONG':
+                                            errorMsg = 'Oops, the review is not for this product';
+                                            break;
+                                        case 'PROFILE-WRONG':
+                                            errorMsg = 'Oops, the review is not written by you';
+                                            break;
+                                        case 'SIGN-WRONG':
+                                            errorMsg = 'Oops, the review is not verified purchase';
+                                            break;
+                                        case 'CHECK-WRONG':
+                                            errorMsg = 'Oops, We can`t verify it this monment,Please try later';
+                                            break;
+                                        case 'DATE-WRONG':
+                                            errorMsg = 'Oops, the review date is earlier than request date';
+                                            break;
+                                        case 'FORMAT-WRONG':
+                                            errorMsg = 'Oops, the review url is invalid';
+                                            break;
                                     }
 
                                     // 取消等待
@@ -267,13 +270,14 @@ $(function() {
                                     // 显示后台报错信息
                                     $posterError.html(errorMsg).show();
 
-                                    // 订单状态改为Reviewed
                                     if(resp != 'DATE-WRONG' && resp != 'FORMAT-WRONG') {
-                                        $currentOrder.find('.J_reviewedStatus').parent().addClass('active').siblings().removeClass('active');
-                                    }
 
-                                    // 显示Reviewed状态下的操作按钮
-                                    $currentOrder.find('.J_notReview').removeClass("hide").siblings().addClass("hide").siblings(".J_reenterLink").removeClass("hide").siblings(".J_support").removeClass("hide").siblings(".J_statusInvalidlink").removeClass("hide");
+                                        // 订单状态改为Reviewed
+                                        $currentOrder.find('.J_reviewedStatus').parent().addClass('active').siblings().removeClass('active');
+
+                                        // 显示Reviewed状态下的操作按钮
+                                        $currentOrder.find('.J_notReview').removeClass("hide").siblings().addClass("hide").siblings(".J_reenterLink").removeClass("hide").siblings(".J_support").removeClass("hide").siblings(".J_statusInvalidlink").removeClass("hide");
+                                    }
                                 }
                             }
                         };

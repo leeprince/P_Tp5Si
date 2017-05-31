@@ -1,5 +1,6 @@
 <?php
-//配置文件
+// 配置文件
+// 开发过程修改的静态资源文件:signin.css;signin.js;
 return [
 	'DOMAINNAME'            => 'P_SI',
 	'DOMAINLOGO'            => '/images/art-logo_us.png',
@@ -14,8 +15,8 @@ return [
 	'EMAILABOUNT'           => "\n\n>>\n   leeprince ,Think you for your cooperation .",
 
 	'BUYERIDSTART'            => '30000000',
-	'BUYERIDEND'              => '30001999',
+	'BUYERIDEND'              => '30005999',
 	'SELLERSTART'           => '10000000',
-	'SELLEREND'             => '10001999',
+	'SELLEREND'             => '10005999',
 	'BUYERSIGNUPSWITCH'     => 'ON',
 ];

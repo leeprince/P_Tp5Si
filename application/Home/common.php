@@ -1,7 +1,8 @@
 <?php
 // 这里封装网站所有需要函数，在网站任何地方都可以调用
-    //获取IP地址，在需要获取IP地址时候直接调用getIP()就能获取客户端IP地址
-    function getIP(){ 
+
+    //获取IP地址，在需要获取IP地址时候直接调用get_real_ip()就能获取客户端IP地址
+    function get_real_ip(){ 
         if (getenv('HTTP_CLIENT_IP')) { 
             $ip = getenv('HTTP_CLIENT_IP'); 
         } 
@@ -23,27 +24,23 @@
         return $ip; 
     }
 
-
-    function getRealIp()
-    {
-        $ip=false;
-        if(!empty($_SERVER["HTTP_CLIENT_IP"])){
-            $ip = $_SERVER["HTTP_CLIENT_IP"];
-        }
-        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ips = explode (", ", $_SERVER['HTTP_X_FORWARDED_FOR']);
-            if ($ip) { array_unshift($ips, $ip); $ip = FALSE; }
-            for ($i = 0; $i < count($ips); $i++) {
-                if (!eregi ("^(10│172.16│192.168).", $ips[$i])) {
-                    $ip = $ips[$i];
-                    break;
-                }
-            }
-        }
-        return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
+    // 通过ip或者ip所在国家
+    // 在IP地址范围内，非路由地址IANA(Internet Assigned Numbers Authority)
+    function get_country_from_ip($ip){
+         $content = file_get_contents("http://ip.taobao.com/service/getIpInfo.php?ip=$ip");
+         $banned = json_decode(trim($content), true);
+         // $lan = strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE']);//检测浏览器使用的语言
+         if(!empty($banned['data']['country_id']))
+         // if((!empty($banned['data']['country_id']) && $banned['data']['country_id'] == 'CN') || strstr($lan, 'zh'))
+         {
+            $country = $banned['data']['country_id'];
+         }else{
+            $country = 'US';
+         }
+         return $country;
     }
 
-	// sort array by one column
+	// 分类
 	function array_sort($arr,$keys,$type='asc'){
 		$keysvalue = $new_array = array();
 		foreach($arr as $k=>$v){
@@ -63,7 +60,9 @@
 		return $new_array;
 	}
 
-    function send_emial_163($to,$subject,$body)
+    // 163邮箱发送邮件
+    // $cc='' 是设置默认值, 调用该方法时如果赋值会覆盖
+    function send_emial_163($to,$cc='',$subject,$body)
     {
         vendor('PHPMailer163.PHPMailerAutoload');
         $fromEmail = "leeprincehz@163.com";
@@ -81,7 +80,7 @@
         $mail->setFrom($fromEmail,$fromName);// 设置发件人信息，如邮件格式说明中的发件人，这里会显示为Mailer(xxxx@163.com），Mailer是当做名字显示          
         $mail->addAddress($to,$toName);// 设置收件人邮箱和信息，如邮件格式说明中的收件人，这里会显示为Liang(yyyy@163.com)          
         $mail->addReplyTo($fromEmail,$fromName);// 设置回复人信息，指的是收件人收到邮件后，如果要回复，回复邮件将发送到的邮箱地址         
-        //$mail->addCC("xxx@163.com");// 设置邮件抄送人，可以只写地址，上述的设置也可以只写地址(这个人也能收到邮件)         
+        $mail->addCC($cc);// 设置邮件抄送人，可以只写地址，上述的设置也可以只写地址(这个人也能收到邮件)         
         //$mail->addBCC("xxx@163.com");// 设置秘密抄送人(这个人也能收到邮件)            
         //$mail->addAttachment("p_avatar.jpg");// 添加附件          
         $mail->Subject = $subject;// 邮件标题          
@@ -111,7 +110,7 @@
     }
 
 	//random number
-    function generatePass()
+    function generate_password()
     {
       srand((double)microtime()*1000000);
       $characters = explode(',', "a,b,c,d,e,f,g,h,i,j,k,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K");

@@ -7,19 +7,26 @@ use \think\Db;
 class AccountModel extends Model
 {
 	protected $tableName = 'buyer';
+	protected $tableNameIp = 'buyer_whitelist';
 
 	/*注册常量定义*/
-	const IP_EXIST = 'It seems you already have an account';
-	const EMAIL_EXIST = 'This email is already';
-	const EMAIL_NULL = 'Please fill in your email';
-
-	const PROFILE_EXIST = 'This profile url is already';
-	const PROFILE_NULL = 'Please fill in profile url';
-	const PROFILE_ERROR = 'This profile url is error';
-
+	const IP_EXIST               = 'It seems you already have an account';
+	const EMAIL_EXIST            = 'This email is already';
+	const EMAIL_NULL             = 'Please fill in your email';
+	
+	const PROFILE_EXIST          = 'This profile url is already';
+	const PROFILE_NULL           = 'Please fill in profile url';
+	const PROFILE_ERROR          = 'This profile url is error';
+	
 	/*登录常量定义*/
-	const EMAIL_NO_EXIST = 'This account does not exist';
-	const EMAIL_NO_ACTICED = 'This account is not actived';
+	const EMAIL_NO_EXIST         = 'This account does not exist';
+	const EMAIL_NO_ACTIVED       = 'This account is not actived';
+	const PASSWORD_NULL          = 'Please fill in your password';
+	
+	/*更新密码常量定义*/
+	const RESET_SUCCESS          =  'reset-password-success';
+	const RESET_FAILED           =  'reset-password-faild';
+	const RESET_EMAIL_NO_ACTIVED =  'not-actived';
 
 	// 注册_验证IP
 	public function checkIp($data)
@@ -31,7 +38,7 @@ class AccountModel extends Model
 	// 注册_验证Email
 	public function checkEmail($data)
 	{
-		$isExist = Db::name($this->tableName)->where($data)->value('buyerEmail');
+		$isExist = Db::name($this->tableName)->where($data)->value('buyerID');
 		return $isExist;
 	}
 
@@ -78,13 +85,58 @@ class AccountModel extends Model
 	// 登录_检测帐号是否有效
 	public function checkAccountValid($data)
 	{
-		$data['actived'] = 1;
-		$data['disabled'] = 0;
-		$data['buyerID'] = [['>=',config('BUYERIDSTART')],['<=',config('BUYERIDEND')]];
-		$isValid = Db::name($this->tableName)->where($data)->value('buyerEmail');
+		$isValid = Db::name($this->tableName)->where($data)->value('buyerID');
 		// halt(Db::getLastsql());
 
 		return $isValid;
+	}
+
+	// 登录_检测密码是否有效
+	public function checkPasswordValid($data)
+	{
+		$isValid = Db::name($this->tableName)->where($data)->value('buyerID');
+		// halt(Db::getLastsql());
+
+		return $isValid;
+	}
+
+	// 登录_更新账户信息
+	public function updateAccount($data,$up)
+	{
+		$isOk = Db::name($this->tableName)->where($data)->update($up);
+		// halt(Db::getLastsql());
+
+		return $isOk;
+	}
+
+	// 登录_登录成功后添加IP白名单
+	public function setWhiteIp($dataIp,$dataId)
+	{
+		
+		$ipAddress = $dataIp['ip'];
+		$buyerID = $dataId['buyerID'];
+		$ipResult = Db::name($this->tableNameIp)->field('ip')->where($dataId)->select();
+		// halt($ipResult);
+		$jugmentIp = '';
+		foreach($ipResult as $ipList){
+			$ip = $ipList['ip'];
+			if($ip == $ipAddress){
+				$jugmentIp = 'SAME';
+				break;
+			}
+		}
+		if($jugmentIp != 'SAME'){
+
+			$ipCountry = get_country_from_ip($ipAddress);
+
+			$dataIp['buyerID'] = $buyerID;
+			$dataIp['country'] = $ipCountry;
+			$ipIns = Db::name($this->tableNameIp)->insertGetId($dataIp);
+		}else{
+			$ipIns = 0;
+		}
+
+		return $ipIns;
 	}
 
 }

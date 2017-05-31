@@ -145,7 +145,7 @@ $(function() {
             var oDomForgot = $('#forgot-form');
             var email = $('#forgot-account').val();
             var options = {
-                url: 'forgot_password',  // 重置密码后台接口
+                url: 'forgotPassword',  // 重置密码后台接口
                 type: 'post',
                 data: {'email': email},
                 beforeSubmit: function() {
@@ -153,7 +153,6 @@ $(function() {
                     oDomForgot.find('i').removeClass('hide');
                 },
                 success: function(msg) {
-                    console.log(111);
                     console.log(msg);
                     msg = msg.replace(/\s/g,'');
                     // 关闭等待提示
@@ -162,10 +161,12 @@ $(function() {
                     if(msg == "reset-password-success") {
                         $('.J_modalWrapper').fadeOut(500);
                         $('.J_backdrop').fadeOut(500);
+                    }else{
+                        $('#forgot-account').val(msg);
                     }
                 },
                 error:function(){
-                    console.log(222);
+                    console.log('Abnormal Error');
                 }
             };
             $(form).ajaxSubmit(options);
