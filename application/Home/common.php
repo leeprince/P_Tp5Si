@@ -98,14 +98,14 @@
 
 
     function getHeadInfo(){
-        echo'<li><a href="'.__MODULE__.'/index/dealManager.html"id="mainLoginButton" class="logIn"><span>Deal Manager</span></a></li>';
-        echo'<li><a href="'.__MODULE__.'/index/archivePage.html"  id="mainLoginButton" class="logIn"><span>Archive</span></a></li>	';
+        echo '<li><a href="__MODULE__/index/dealManager.html"id="mainLoginButton" class="logIn"><span>Deal Manager</span></a></li>';
+        echo '<li><a href="__MODULE__/index/archivePage.html"  id="mainLoginButton" class="logIn"><span>Archive</span></a></li>	';
     }
 
     function getPhone(){
-        echo ' <p class="bor-b-e5gray"><a href="'.__MODULE__.'/buyer/account.html" class="block pt15 pb15 fs14 lh1 tdn tc">Account</a></p>';
-        echo ' <p class="bor-b-e5gray"><a href="'.__MODULE__.'/index/dealManager.html" class="block pt15 pb15 fs14 lh1 tdn tc">Deal Manager</a></p>';
-        echo ' <p><a href="'.__MODULE__.'/index/archivePage.html" class="block fs14 lh1 tdn pt15 pb15 tc">Archive</a></p>';
+        echo ' <p class="bor-b-e5gray"><a href="__MODULE__/buyer/account.html" class="block pt15 pb15 fs14 lh1 tdn tc">Account</a></p>';
+        echo ' <p class="bor-b-e5gray"><a href="__MODULE__/index/dealManager.html" class="block pt15 pb15 fs14 lh1 tdn tc">Deal Manager</a></p>';
+        echo ' <p><a href="__MODULE__/index/archivePage.html" class="block fs14 lh1 tdn pt15 pb15 tc">Archive</a></p>';
 
     }
 

@@ -11,9 +11,7 @@ class Index extends Controller
     public function index()
     {
 
-        return view();
-
-
+        return $this->fetch();
 
     	// $admin  = model('Employee');
     	// $admin  = new Employee();

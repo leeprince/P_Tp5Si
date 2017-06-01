@@ -1,0 +1,141 @@
+<div id="header" class="contentBox">
+    <div id="topNavigation">
+        <div id="headerContainer" class="container gridWidth contentBox mt0">
+            <div id="searchContainer">
+                <!--背景遮罩层-->
+                <div class="menuMask hide"></div>
+                <!--分类下拉列表-->
+                <div id="couponCategoryMenu" class="menu">
+                    <div class="arrow"></div>
+                    <div class="menuWrapper">
+                         <ul class="J_category menu-category-list coupon-category-list">
+                            <li><a class="menu-category-list-link" href="__MODULE__/Index/condition.html?ca=fashion" data-cond="fashion">Fashion</a></li>
+                            <li><a class="menu-category-list-link" href="__MODULE__/Index/condition.html?ca=electronic" data-cond="electronic">Electronics</a></li>
+                            <li><a class="menu-category-list-link" href="__MODULE__/Index/condition.html?ca=health" data-cond="health">Health</a></li>
+                            <li><a class="menu-category-list-link" href="__MODULE__/Index/condition.html?ca=sports" data-cond="sports">Sports</a></li>
+                            <li><a class="menu-category-list-link" href="__MODULE__/Index/condition.html?ca=home" data-cond="home">Home</a></li>
+                            <li><a class="menu-category-list-link" href="__MODULE__/Index/condition.html?ca=momBaby" data-cond="momBaby">Mom & baby</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--博客下拉列表-->
+                <div id="blogMenu" class="menu">
+                    <div class="arrow"></div>
+                    <div class="menuWrapper">
+                        <ul class="blog-post-menu">
+                            <li>
+                                <a href="#" class="featured-blog-post blog">
+                                    <div class="featured-title">
+                                        <p class="blog-title hide">6 Ways To Get The Absolute Lowest Prices On Amazon</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <hr>
+                        <a href="#" class="see-more">See more ></a>
+                    </div>
+                </div>
+                <!--过滤下拉列表-->
+                <div id="dealCategoryMenu" class="menu">
+                    <div class="arrow"></div>
+                    <div class="menuWrapper">
+                        <ul class="J_filter menu-category-list deal-category-list">
+                            <li>
+                                <!-- <a class="menu-category-list-link" href="__MODULE__/Index/condition.html?cond=endDate" data-cond="endDate">Latest deals</a> -->
+                            </li>
+                            <li>
+                                <!-- <a class="menu-category-list-link" href="__MODULE__/Index/condition.html?cond=price" data-cond="price">Price high to low</a> -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--移动端导航栏-->
+                <div id="categoryMenu" class="menu" style="display: none;">
+                    <div class="smallSearchContainer contentBox">
+                        <form action="{//:U('Index/search')}" id="searchBarSmall" class="J_formSearch" method="GET">
+                            <span class="twitter-typeahead" style="position: relative; display: inline-block;">
+                                <input type="hidden" class="J_category" name="category" value=""/>
+								<input class="tt-hint" type="text" autocomplete="off" spellcheck="off" disabled="" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0);">
+								<input type="text" id="searchSmall" class="J_searchInput searchInput tt-query" placeholder="Search Amazon product, ASIN" name="search" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
+								<span style="position: absolute; left: -9999px; visibility: hidden; white-space: nowrap; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></span>
+								<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"></span>
+							</span>
+                            <button type="submit" id="submitSearchSmall" class="J_btnSearch icon-font-search"><i class="iconfont fs16">&#xe601;</i></button>
+                        </form>
+                        <button type="button" class="closeCategoryAccordion icon-font-close contentBox"><i class="iconfont fs16">&#xe609;</i></button>
+                    </div>
+                    <div class="hidden-large contentBox" id="deals-coupons-accordions">
+                        <div class="deals-accordion contentBox">
+                            <button class="deals-accordion-toggle contentBox">Filter <span class="icon-font-down iconfont">&#xe658;</span></button>
+                            <div class="J_filter accordion-links" style="display:none">
+                               <!--  <a href="__MODULE__/Index/condition.html?cond=endDate" data-cond="endDate">Latest deals</a>
+                                <a href="__MODULE__/Index/condition.html?cond=price" data-cond="price">Price high to low</a> -->
+                            </div>
+                        </div>
+                        <div class="coupons-accordion contentBox">
+                            <button class="coupons-accordion-toggle contentBox">Category <span class="icon-font-down iconfont">&#xe658;</span></button>
+                            <div class="accordion-links" style="display:none">
+                                <a href="__MODULE__/Index/condition.html?ca=fashion" data-cond="fashion">Fashion</a>
+                                <a href="__MODULE__/Index/condition.html?ca=electronic" data-cond="electronic">Electronics</a>
+                                <a href="__MODULE__/Index/condition.html?ca=health" data-cond="health">Health</a>
+                                <a href="__MODULE__/Index/condition.html?ca=sports" data-cond="sports">Sports</a>
+                                <a href="__MODULE__/Index/condition.html?ca=home" data-cond="home">Home</a>
+                                <a href="__MODULE__/Index/condition.html?ca=momBaby" data-cond="momBaby">Mom & baby</a>
+                            </div>
+                        </div>
+                        <div class="blog-accordion contentBox">
+                            <a class="blog-accordion-button contentBox mb0" href="#">Blog</a>
+                        </div>
+                    </div>
+                    <!--更多下拉列表-->
+                    <div class="arrow"></div>
+                    <div class="aboutUsLinks">
+                        <div class="aboutUsSection contentBox">
+                            <a href="{//:U('Index/index')}">Home</a>
+                            <a href="{//:U('Index/contact')}">Contact</a>
+                            <a href="{//:U('Index/help')}">Help</a>
+                        </div>
+                    </div>
+                </div>
+                <!--pc端导航栏-->
+                <div id="mainLogo">
+                    <a href="{//:U('Index/index')}"><img src="__PUBLIC__/images/art-logo_us.png" alt="Dealgogogo - Coupons and Deals" height="40"></a>
+                </div>
+                <form action="{//:U('Index/search')}" id="searchBar" class="J_formSearch" method="GET">
+                    <span class="twitter-typeahead" style="position: relative; display: inline-block;">
+                        <input type="hidden" class="J_category" name="category" value=""/>
+						<input type="text" id="search" class="J_searchInput searchInput tt-query" placeholder="Search Amazon, product, ASIN" name="search" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
+						<span style="position: absolute; left: -9999px; visibility: hidden; white-space: nowrap; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></span>
+						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0; z-index: 100; display: none;"></span>
+					</span>
+                     <button type="submit" id="submitSearch" class="J_btnSearch icon-font-search"><i class="iconfont fs16">&#xe601;</i></button>
+                </form>
+                <div class="feedMenu ml23">
+                    <a href="javascript:void(0);" id="dealMenuButton">Filter</a>
+                    <a href="javascript:void(0);" id="couponMenuButton">Category</a>
+                    <a href="javascript:void(0);" id="blogMenuButton">Blog</a>
+                    <a href="javascript:void(0);" id="menuButtonMore">More</a>
+                </div>
+                <div class="menuIcon">
+                    <a href="javascript:void(0);" id="menuButton" class="icon-font-hamburger"><i class="iconfont fs24">&#xe637;</i></a>
+                </div>
+                <div id="login" class="login">
+                    <ul id="userNav">
+                        <?php getHeadInfo()?>
+                        <li>
+                            <a href="javascript:void(0);" class="logInButton icon-font-user contentBox"><i class="J_list iconfont fs20">&#xe6a3;</i></a>
+                        </li>
+                    </ul>
+                </div>
+                <!--收藏功能(暂时未开发)-->
+                <a href="{//:U('Buyer/account')}" class="userPlusIcon">
+                    <div class="icon-font-plus contentBox"><i class="iconfont fs18">&#xe6a3;</i></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--移动端账户下拉列表-->
+<div class="J_dropDownList dropDownList pa pl5p pr5p" style="display:none">
+    <?php getPhone()?>
+</div>
