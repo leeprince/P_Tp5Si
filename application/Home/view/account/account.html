@@ -1,2 +1,143 @@
-<h1>buyer signin...</h1>
-<h2>{:config('DOMAINNAME')}</h2>
+<!DOCTYPE html>
+<html data-path="/" lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{:config('DOMAINTITLE')}</title>
+    <meta name="description" content="Amazon Free Samples">
+    <meta name="keywords" content="coupon codes, deals, promo codes, printable coupons">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no">
+    <link rel="shortcut icon" sizes="57x57" href="__PUBLIC__/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" sizes="192x192" href="__PUBLIC__/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="__PUBLIC__/images/favicon.ico">
+    <link rel="stylesheet" href="__PUBLIC__/css/magnific-popup.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/normalize.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/main.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/index.css">
+    <include file="Index/detect-gt-ie9" />
+</head>
+<body>
+{include file="public/naver"}
+<!-- {:dump($buyerInfos);} -->
+<div id="mainContent" >
+    <div class="contentContainer container mainContent pr pt50">
+        <div class="loginSignupContent">
+            <div class="loginSignupHeader">Account</div>
+            <!--修改密码表单-->
+            <form class="p15" id="formChangePassword">
+                <fieldset>
+                    <legend class="hide">Update account Form</legend>
+                    <div class="pb20" id="errorMsg"></div>
+                    <div class="submit-edit clearfix pb20">
+                        <label class="submit-edit-header vm" for="account">E-mail:</label>
+                        <span class="submit-content pr"><input class="p5 bor-r2 bor-1gray" name="buyerEmail" id="account" type="email" maxlength="32" value="{$Think.session.BUYEREMAIL}" placeholder="your account"></span>
+                    </div>
+                    <div class="submit-edit clearfix pb20">
+                        <label class="submit-edit-header vm" for="passwordNew">New Password:</label>
+                        <span class="submit-content pr"><input class="p5 bor-r2 bor-1gray" name="passwordNew" id="passwordNew" type="password"  autocomplete="off" minlength="6" value="" placeholder="new password"></span>
+                    </div>
+                    <div class="submit-edit clearfix pb20">
+                        <label class="submit-edit-header vm" for="confirmPasswordNew">Confirm New Password:</label>
+                        <span class="submit-content pr"><input class="p5 bor-r2 bor-1gray" name="confirmPasswordNew" id="confirmPasswordNew" type="password"  autocomplete="off" minlength="6" value="" placeholder="confirm new password"></span>
+                    </div>
+                    <div class="submit-edit clearfix pb20">
+                        <label class="submit-edit-header vm" for="profileURL">Profile URL:</label>
+                        <span class="submit-content pr"><textarea class="p5 bor-r2 bor-1gray fullwidth" name="profileURL" id="profileURL" rows="3" placeholder="your profile url" readonly>www.amazon.com/gp/profile/amzn1.account.{$buyerInfos['profileID']}</textarea></span>
+                    </div>
+                    <div class="submit-edit clearfix pb20">
+                        <label class="submit-edit-header vm" for="paypalAccount">Paypal Account:</label>
+                        <span class="submit-content pr"><input class="p5 bor-r2 bor-1gray" name="paypalAccount" id="paypalAccount" type="email" maxlength="32"  value="{$buyerInfos['paypalAccount']}" placeholder="your paypal account"></span>
+                    </div>
+                    <div class="submit-edit clearfix pb20 tl">
+                        <span class="submit-edit-header top tr">
+                            <input type="hidden" name="unSubscribe" value="1"/>
+                            <input type="checkbox" name="unSubscribe" checked id="unSubscribe" class="wa vm tr" value="0">
+                        </span>
+                        <label class="unSubscribe vm" for="unSubscribe">Send me the best deals update to my inbox</label>
+                    </div>
+                    <a href="signout" class="purpleButton">Sign Out</a>
+                    <input type="submit" id="update-account" class="purpleButton" value="Update Details" />
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+{include file="public/footer"}
+<script src="https://cdn.bootcss.com/layer/2.4/layer.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.form/3.51/jquery.form.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.validate.extend.js"></script>
+<script type="text/javascript">
+    $(function() {
+
+        // 修改密码表单验证
+        $('#formChangePassword').validate({
+            rules: {
+                buyerEmail: {
+                    required: true,
+                    email: true,
+                    foreignEmail: true  // 国外邮箱验证，自定义
+                },
+                passwordNew: {
+                    required: true,
+                    minlength: 6
+                },
+                confirmPasswordNew: {
+                    required: true,
+                    minlength: 6,
+                    equalTo: "#passwordNew"
+                },
+                paypalAccount: {
+                    required: true,
+                    email: true,
+                    foreignEmail: true  // 国外邮箱验证，自定义
+                }
+            },
+            messages: {
+                buyerEmail: {
+                    required: "Please fill in your account",
+                    email: "Invalid email"
+                },
+                passwordNew: {
+                    required: "Please fill in the new password",
+                    minlength: $.validator.format("Use a password at least {0} characters")
+                },
+                confirmPasswordNew: {
+                    required: "Re-enter the new password",
+                    minlength: $.validator.format("Use a password at least {0} characters"),
+                    equalTo: "The password is inconsistent"
+                },
+                paypalAccount: {
+                    required: "Please fill in your paypal",
+                    email: "Invalid email"
+                }
+            },
+            focusInvalid:false,  // 取消验证时未通过验证元素获取焦点
+            onkeyup: false,  // 取消keyup时验证
+            focusCleanup:true,  // 未通过验证元素获取焦点时，移除错误提示
+            errorClass: "error is-visible", // 错误提示自定义样式
+            submitHandler: function(form){
+                var $formChangePassword = $('#formChangePassword');
+                var params = $formChangePassword.serialize();
+                var options = {
+                    url: 'updateAccount',  // 修改密码后台接口
+                    type: 'post',
+                    data: params,
+                    success: function(resp) {
+                        console.log(resp);
+                        if(resp.error == 0 ) {
+                            // 提示更改成功,跳转登录页
+                            layer.msg(resp.errorInfo);
+                            // window.location.href='signin.html';
+                        } else if(resp.error == 1 ) {
+                            // 提示更改失败
+                            layer.msg(resp.errorInfo);
+                        }
+                    }
+                };
+                $(form).ajaxSubmit(options);
+                return false;
+            }
+        });
+    });
+</script>
+</body>
+</html>

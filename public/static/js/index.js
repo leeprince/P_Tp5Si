@@ -413,7 +413,7 @@ function waterfall(options, condition) {
     function loadAjax(msg) {
         var productDetailUrl = $('#productDetailUrl').val();
         $.each(msg, function(i,item){
-            var content = '<div class="J_itemTile item itemTile bounceIn animated animate-delay-05 animate-name-bounceIn"><div class="itemImg hasWhiteBG"><a href="'+ productDetailUrl + '?orderid=' + item.orderid +  '" class="J_listingDetail listing-detail img-auto"><img class="lazy" data-original="' + item.smallphoto + '"  alt="" ></a></div><div class="itemContent"><div class="itemTitle"><div class="tileDealPrice"><span class="currentPrice">Free </span><span class="originalPrice">$' + item.price + '</span></div><a href="'+ productDetailUrl + '?orderid=' + item.orderid + '" class="listing-detail">' + item.listingname + '</a></div></div></div>';
+            var content = '<div class="J_itemTile item itemTile bounceIn animated animate-delay-05 animate-name-bounceIn"><div class="itemImg hasWhiteBG"><a href="'+ productDetailUrl + '?orderid=' + item.orderid +  '" class="J_listingDetail listing-detail img-auto"><img class="lazy" data-original="' + item.smallphoto + '"  alt="" ></a></div><div class="itemContent"><div class="itemTitle"><div class="tileDealPrice"><span class="currentPrice">Free </span><span class="originalPrice">￡' + item.price + '</span></div><a href="'+ productDetailUrl + '?orderid=' + item.orderid + '" class="listing-detail">' + item.listingname + '</a></div></div></div>';
             $('#container').append(content);
         });
     }

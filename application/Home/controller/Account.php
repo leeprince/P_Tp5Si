@@ -4,11 +4,34 @@ namespace app\home\controller;
 use \think\Controller;
 use \think\Request;//Request::instance();
 use app\home\model\AccountModel;
-// use \think\Debug;//Request::instance();
+use app\home\validate\AccountValidate;
+use \think\Loader;
 
 
 class Account extends Controller
 {
+	// 前置操作
+	protected $beforeActionList  = [
+		// 'checkIsLogin'=>['only' => 'updateAccount']
+		'checkIsLogin'=>['only' => 'account']
+	];
+
+	//前置操作,检查buyer是否为登录状态
+	protected function checkIsLogin()
+	{
+		$buyerID = session('BUYERID');
+		$buyerEmail = session('BUYEREMAIL');
+
+		if($buyerID == '' || $buyerEmail == ''){
+			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH'])=='xmlhttprequest'){
+				$ret['code'] = 800;
+				$ret['msg'] = '登录异常，请重新登录!';
+				return $ret;die;
+			}else{
+				$this->redirect('signin');
+			}
+		}
+	}
 
 	// 登录
 	public function signin()
@@ -42,7 +65,7 @@ class Account extends Controller
 				];
 				$whiteIp = $model->setWhiteIp($dataIp['ip'],$dataIp['id']);
 
-				session('BUYERUSERNAME',$data['buyerEmail']);
+				session('BUYEREMAIL',$data['buyerEmail']);
 				session('BUYERID',$buyerID);
 
 				$this->redirect('Index/index');
@@ -354,9 +377,100 @@ class Account extends Controller
 		return $check;
 	}
 
+	// buyer个人信息
 	public function account()
 	{
-		return $this->fetch();
+		$request = Request::instance();
+		$model = new AccountModel();
+		if($request->isPost()){
+
+		}else{
+
+			$buyerID = session('BUYERID');
+			$field = ['buyerEmail','profileID','paypalAccount'];
+			$where = [
+				'buyerID'=>$buyerID,
+			];
+
+			$buyerInfos = $model->findAccount($field,$where);
+
+			$this->assign('buyerInfos',$buyerInfos);
+
+			// trace($buyerInfos,'debug');
+
+			return $this->fetch();
+		}
+	}
+
+	// buyer注销登录
+	public function signout()
+	{
+		session(null);
+		$this->redirect('signin');
+	}
+
+	// 更新buyer信息
+	public function updateAccount()
+	{
+		$request = Request::instance();
+
+		if($request->isPost()){
+			$model = new AccountModel();
+			$buyerID = session('BUYERID');
+			$field = ['buyerEmail','password','paypalAccount'];
+			$where = [
+				'buyerID'=>$buyerID,
+			];
+
+			$buyerInfos = $model->findAccount($field,$where);
+
+			$buyerEmailPost = $request->post('buyerEmail');
+			$passwordPost = $request->post('passwordNew');
+			$paypalAccountlPost = $request->post('paypalAccount');
+
+			$validData = [
+				'buyerEmail'=>$buyerEmailPost,
+				'password'=>$passwordPost,
+				'paypalAccount'=>$paypalAccountlPost,
+			];
+
+			// $validate = validate('AccountValidate');//助手函数
+			$validate = Loader::validate('AccountValidate');//use \think\Loader;
+			if(!$validate->check($validData)){
+			    // $info = 'validate error';
+			    $info = $validate->getError();
+			}else{
+				// $info = AccountModel::PROCESS_SUCCESS;
+				$info = 'validate success';
+			}
+
+
+			// $buyerEmail = $buyerInfos['buyerEmail'];
+			// $password = $buyerInfos['password'];
+			// $paypalAccount = $buyerInfos['paypalAccount'];
+
+			// if($buyerEmailPost != $buyerEmail){
+
+			// 	$dataEmail = ['buyerEmail'=>$buyerEmailPost];
+			// 	$isExistEmail = $model->checkEmail($dataEmail);
+			// 	if($isExistEmail){
+			// 		$info = AccountModel::PROCESS_FAIDED;
+			// 	}else{
+			// 		if($paypalAccountlPost != $paypalAccount){
+
+			// 		}
+			// 	}
+
+			// }else{
+			// 	$info = AccountModel::PROCESS_SUCCESS;
+			// }
+		}else{
+			// $info = AccountModel::PROCESS_FAIDED;
+			$info = 'error';
+		}
+
+		// halt($buyerInfos);
+		return $info;
 	}
 
 

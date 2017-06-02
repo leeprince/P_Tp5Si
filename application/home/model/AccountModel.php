@@ -23,10 +23,20 @@ class AccountModel extends Model
 	const EMAIL_NO_ACTIVED       = 'This account is not actived';
 	const PASSWORD_NULL          = 'Please fill in your password';
 	
-	/*更新密码常量定义*/
+	/*忘记密码常量定义*/
 	const RESET_SUCCESS          =  'reset-password-success';
 	const RESET_FAILED           =  'reset-password-faild';
-	const RESET_EMAIL_NO_ACTIVED =  'not-actived';
+	const RESET_EMAIL_NO_ACTIVED =  'not-actived';	
+	
+	/*更新账户信息常量定义*/
+	const PROCESS_SUCCESS        = [
+										'error'                      =>0,
+										'errorInfo'                  =>'update-failed'
+	];
+	const PROCESS_FAIDED         = [
+										'error'                      =>1,
+										'errorInfo'                  =>'update-success'
+								   ];
 
 	// 注册_验证IP
 	public function checkIp($data)
@@ -137,6 +147,14 @@ class AccountModel extends Model
 		}
 
 		return $ipIns;
+	}
+
+	//查询buyer个人信息
+	public function findAccount($field,$where)
+	{
+		$rows = Db::name($this->tableName)->field($field)->where($where)->find();
+
+		return $rows;
 	}
 
 }

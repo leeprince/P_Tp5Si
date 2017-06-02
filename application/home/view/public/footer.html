@@ -1,0 +1,28 @@
+<script type="text/javascript" src="//d1hsmfb7yk4dic.cloudfront.net/js/3617/framework-jquery_1_9_1%7Cv5-lib-jquery_migrate_1_4_1"></script>
+<script src="__PUBLIC__/js/imagesloaded.pkgd.min.js"></script>
+<script src="__PUBLIC__/js/jquery.magnific-popup.min.js"></script>
+<script src="__PUBLIC__/js/jquery.wookmark.min.js"></script>
+<script src="__PUBLIC__/js/index.js"></script>
+<script type="text/javascript">
+    $(function() {
+        /**
+         * 移动端账户下拉列表
+         */
+        // 点击导航显示对应的下拉列表
+        $('.J_list').on('click', function() {
+            $('.J_dropDownList').slideToggle('fast');
+            return false;
+        });
+        // 点击空白处隐藏下拉列表
+        $(document).on('click', function() {
+            $('.J_dropDownList').slideUp('fast');
+        });
+        /**
+         * 给导航搜索栏添加隐藏搜索条件
+         */
+        var category = $('#category').val();
+        if(category) {
+            $('.J_category').val(category);
+        }
+    });
+</script>

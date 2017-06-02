@@ -1,13 +1,6 @@
 $(function() {
 
     /**
-     * 浏览器兼容性
-     */
-    if($.browser.msie && $.browser.version < 10){
-        $('body').addClass('ltie10');
-    }
-
-    /**
      * 图片延时加载
      */
     $('img.lazy').lazyload({
@@ -240,8 +233,6 @@ $(function() {
                                     $currentOrder.find('.J_statusSoon').removeClass("hide").siblings().addClass("hide");
 
                                 } else {
-
-                                    // 报错信息
                                     var errorMsg = '';
                                     switch(resp) {
                                         case 'ASIN-WRONG':
@@ -278,6 +269,7 @@ $(function() {
                                         // 显示Reviewed状态下的操作按钮
                                         $currentOrder.find('.J_notReview').removeClass("hide").siblings().addClass("hide").siblings(".J_reenterLink").removeClass("hide").siblings(".J_support").removeClass("hide").siblings(".J_statusInvalidlink").removeClass("hide");
                                     }
+
                                 }
                             }
                         };

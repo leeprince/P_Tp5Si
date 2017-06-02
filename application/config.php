@@ -89,7 +89,7 @@ return [
     // URL参数方式 0 按名称成对解析 1 按顺序解析
     'url_param_type'         => 0,
     // 是否开启路由
-    'url_route_on'           => false,
+    'url_route_on'           => true,
     // 路由使用完整匹配
     'route_complete_match'   => false,
     // 路由配置文件（支持配置多个）

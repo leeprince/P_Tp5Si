@@ -1,12 +1,8 @@
 <?php
 namespace app\home\controller;
 
-// 如果继承了think\Controller类的话，可以直接调用think\View及think\Request类的方法
-// use think\View;
-use \think\Controller;
 
-// class Index
-class Index extends Controller
+class Index extends Base
 {
     public function index()
     {
