@@ -48,8 +48,9 @@
                     </div>
                     <div class="submit-edit clearfix pb20 tl">
                         <span class="submit-edit-header top tr">
-                            <input type="hidden" name="unSubscribe" value="1"/>
-                            <input type="checkbox" name="unSubscribe" checked id="unSubscribe" class="wa vm tr" value="0">
+                            <input type="checkbox" name="unSubscribe" {if condition="$buyerInfos['unSubscribe'] eq '0'"}checked{/if}
+
+}checked id="unSubscribe" class="wa vm tr">
                         </span>
                         <label class="unSubscribe vm" for="unSubscribe">Send me the best deals update to my inbox</label>
                     </div>

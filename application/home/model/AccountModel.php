@@ -30,12 +30,12 @@ class AccountModel extends Model
 	
 	/*更新账户信息常量定义*/
 	const PROCESS_SUCCESS        = [
-										'error'                      =>0,
-										'errorInfo'                  =>'update-failed'
+										'error'=>0,
+										'errorInfo'=>'update-success'
 	];
 	const PROCESS_FAIDED         = [
-										'error'                      =>1,
-										'errorInfo'                  =>'update-success'
+										'error'=>1,
+										'errorInfo'=>'update-failed'
 								   ];
 
 	// 注册_验证IP

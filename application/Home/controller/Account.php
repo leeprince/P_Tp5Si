@@ -387,7 +387,7 @@ class Account extends Controller
 		}else{
 
 			$buyerID = session('BUYERID');
-			$field = ['buyerEmail','profileID','paypalAccount'];
+			$field = ['buyerEmail','profileID','paypalAccount','unSubscribe'];
 			$where = [
 				'buyerID'=>$buyerID,
 			];
@@ -396,7 +396,7 @@ class Account extends Controller
 
 			$this->assign('buyerInfos',$buyerInfos);
 
-			// trace($buyerInfos,'debug');
+			trace($buyerInfos,'debug');
 
 			return $this->fetch();
 		}
@@ -415,18 +415,19 @@ class Account extends Controller
 		$request = Request::instance();
 
 		if($request->isPost()){
-			$model = new AccountModel();
-			$buyerID = session('BUYERID');
-			$field = ['buyerEmail','password','paypalAccount'];
-			$where = [
-				'buyerID'=>$buyerID,
-			];
-
-			$buyerInfos = $model->findAccount($field,$where);
+			// halt($request->post());
 
 			$buyerEmailPost = $request->post('buyerEmail');
 			$passwordPost = $request->post('passwordNew');
+			$encrytionPassword = md5(md5('leeprince').md5($passwordPost));
 			$paypalAccountlPost = $request->post('paypalAccount');
+			$unSubscribe = $request->post('unSubscribe');
+
+			if($unSubscribe == 'on'){
+				$unSubscribe = 0;
+			}else{
+				$unSubscribe = 1;
+			}
 
 			$validData = [
 				'buyerEmail'=>$buyerEmailPost,
@@ -434,39 +435,68 @@ class Account extends Controller
 				'paypalAccount'=>$paypalAccountlPost,
 			];
 
+			// 后台验证
 			// $validate = validate('AccountValidate');//助手函数
 			$validate = Loader::validate('AccountValidate');//use \think\Loader;
-			if(!$validate->check($validData)){
-			    // $info = 'validate error';
-			    $info = $validate->getError();
+			$isValid = $validate->scene('account')->check($validData);
+
+			if($isValid !== true){
+			    // $info = $validate->getError();
+			    $info = AccountModel::PROCESS_FAIDED;
 			}else{
-				// $info = AccountModel::PROCESS_SUCCESS;
-				$info = 'validate success';
+
+				$model = new AccountModel();
+				$buyerID = session('BUYERID');
+				$field = ['buyerEmail'];
+				$where = [
+					'buyerID'=>$buyerID,
+				];
+
+				$buyerInfos = $model->findAccount($field,$where);
+
+				$buyerEmail = $buyerInfos['buyerEmail'];
+
+				$up = [
+					'buyerEmail'=>$buyerEmailPost,
+					'password'=>$encrytionPassword,
+					'paypalAccount'=>$paypalAccountlPost,
+					'unSubscribe'=>$unSubscribe,
+				];
+
+				$where = [
+					'buyerID'=>$buyerID,
+				];
+
+				if($buyerEmailPost != $buyerEmail){
+
+					$dataEmail = ['buyerEmail'=>$buyerEmailPost];
+					$isExistEmail = $model->checkEmail($dataEmail);
+					if($isExistEmail){
+						$info = AccountModel::PROCESS_FAIDED;
+					}else{
+
+						$updateAccount = $model->updateAccount($where,$up);
+
+						$to = 'leeprince_spare@foxmail.com';
+						$cc = "leeprince@foxmail.com";
+						$subject = "P_Thinkphp5 Update Account Is Successful.";
+						$body = "Your old account:$buyerEmailPost\n
+								Your new account:$buyerEmail"
+						    	.config('EMAILABOUNT'); // HTML  tags
+						$emailReturn = send_emial_163($to,$cc,$subject,$body);//163邮箱发送邮件
+
+						session('BUYEREMAIL',$buyerEmailPost);
+						$info = AccountModel::PROCESS_SUCCESS;
+					}
+
+				}else{
+					$updateAccount = $model->updateAccount($where,$up);
+					$info = AccountModel::PROCESS_SUCCESS;
+				}
 			}
 
-
-			// $buyerEmail = $buyerInfos['buyerEmail'];
-			// $password = $buyerInfos['password'];
-			// $paypalAccount = $buyerInfos['paypalAccount'];
-
-			// if($buyerEmailPost != $buyerEmail){
-
-			// 	$dataEmail = ['buyerEmail'=>$buyerEmailPost];
-			// 	$isExistEmail = $model->checkEmail($dataEmail);
-			// 	if($isExistEmail){
-			// 		$info = AccountModel::PROCESS_FAIDED;
-			// 	}else{
-			// 		if($paypalAccountlPost != $paypalAccount){
-
-			// 		}
-			// 	}
-
-			// }else{
-			// 	$info = AccountModel::PROCESS_SUCCESS;
-			// }
 		}else{
-			// $info = AccountModel::PROCESS_FAIDED;
-			$info = 'error';
+			$info = AccountModel::PROCESS_FAIDED;
 		}
 
 		// halt($buyerInfos);
