@@ -310,6 +310,7 @@ class Account extends Controller
 		return $check;
 	}
 
+	// 登录_检查帐号Email
 	public function loginCheckAccount()
 	{
 		$request = Request::instance();
@@ -409,7 +410,7 @@ class Account extends Controller
 		$this->redirect('signin');
 	}
 
-	// 更新buyer信息
+	// 更新buyer信息:leeprince=>encrytionPassword:b45e33cc19f157f6722dc5812ef91eb2
 	public function updateAccount()
 	{
 		$request = Request::instance();

@@ -1,7 +1,3 @@
-<!-- <html>
-    <h1>Hollo Word ..</h1>
-    <h2>{$Think.session.BUYERID}</h2>
-</html> -->
 <!DOCTYPE html>
 <html data-path="/" lang="en">
 <head>
@@ -21,8 +17,44 @@
     <include file="Index/detect-gt-ie9" />
 </head>
 <body>
+<!--账户session-->
+<input type="hidden" id="buyerid" name="buyerid" value="{$Think.session.BUYERID}"/>
+<!--产品数据加载接口-->
+<input type="hidden" id="productUrl" name="productUrl" value="{:url('show')}"/>
+<!--产品详情接口-->
+<input type="hidden" id="productDetailUrl" name="productDetailUrl" value="{:url('product')}"/>
+
 {include file="public/naver"}
+<div id="mainContent" class="pb300">
+    <div class="contentContainer container mt50">
+        <h1 class="J_pageTitle pageTitle"><span>Amazon Free Samples For Your Reviews <a href="{//:U('Index/introduce')}" class='howITwork'>How it work?</a></span></h1>
+    </div>
+    <!--产品列表-->
+    <div id="container" class="contentContainer container pr"></div>
+    <div id="loading-info" class="tc pb20 fb fs16 pr" style="display:none"><i class="inblo mr5 pr loading-box"><span class="iconfont fs18 fn pa animate-rotate">&#xe67c;</span></i><b>&nbsp;Loading more products ...</b></div>
+</div>
 
 {include file="public/footer"}
+<script src="https://cdn.bootcss.com/layer/2.4/layer.min.js"></script>
+<script src="__PUBLIC__/js/jquery.lazyload.min.js"></script>
+<script src="__PUBLIC__/js/product.js"></script>
+<script type="text/javascript">
+    (function($) {
+        /**
+         * 瀑布流wookmark
+         */
+        // Prepare layout options.
+        var options = {
+            align: "center",
+            itemWidth: 120, // Optional min width of a grid item
+            autoResize: true, // This will auto-update the layout when the browser window is resized.
+            container: $('#container'), // Optional, used for some extra CSS styling
+            offset: 10, // Optional, the distance between grid items
+            outerOffset: 10, // Optional the distance from grid to parent
+            flexibleWidth: 185 // Optional, the maximum width of a grid item
+        };
+        waterfall(options);
+    })(jQuery);
+</script>
 </body>
 </html>
