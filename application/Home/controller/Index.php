@@ -31,7 +31,6 @@ class Index extends Base
         $page = $request->post('page',1);
         $filter = $request->post('cond','orderDate');
         $data = [
-            'onePageNum'=>10,
             'page'=>$page,
             'filter'=>$filter,
         ];

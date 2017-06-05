@@ -35,7 +35,7 @@ class IndexModel extends Model
 	// 首页查找所有产品,不排除dailylimit,totallimit,requestLimit
 	public function findAllProduct($data)
 	{
-		$onePageNum = $data['onePageNum'];
+		$onePageNum = 10;
 		$pageNum = $data['page'];
 		$filter = $data['filter'];
 
