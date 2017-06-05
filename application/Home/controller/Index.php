@@ -21,9 +21,23 @@ class Index extends Base
 
     }
 
-    // 加载出首页产品
+    // 加载首页产品
     public function show()
     {
+        $request = Request::instance();
+        $model = new IndexModel();
+
+        $page = $request->post('page',1);
+        $filter = $request->post('cond','orderDate');
+        $data = [
+            'onePageNum'=>10,
+            'page'=>$page,
+            'filter'=>$filter,
+        ];
+        $allProduct = $model->findAllProduct($data);
+
+
+
         
     }
 
