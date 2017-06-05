@@ -43,7 +43,7 @@ class IndexModel extends Model
 		$currentDate = date('Y-m-d H:i:s');
 		$filter = self::getFilter($filter);
 
-		$findAllProductField = [
+		$fieldFind = [
 				'o.orderID',
 				'o.price',
 				'l.listingName',
@@ -51,24 +51,24 @@ class IndexModel extends Model
 				'l.photo'
 		];
 
-		$findAllProductJoin = [
-				['__LISTING__ l','l.ASIN=0.ASIN'],
+		$joinFind = [
+				['__LISTING__ l','l.ASIN=o.ASIN'],
 				['__SELLER__ s','s.sellerID=o.sellerID'],
-				['__CATEGORY__ c','c.ca=l.categoryID']
+				['__CATEGORY__ c','c.categoryID=l.categoryID']
 		];
 
-		$findAllProductWhere = [
+		$WhereFind = [
 				'o.endDate'=>['>=',$currentDate],
 				's.endDate'=>['>=',$currentDate],
-				's.status'=>'active',
+				'o.status'=>'active',
 				's.balance'=>['>',0]
 		];
 
 		$orderList = Db::name($this->tableNameOrder)
 					->alias('o')
-					->field($findAllProductField)
-					->join($findAllProductJoin)
-					->where($findAllProductWhere)
+					->field($fieldFind)
+					->join($joinFind)
+					->where($WhereFind)
 					->order($filter)
 					->limit($orderIdStarted,$onePageNum)
 					->select();

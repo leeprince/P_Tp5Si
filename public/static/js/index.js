@@ -313,7 +313,7 @@ $(document).ready(function() {
                     skip_invisible : false,
 
                     // placeholder,值为某一图片路径.此图片用来占据将要加载的图片的位置,待图片加载时,占位图则会隐藏
-                    placeholder : "/Public/images/ajax-loading.gif", //用图片提前占位
+                    placeholder : "/static/images/ajax-loading.gif", //用图片提前占位
 
                     // effect(特效),值有show(直接显示),fadeIn(淡入),slideDown(下拉)等,常用fadeIn
                     effect: "fadeIn", // 载入使用何种效果
@@ -371,6 +371,7 @@ function waterfall(options, condition) {
 
     // ajax成功回调函数
     function onLoadData(resp) {
+        console.log(resp);
         if(resp.error == 0) {
             isLoading = false;
             $loadingInfo.hide();
@@ -390,7 +391,7 @@ function waterfall(options, condition) {
         $('img.lazy').lazyload({
 
             // placeholder,值为某一图片路径.此图片用来占据将要加载的图片的位置,待图片加载时,占位图则会隐藏
-            placeholder : "/Public/images/ajax-loading.gif", //用图片提前占位
+            placeholder : "/static/images/ajax-loading.gif", //用图片提前占位
 
             // effect(特效),值有show(直接显示),fadeIn(淡入),slideDown(下拉)等,常用fadeIn
             effect: "fadeIn", // 载入使用何种效果
@@ -413,7 +414,7 @@ function waterfall(options, condition) {
     function loadAjax(msg) {
         var productDetailUrl = $('#productDetailUrl').val();
         $.each(msg, function(i,item){
-            var content = '<div class="J_itemTile item itemTile bounceIn animated animate-delay-05 animate-name-bounceIn"><div class="itemImg hasWhiteBG"><a href="'+ productDetailUrl + '?orderid=' + item.orderid +  '" class="J_listingDetail listing-detail img-auto"><img class="lazy" data-original="' + item.smallphoto + '"  alt="" ></a></div><div class="itemContent"><div class="itemTitle"><div class="tileDealPrice"><span class="currentPrice">Free </span><span class="originalPrice">￡' + item.price + '</span></div><a href="'+ productDetailUrl + '?orderid=' + item.orderid + '" class="listing-detail">' + item.listingname + '</a></div></div></div>';
+            var content = '<div class="J_itemTile item itemTile bounceIn animated animate-delay-05 animate-name-bounceIn"><div class="itemImg hasWhiteBG"><a href="'+ productDetailUrl + '?orderid=' + item.orderID +  '" class="J_listingDetail listing-detail img-auto"><img class="lazy" data-original="' + item.smallPhoto + '"  alt="" ></a></div><div class="itemContent"><div class="itemTitle"><div class="tileDealPrice"><span class="currentPrice">Free </span><span class="originalPrice">￡' + item.price + '</span></div><a href="'+ productDetailUrl + '?orderid=' + item.orderid + '" class="listing-detail">' + item.listingName + '</a></div></div></div>';
             $('#container').append(content);
         });
     }

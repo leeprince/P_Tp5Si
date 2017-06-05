@@ -8,7 +8,7 @@ $(function() {
         skip_invisible : false,
 
         // placeholder,值为某一图片路径.此图片用来占据将要加载的图片的位置,待图片加载时,占位图则会隐藏
-        placeholder : "/Public/images/ajax-loading.gif", //用图片提前占位
+        placeholder : "/static/images/ajax-loading.gif", //用图片提前占位
 
         // effect(特效),值有show(直接显示),fadeIn(淡入),slideDown(下拉)等,常用fadeIn
         effect: "fadeIn", // 载入使用何种效果

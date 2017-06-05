@@ -2,6 +2,7 @@
 namespace app\home\controller;
 
 use \think\Request;
+use app\home\model\IndexModel;
 
 class Index extends Base
 {
@@ -35,12 +36,27 @@ class Index extends Base
             'filter'=>$filter,
         ];
         $allProduct = $model->findAllProduct($data);
-
-
-
+        if($allProduct){
+            $result = [
+                'error'=>0,
+                'data'=>$allProduct
+            ];
+        }else{
+            $result = [
+                'error'=>1,
+                'errorInfo'=>'查询失败'
+            ];
+        }
+        return $result;
         
     }
 
+    // 加载点击图片的产品详情
+    public function product()
+    {
+
+        return $this->fetch();
+    }
 
 
 
