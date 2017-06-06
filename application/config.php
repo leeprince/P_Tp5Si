@@ -171,8 +171,8 @@ return [
         // 日志保存目录
         'path'  => LOG_PATH,
         // 日志记录级别
-        // 'level' => ['error','log','notice','info','debug','sql'],
-        'level' => ['error','log','sql'],
+        // 'level' => ['info','notice','error','sql','debug','log'],
+        'level' => ['error','notice','sql','debug','log'],
     ],
 
     // +----------------------------------------------------------------------
@@ -185,9 +185,9 @@ return [
             'base'=>'基本',
             'file'=>'文件',
             'info'=>'流程',
-            'error'=>'错误',
+            'error|notice'=>'错误',
             'sql'=>'SQL',
-            'debug'=>'调试',
+            'debug|log'=>'调试',
         ]
 
     ],

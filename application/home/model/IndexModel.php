@@ -10,6 +10,8 @@ class IndexModel extends Model
 
 	protected $tableNameRequest = 'request';
 
+	protected $tableNameRequestLimt = 'request_limit';
+
 	static $joinFind = [
 			['__LISTING__ l','l.ASIN=o.ASIN'],
 			['__SELLER__ s','s.sellerID=o.sellerID'],
@@ -83,6 +85,7 @@ class IndexModel extends Model
 				$fieldO = [
 					'dailyLimit',
 					'totalLimit',
+					'sellerID',
 				];
 				$whereO = [
 					'orderID' => $orderID,
@@ -91,18 +94,43 @@ class IndexModel extends Model
 				$orderInfo = $this->fromOrderIdO($fieldO,$whereO);
 				$dailyLimit = $orderInfo['dailyLimit'];
 				$totalLimit = $orderInfo['totalLimit'];
+				$sellerID = $orderInfo['sellerID'];
+				$buyerID = session('BUYERID');
 
-				$fieldR = [];
+				$whereAllR = [
+					'orderID'=>$orderID,
+					'status'=>['in',['taken','verifyFail','reviewed','error','rebated']],
+				];
+				
+				// 查找该 orderID 历史共有多少个请求 requestID
+				$requestAllNum = $this->fromOrderIdR($whereAllR);
+
 				$whereR = [
 					'orderID'=>$orderID,
 					'status'=>['in',['taken','verifyFail','reviewed','error','rebated']],
 					'date'=>$today
 				];
 				
-				$requestNum = $this->fromOrderIdR($fieldR,$whereR);
+				// 查找该 orderID 当天共有多少个请求 requestID
+				$requestDayNum = $this->fromOrderIdR($whereR);
+
+				// 根据 sellerID 在request_limit 表中确定登录状态的 buyerID是否被该卖家举报
+				$whereLimit = [
+					'sellerID'=>$sellerID,
+					'buyerID'=>$buyerID,
+				];
+
+				$isReport = $this->limitRequest($whereLimit);
+
+				if(($requestDayNum >= $dailyLimit) || ($requestAllNum >= $totalLimit) || ($isReport > 0)){
+					unset($orderList[$key]);
+				}
 
 			}
 		}
+
+		// 使用日志记录的助手函数进行调试; 可在config.php 配置文件中配置日志级别
+		trace("requestAllNum>>$requestAllNum |　requestDayNum>>$requestDayNum",'debug');
 
 		return $orderList;
 	}
@@ -116,9 +144,17 @@ class IndexModel extends Model
 	}
 
 	// 根据订单ID orderID 查找 requst 请求个数
-	public function fromOrderIdR($field,$where)
+	public function fromOrderIdR($where)
 	{
-		$num = Db::name($this->tableNameRequest)->field($field)->where($where)->count('requestID');
+		$num = Db::name($this->tableNameRequest)->where($where)->count('requestID');
+
+		return $num;
+	}
+
+	// 根据 sellerID 在request_limit 表中确定登录状态的 buyerID是否被该卖家举报
+	public function limitRequest($where)
+	{
+		$num = Db::name($this->tableNameRequestLimt)->where($where)->count('limitID');
 
 		return $num;
 	}
