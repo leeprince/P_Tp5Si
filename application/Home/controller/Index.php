@@ -43,7 +43,7 @@ class Index extends Base
         }else{
             $result = [
                 'error'=>1,
-                'errorInfo'=>'查询失败'
+                'errorInfo'=>'Query Failed.'
             ];
         }
         return $result;
