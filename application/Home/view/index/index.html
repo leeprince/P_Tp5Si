@@ -14,17 +14,21 @@
     <link rel="stylesheet" href="__PUBLIC__/css/magnific-popup.css">
     <link rel="stylesheet" href="__PUBLIC__/css/main.css">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index.css">
-    <include file="Index/detect-gt-ie9" />
+    {include file="public/detect-gt-ie9" /}
 </head>
 <body>
 <!--账户session-->
 <input type="hidden" id="buyerid" name="buyerid" value="{$Think.session.BUYERID}"/>
-<!--产品数据加载接口-->
-<input type="hidden" id="productUrl" name="productUrl" value="{:url('show')}"/>
-<!--产品详情接口-->
-<input type="hidden" id="productDetailUrl" name="productDetailUrl" value="{:url('product')}"/>
 
-{include file="public/naver"}
+<!--产品数据加载接口-->
+<input type="hidden" id="productUrl" name="productUrl" value="{:url('allProduct')}"/>
+
+<!--产品详情接口-->
+<input type="hidden" id="productDetailUrl" name="productDetailUrl" value="{:url('productDetail')}"/>
+
+<!-- 头部公共导航栏 -->
+{include file="public/naver"/}
+
 <div id="mainContent" class="pb300">
     <div class="contentContainer container mt50">
         <h1 class="J_pageTitle pageTitle"><span>Amazon Free Samples For Your Reviews <a href="{//:U('Index/introduce')}" class='howITwork'>How it work?</a></span></h1>
@@ -34,7 +38,9 @@
     <div id="loading-info" class="tc pb20 fb fs16 pr" style="display:none"><i class="inblo mr5 pr loading-box"><span class="iconfont fs18 fn pa animate-rotate">&#xe67c;</span></i><b>&nbsp;Loading more products ...</b></div>
 </div>
 
+<!-- 底部公共导航 -->
 {include file="public/footer"}
+
 <script src="https://cdn.bootcss.com/layer/2.4/layer.min.js"></script>
 <script src="__PUBLIC__/js/jquery.lazyload.min.js"></script>
 <script src="__PUBLIC__/js/product.js"></script>

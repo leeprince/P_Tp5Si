@@ -1,6 +1,6 @@
 <?php
 // 配置文件
-// 开发过程修改的静态资源文件:signin.css;signin.js;
+// thinkphp3=>thinkphp5 开发过程修改的静态资源文件[修改的内容:/static/;数据库输出的字段大小写]:signin.css;signin.js;index.js;product.js
 return [
 	'DOMAINNAME'            => 'P_SI',
 	'DOMAINLOGO'            => '/images/art-logo_us.png',

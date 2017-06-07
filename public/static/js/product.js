@@ -39,7 +39,7 @@ function requestCoupon(obj) {
                 $this.find('i').show();
             },
             success: function(resp) {
-                //console.log(resp);
+                console.log(resp);
                 // 隐藏等待提示
                 $this.find('i').hide();
                 $('.J_requestMsg').html(resp);

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html data-path="/" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Amazon Free Samples</title>
+    <meta name="description" content="Amazon Free Samples">
+    <meta name="keywords" content="coupon codes, deals, promo codes, printable coupons">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no">
+    <link rel="shortcut icon" sizes="57x57" href="__PUBLIC__/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" sizes="192x192" href="__PUBLIC__/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="__PUBLIC__/images/favicon.ico">
+    <link rel="stylesheet" href="__PUBLIC__/css/animate.min.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/normalize.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/main.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/index.css">
+    <include file="Index/detect-gt-ie9" />
+</head>
+<body>
+<!--账户session-->
+<input type="hidden" id="buyerid" name="buyerid" value="{$Think.session.BUYERID}"/>
+
+<!--requet coupon接口-->
+<input type="hidden" id="couponUrl" name="couponUrl" value="{:url('requestDeal')}"/>
+
+<!-- 头部公共导航栏 -->
+{include file="public/naver"}
+
+<div id="mainContent">
+    <div class="contentContainer container productContainer pr mt50">
+        <article class="post">
+            <!-- 商品详情页 -->
+            <main>
+                <section class="info">
+                    <h1>{$products.listingName}</h1>
+                    <p class="rank pb15 typo-fbyellow">
+                        {if condition="($products.reviewRank lt 0.2) OR ($products.reviewRank eq '')"}
+                            <i class="iconfont fs16 ">&#xe667;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i>
+                        {elseif condition="($products.reviewRank egt 0.3) AND ($products.reviewRank lt 0.7)"/}
+                            <i class="iconfont fs16 ">&#xe603;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i>
+                        {elseif condition="($products.reviewRank egt 0.7) AND ($products.reviewRank lt 1.2)"/}
+                            <i class="iconfont fs16 ">&#xe668;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i>
+                        {elseif condition="($products.reviewRank egt 1.2) AND ($products.reviewRank lt 1.7)"/}
+                            <i class="iconfont fs16 ">&#xe668;</i><i class="iconfont fs16">&#xe603;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i>
+                        {elseif condition="($products.reviewRank egt 1.7) AND ($products.reviewRank lt 2.2)"/}
+                            <i class="iconfont fs16 ">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i>
+                        {elseif condition="($products.reviewRank egt 2.2) AND ($products.reviewRank lt 2.7)"/}
+                            <i class="iconfont fs16 ">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe603;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i>
+                        {elseif condition="($products.reviewRank egt 2.7) AND ($products.reviewRank lt 3.2)"/}
+                            <i class="iconfont fs16 ">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe667;</i><i class="iconfont fs16">&#xe667;</i>
+                        {elseif condition="($products.reviewRank egt 3.2) AND ($products.reviewRank lt 3.7)"/}
+                            <i class="iconfont fs16 ">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe603;</i><i class="iconfont fs16">&#xe667;</i>
+                        {elseif condition="($products.reviewRank egt 3.7) AND ($products.reviewRank lt 4.2)"/}
+                            <i class="iconfont fs16 ">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe667;</i>
+                        {elseif condition="($products.reviewRank egt 4.2) AND ($products.reviewRank lt 4.7)"/}
+                            <i class="iconfont fs16 ">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe603;</i>
+                        {elseif condition="($products.reviewRank egt 4.7) AND ($products.reviewRank elt 5)"/}
+                            <i class="iconfont fs16 ">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe668;</i><i class="iconfont fs16">&#xe668;</i>
+                        {/if}
+                    </p>
+                    <div id="mainImage">
+                        <a href="http://www.amazon.com/dp/{$products.ASIN}" rel="nofollow" target="_blank">
+                            <img class="lazy animated bounceIn" data-original="{$products.photo}" alt="">
+                        </a>
+                    </div>
+                    <div class="howTo">
+                        <ul class="howToContent">
+                            <li>{$products.feature0}</li>
+                            <li>{$products.feature1}</li>
+                            <li>{$products.feature2}</li>
+                            <li>{$products.feature3}</li>
+                            <li>{$products.feature4}</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+            <!-- 商品外链分享页 -->
+            <aside class="bounceInRight animated animation-delay-05 animation-name-bounceInRight">
+                <section>
+                    <div class="dealPrice">Deal Price: Free</div>
+                    <div class="amazonPrice">Amazon Price: <span class="tdlt">${$products.price}</span></div>
+                    <div class="shipPrice">Shipping:
+                        <if condition="$products.fulfillment eq FBA">
+                            <img align="absmiddle" src="__PUBLIC__/images/prime.png" alt="" width="58" height="17"/>
+                            <else/>
+                            Seller
+                        </if>
+                    </div>
+                    <a href="http://www.amazon.com/dp/{$products.ASIN}" rel="nofollow" target="_blank" class="lightPurpleButton seeIt">Open in Amazon</a>
+                    <a type="button" id="requestCoupon" onclick="requestCoupon(this)" class="lightPurpleButton seeIt requestcc hand pr" data-orderID="{$products['orderID']}"><i class="inblo mr5 pr loading-box" style="display:none"><span class="iconfont fs14 fn pa animate-rotate">&#xe67c;</span></i>Apply free sample</a>
+                    <div class="J_requestMsg requestMsg result seeIt"></div>
+                </section>
+            </aside>
+        </article>
+    </div>
+</div>
+
+<!-- 底部公共导航 -->
+{include file="public/footer"}
+
+<script src="__PUBLIC__/js/jquery.lazyload.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.4/layer.min.js"></script>
+<script src="__PUBLIC__/js/product.js"></script>
+</body>
+</html>

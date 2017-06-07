@@ -172,15 +172,16 @@ return [
         'path'  => LOG_PATH,
         // 日志记录级别
         // 'level' => ['info','notice','error','sql','debug','log'],
-        'level' => ['error','notice','sql','debug','log'],
+        // 'level' => ['error','notice','sql','debug','log'],
+        'level' => ['error','debug','log'],
     ],
 
     // +----------------------------------------------------------------------
     // | Trace设置 开启 app_trace 后 有效
     // +----------------------------------------------------------------------
     'trace'                  => [
-        // 内置 Html Console 支持扩展
-        'type' => 'Html',
+        // 内置 html console 支持扩展
+        'type' => 'html',
         'trace_tabs' =>  [
             'base'=>'基本',
             'file'=>'文件',

@@ -12,10 +12,17 @@ class IndexModel extends Model
 
 	protected $tableNameRequestLimt = 'request_limit';
 
+	// 查找首页全部产品的 join 数组形式的静态属性
 	static $joinFind = [
 			['__LISTING__ l','l.ASIN=o.ASIN'],
 			['__SELLER__ s','s.sellerID=o.sellerID'],
 			['__CATEGORY__ c','c.categoryID=l.categoryID']
+	];
+
+	// 查找产品详情的 join 数组形式的静态属性
+	static $joinDetail = [
+			['__LISTING__ l','l.ASIN=o.ASIN'],
+			['__STORE__ s','s.storeID=o.storeID'],
 	];
 
 	// 首页排序规则
@@ -40,7 +47,7 @@ class IndexModel extends Model
 	// 首页查找所有产品,不排除dailylimit,totallimit,requestLimit
 	public function findAllProduct($data)
 	{
-		$onePageNum = 10;
+		$onePageNum = 20;
 		$pageNum = $data['page'];
 		$filter = $data['filter'];
 
@@ -65,11 +72,11 @@ class IndexModel extends Model
 				's.balance'=>['>',0]
 		];
 
-		$joinFind = self::$joinFind;
+		$join = self::$joinFind;
 		$orderList = Db::name($this->tableNameOrder)
 					->alias('o')
 					->field($fieldFind)
-					->join($joinFind)
+					->join($join)
 					->where($whereFind)
 					->order($filter)
 					->limit($orderIdStarted,$onePageNum)
@@ -108,7 +115,7 @@ class IndexModel extends Model
 				$whereR = [
 					'orderID'=>$orderID,
 					'status'=>['in',['taken','verifyFail','reviewed','error','rebated']],
-					'date'=>$today
+					"DATE_FORMAT(`date`,'%Y-%m-%d')"=>$today,
 				];
 				
 				// 查找该 orderID 当天共有多少个请求 requestID
@@ -130,12 +137,12 @@ class IndexModel extends Model
 		}
 
 		// 使用日志记录的助手函数进行调试; 可在config.php 配置文件中配置日志级别
-		trace("requestAllNum>>$requestAllNum |　requestDayNum>>$requestDayNum",'debug');
+		// trace("requestAllNum>>$requestAllNum |　requestDayNum>>$requestDayNum",'debug');
 
 		return $orderList;
 	}
 
-	// 根据订单ID orderID 查找订单相关信息
+	// 根据订单ID orderID 在 order 表查找产品相关信息
 	public function fromOrderIdO($field,$where)
 	{
 		$list = Db::name($this->tableNameOrder)->field($field)->where($where)->find();
@@ -155,6 +162,38 @@ class IndexModel extends Model
 	public function limitRequest($where)
 	{
 		$num = Db::name($this->tableNameRequestLimt)->where($where)->count('limitID');
+
+		return $num;
+	}
+
+	// 根据 orderID 在order,listing,store表中联查出产品相关信息
+	public function oneProduct($orderID)
+	{
+		$field = [
+			'o.orderID',
+			'o.ASIN',
+			'o.price',
+			'l.photo',
+			'l.listingName',
+			'l.description',
+			'l.feature0',
+			'l.feature1',
+			'l.feature2',
+			'l.feature3',
+			'l.feature4',
+			'l.reviewRank',
+		];
+		$join = self::$joinDetail;
+		$where = [
+			'o.orderID'=>$orderID,
+			'o.status'=>'active',
+		];
+		$num = Db::name($this->tableNameOrder)
+			 ->alias('o')
+			 ->field($field)
+			 ->join($join)
+			 ->where($where)
+			 ->find();
 
 		return $num;
 	}

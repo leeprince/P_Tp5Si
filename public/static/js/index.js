@@ -342,12 +342,16 @@ function waterfall(options, condition) {
     var isLoading = false;
     var $loadingInfo = $('#loading-info');
 
-    // 滚动到底部时，加载更多
+    // 滚动页面时 ,触发 loadData() 且page++ 加载下一页的产品.
     function onScroll() {
         // Only check when we're not still waiting for data.
         if(!isLoading) {
-            // Check if we're within 100 pixels of the bottom edge of the broser window.
-            var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 500);
+            // 滚动到窗口一半时触发函数 loadData()
+            var closeToBottom = ($(window).scrollTop() >= $(document).height() -$(window).height() - 500);
+
+            // 滚动到窗口底部时触发函数 loadData()
+            // var closeToBottom = ($(window).scrollTop() >= $(document).height() -$(window).height());
+
             if(closeToBottom) {
                 loadData(condition);
             }
@@ -363,6 +367,7 @@ function waterfall(options, condition) {
         params.page = page;
         $.ajax({
             url: productUrl,  // 加载产品列表后台接口
+            type: 'post',
             dataType: 'json',
             data: params, // Page parameter to make sure we load new data
             success: onLoadData
@@ -414,7 +419,7 @@ function waterfall(options, condition) {
     function loadAjax(msg) {
         var productDetailUrl = $('#productDetailUrl').val();
         $.each(msg, function(i,item){
-            var content = '<div class="J_itemTile item itemTile bounceIn animated animate-delay-05 animate-name-bounceIn"><div class="itemImg hasWhiteBG"><a href="'+ productDetailUrl + '?orderid=' + item.orderID +  '" class="J_listingDetail listing-detail img-auto"><img class="lazy" data-original="' + item.smallPhoto + '"  alt="" ></a></div><div class="itemContent"><div class="itemTitle"><div class="tileDealPrice"><span class="currentPrice">Free </span><span class="originalPrice">￡' + item.price + '</span></div><a href="'+ productDetailUrl + '?orderid=' + item.orderid + '" class="listing-detail">' + item.listingName + '</a></div></div></div>';
+            var content = '<div class="J_itemTile item itemTile bounceIn animated animate-delay-05 animate-name-bounceIn"><div class="itemImg hasWhiteBG"><a href="'+ productDetailUrl + '?orderid=' + item.orderID +  '" class="J_listingDetail listing-detail img-auto"><img class="lazy" data-original="' + item.smallPhoto + '"  alt="" ></a></div><div class="itemContent"><div class="itemTitle"><div class="tileDealPrice"><span class="currentPrice">Free </span><span class="originalPrice">$' + item.price + '</span></div><a href="'+ productDetailUrl + '?orderid=' + item.orderID + '" class="listing-detail">' + item.listingName + '</a></div></div></div>';
             $('#container').append(content);
         });
     }
