@@ -51,15 +51,52 @@
          */
         // Prepare layout options.
         var options = {
-            align: "center",
-            itemWidth: 120, // Optional min width of a grid item
-            autoResize: true, // This will auto-update the layout when the browser window is resized.
-            container: $('#container'), // Optional, used for some extra CSS styling
-            offset: 10, // Optional, the distance between grid items
-            outerOffset: 10, // Optional the distance from grid to parent
-            flexibleWidth: 185 // Optional, the maximum width of a grid item
+                align: "center",
+                itemWidth: 120, // Optional min width of a grid item
+                autoResize: true, // This will auto-update the layout when the browser window is resized.
+                container: $('#container'), // Optional, used for some extra CSS styling
+                offset: 10, // Optional, the distance between grid items
+                outerOffset: 10, // Optional the distance from grid to parent
+                flexibleWidth: 185 // Optional, the maximum width of a grid item
         };
-        waterfall(options);
+
+
+        filterValue = '<?php echo $filterValue = (isset($_GET['cond']))?$_GET['cond']:'';?>';//利用php 原生语法获取url链接的参数
+        // filterValue = getQueryString('cond');//index.js 里面的方法:获取url链接中的的参数
+
+        categoryValue = '<?php echo $filterValue = (isset($_GET['ca']))?$_GET['ca']:'';?>';
+
+        console.log('filterValue',filterValue,'categoryValue',categoryValue);
+
+        if(filterValue !== '' && categoryValue === ''){
+            condition = {
+                cond: filterValue,
+            };
+
+            console.log('waterfall_1');
+            waterfall(options,condition);
+        }else if(filterValue === '' && categoryValue !== ''){
+            condition = {
+                ca: categoryValue,
+            };
+
+            console.log('waterfall_2');
+            waterfall(options,condition);
+        }else if(filterValue !== '' && categoryValue !== ''){
+            condition = {
+                cond: filterValue,
+                ca: categoryValue,
+            };
+
+            console.log('waterfall_3');
+            waterfall(options,condition);
+        }else{
+            condition = 'undefined';
+
+            console.log('waterfall_4');
+            waterfall(options);
+        }
+        
     })(jQuery);
 </script>
 </body>

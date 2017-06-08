@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Amazon Free Samples</title>
+    <meta name="description" content="Amazon Free Samples">
+    <meta name="keywords" content="coupon codes, deals, promo codes, printable coupons">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no">
+    <link rel="shortcut icon" sizes="57x57" href="__PUBLIC__/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" href="__PUBLIC__/images/favicon.ico">
+    <link rel="icon" sizes="192x192" href="__PUBLIC__/images/favicon.ico">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/css/normalize.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/main.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/index.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/contact.css">
+    {include file="public/detect-gt-ie9" /}
+</head>
+<body>
+{include file="public/naver" /}
+<div class="header-t"></div>
+<!--联系我们-->
+<div class="container pt50 pb50" >
+    <div class="contact-box row">
+        <div class="col-sm-12">
+            <form id="form-contact" action="" method="post">
+                <fieldset>
+                    <legend class="hide">联系我们表单</legend>
+                    <div class="col-sm-12"><label for="name">Your Name (required):</label></div>
+                    <div class="col-sm-12">
+                        <input id="name" class="form-control pl10 pr10" placeholder="Name" name="name"/>
+                    </div>
+                    <div class="col-sm-12 mt15"><label for="email">Your Email (required):</label></div>
+                    <div class="col-sm-12">
+                        <input id="email" class="form-control pl10 pr10" placeholder="Email" name="email" value="{$Think.session.BUYEREMAIL}" />
+                    </div>
+                    <div class="col-sm-12 mt15"><label for="subject">Subject:</label></div>
+                    <div class="col-sm-12">
+                        <input id="subject" class="form-control pl10 pr10" placeholder="Subject" name="subject"/>
+                    </div>
+                    <div class="col-sm-12 mt15"><label for="request">Request ID(optional):</label></div>
+                    <div class="col-sm-12">
+                        <input id="subject" class="form-control pl10 pr10" placeholder="request ID" name="request"/>
+                    </div>
+                    <div class="col-sm-12 mt15"><label for="message">Message:</label></div>
+                    <div class="col-sm-12">
+                        <textarea id="message" class="form-control rn pl10 pr10"  name="message" rows="8" placeholder="Write your messages..."></textarea>
+                    </div>
+                    <div class="col-sm-12">
+                        <input type="submit" class="btn typo-white purpleButton pull-right mt15" value="submit" />
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+<script src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.form/3.51/jquery.form.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        // 联系我们验证
+        $('#form-contact').validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 2
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                subject: {
+                    required: true,
+                    minlength: 6
+                },
+                message: {
+                    required: true,
+                    minlength: 10
+                }
+            },
+            messages: {
+                name: {
+                    required: "Please fill in your name",
+                    minlength: $.validator.format("The message at least {0} characters")
+                },
+                email: {
+                    required: "Please fill in your Email",
+                    email: "Invalid Email Format"
+                },
+                subject: {
+                    required: "Please fill in your subject",
+                    minlength: $.validator.format("The message at least {0} characters")
+                },
+                message: {
+                    required: "Please fill in the message",
+                    minlength: $.validator.format("The message at least {0} characters")
+                }
+            },
+            focusInvalid:false,                            // 取消验证时未通过验证元素获取焦点
+            onkeyup: false,                                // 取消keyup时验证
+            focusCleanup:true,                             // 未通过验证元素获取焦点时，移除错误提示
+            errorClass: "error error-contact is-visible",   // 自定义错误样式
+            submitHandler: function(form){
+                form.submit();
+            }
+        });
+    });
+</script>
+</body>
+</html>

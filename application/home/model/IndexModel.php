@@ -43,19 +43,53 @@ class IndexModel extends Model
 		return $filter;
 	}
 
+	// 首页选择分类
+	static private function getCategory($ca)
+	{
+		switch($ca){
+			case 'fashion':
+				$category = 'l.categoryID in (2,3,20,23,30)';
+				break;
+			case 'electronic':
+				$category = 'l.categoryID in (7,8,9,12,14,16,17,18,27,29)';
+				break;
+			case 'sports':
+				$category = 'l.categoryID in (19,21)';
+				break;
+			case 'home':
+				$category = 'l.categoryID in (1,6,11,12,15,16,22)';
+				break;
+			case 'momBaby':
+				$category = 'l.categoryID in (13,25)';
+				break;
+			case 'health':
+				$category = 'l.categoryID = 5';
+				break;
+		}
+
+		return $category;
+	}
+
 
 	// 首页查找所有产品,不排除dailylimit,totallimit,requestLimit
 	public function findAllProduct($data)
 	{
-		$onePageNum = 20;
+		$onePageNum = 10;
 		$pageNum = $data['page'];
 		$filter = $data['filter'];
+		$ca = $data['ca'];
 
 		$orderIdStarted = ($pageNum-1)*$onePageNum;
 		$currentDate = date('Y-m-d H:i:s');
 
 		// $filter = $this->getFilter($filter);//private function getFilter($filter)
 		$filter = self::getFilter($filter);//static private function getFilter($filter) .this->getFilter($filter)也可以调用该方法,不过这不是验证静态方法访问方式
+
+		if(!empty($ca)){
+			$whereCate = self::getCategory($ca);
+		}else{
+			$whereCate = 1;
+		}
 
 		$fieldFind = [
 				'o.orderID',
@@ -78,6 +112,7 @@ class IndexModel extends Model
 					->field($fieldFind)
 					->join($join)
 					->where($whereFind)
+					->where($whereCate)
 					->order($filter)
 					->limit($orderIdStarted,$onePageNum)
 					->select();

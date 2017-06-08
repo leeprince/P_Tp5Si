@@ -31,11 +31,14 @@ class Index extends Base
         if($request->isPost()){
             $page = $request->post('page/d',1);
             $filter = $request->post('cond','orderDate');
-            // trace("leeprince page>>$page|filter>>$filter",'debug');
+            $ca = $request->post('ca');
+
+            trace("leeprince page>>$page|filter>>$filter|ca>>$ca",'debug');
 
             $data = [
                 'page'=>$page,
                 'filter'=>$filter,
+                'ca'=>$ca,
             ];
 
             $allProduct = $model->findAllProduct($data);
@@ -83,11 +86,34 @@ class Index extends Base
 
     }
 
-    // 加载点击图片的产品详情
+    // 点击申请产品的 Deal
     public function requestDeal()
     {
 
         // return $this->fetch();
+    }
+
+    // 点击申请产品的 Deal
+    public function help()
+    {
+
+        return $this->fetch();
+    }
+
+    // 点击申请产品的 Deal
+    public function contactUs()
+    {
+        $request = Request::instance();
+
+        if($request->isPost()){
+
+
+
+            return $this->fetch('Index/index');
+        }else{
+
+            return $this->fetch();
+        }
     }
 
 }

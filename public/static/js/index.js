@@ -337,6 +337,9 @@ $(document).ready(function() {
  * 瀑布流wookmark
  */
 function waterfall(options, condition) {
+    // console.log('options',options);
+    // console.log('condition',condition);
+
     var handler = null;
     var page = 1;
     var isLoading = false;
@@ -365,6 +368,8 @@ function waterfall(options, condition) {
         var productUrl = $('#productUrl').val();
         var params = param ? param : {};
         params.page = page;
+        // console.log('params',params);
+
         $.ajax({
             url: productUrl,  // 加载产品列表后台接口
             type: 'post',
@@ -376,7 +381,8 @@ function waterfall(options, condition) {
 
     // ajax成功回调函数
     function onLoadData(resp) {
-        console.log(resp);
+        // console.log(resp);
+
         if(resp.error == 0) {
             isLoading = false;
             $loadingInfo.hide();

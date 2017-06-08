@@ -85,11 +85,11 @@ return [
     // URL伪静态后缀
     'url_html_suffix'        => 'html',
     // URL普通方式参数 用于自动生成
-    'url_common_param'       => false,
+    'url_common_param'       => true,
     // URL参数方式 0 按名称成对解析 1 按顺序解析
     'url_param_type'         => 0,
     // 是否开启路由
-    'url_route_on'           => true,
+    'url_route_on'           => false,
     // 路由使用完整匹配
     'route_complete_match'   => false,
     // 路由配置文件（支持配置多个）
@@ -173,7 +173,8 @@ return [
         // 日志记录级别
         // 'level' => ['info','notice','error','sql','debug','log'],
         // 'level' => ['error','notice','sql','debug','log'],
-        'level' => ['error','debug','log'],
+        'level' => ['error','sql','debug','log'],
+        // 'level' => ['error','debug','log'],
     ],
 
     // +----------------------------------------------------------------------
@@ -204,8 +205,8 @@ return [
         'path'   => CACHE_PATH,
         // 缓存前缀
         'prefix' => '',
-        // 缓存有效期 0表示永久缓存
-        'expire' => 0,
+        // 缓存有效期 0表示永久缓存;单位:秒
+        'expire' => 600,
     ],
 
     // +----------------------------------------------------------------------
@@ -222,7 +223,7 @@ return [
         'type'           => '',
         // 是否自动开启 SESSION
         'auto_start'     => true,
-        // session过期时间
+        // session过期时间,单位是:秒s
         'expire'     => 3600,
     ],
 
