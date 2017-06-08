@@ -32,7 +32,7 @@ class AccountValidate extends Validate
 
 		// 买家buyer 联系我们后台验证的报错信息
 		'name.require'=>'Please fill in your name',
-		'name.min'=>'The message at least 2 characters',
+		'name.min'=>'The name at least 2 characters',
 		'email.require'=>'Please fill in your Email',
 		'email.email'=>'Invalid Email Format',
 		'subject.require'=>'Please fill in your subject',

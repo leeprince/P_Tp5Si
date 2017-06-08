@@ -25,7 +25,15 @@
         <div class="col-sm-12">
             <form id="form-contact" action="" method="post">
                 <fieldset>
-                    <legend class="hide">联系我们表单</legend>
+                    <legend class="hide">Contact Us Form</legend>
+
+                    <!-- // 后台验证返回的错误信息 -->
+                    {notempty name="errorMsg"}
+                        <legend class="col-sm-12 error">Error Info:
+                                <span>{$errorMsg}</span>
+                        </legend>
+                    {/notempty}
+
                     <div class="col-sm-12"><label for="name">Your Name (required):</label></div>
                     <div class="col-sm-12">
                         <input id="name" class="form-control pl10 pr10" placeholder="Name" name="name"/>
