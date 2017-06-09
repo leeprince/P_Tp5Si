@@ -12,12 +12,13 @@
                     <div class="arrow"></div>
                     <div class="menuWrapper">
                          <ul class="J_category menu-category-list coupon-category-list">
-                            <li><a class="menu-category-list-link" href="{:url('Index/index',['ca'=>'fashion'])}" data-cond="fashion">Fashion</a></li>
-                            <li><a class="menu-category-list-link" href="{:url('Index/index',['ca'=>'electronic'])}" data-cond="electronic">Electronics</a></li>
-                            <li><a class="menu-category-list-link" href="{:url('Index/index',['ca'=>'health'])}" data-cond="health">Health</a></li>
-                            <li><a class="menu-category-list-link" href="{:url('Index/index',['ca'=>'sports'])}" data-cond="sports">Sports</a></li>
-                            <li><a class="menu-category-list-link" href="{:url('Index/index',['ca'=>'home'])}" data-cond="home">Home</a></li>
-                            <li><a class="menu-category-list-link" href="{:url('Index/index',['ca'=>'momBaby'])}" data-cond="momBaby">Mom & baby</a></li>
+                        
+                            <li><a class="menu-category-list-link" href="{:url('Index/index',['cond'=>$Think.get.cond,'ca'=>'fashion'])}" data-cond="fashion">Fashion</a></li>
+                            <li><a class="menu-category-list-link" href="{:url('Index/index',['cond'=>$Think.get.cond,'ca'=>'electronic'])}" data-cond="electronic">Electronics</a></li>
+                            <li><a class="menu-category-list-link" href="{:url('Index/index',['cond'=>$Think.get.cond,'ca'=>'health'])}" data-cond="health">Health</a></li>
+                            <li><a class="menu-category-list-link" href="{:url('Index/index',['cond'=>$Think.get.cond,'ca'=>'sports'])}" data-cond="sports">Sports</a></li>
+                            <li><a class="menu-category-list-link" href="{:url('Index/index',['cond'=>$Think.get.cond,'ca'=>'home'])}" data-cond="home">Home</a></li>
+                            <li><a class="menu-category-list-link" href="{:url('Index/index',['cond'=>$Think.get.cond,'ca'=>'momBaby'])}" data-cond="momBaby">Mom & baby</a></li>
                         </ul>
                     </div>
                 </div>
@@ -45,12 +46,12 @@
                         <ul class="J_filter menu-category-list deal-category-list">
                             <li>
                                 <!-- 已打开:'url_common_param'=>true  .以下三种 URL 生成都可以 -->
-                                <a class="menu-category-list-link" href="{:url('Index/index',['cond'=>'endDate'])}"" data-cond="endDate">Latest deals</a>
+                                <a class="menu-category-list-link" href="{:url('Index/index',['cond'=>'endDate','ca'=>$Think.get.ca])}"" data-cond="endDate">Latest deals</a>
                                 <!-- <a class="menu-category-list-link" href="{:url('Index/index','cond=endDate')}"" data-cond="endDate">Latest deals</a> -->
                                 <!-- <a class="menu-category-list-link" href="/index?cond=endDate" data-cond="endDate">Latest deals</a> -->
                             </li>
                             <li>
-                                <a class="menu-category-list-link" href="{:url('Index/index',['cond'=>'price'])}" data-cond="price">Price high to low</a>
+                                <a class="menu-category-list-link" href="{:url('Index/index',['cond'=>'price','ca'=>$Think.get.ca])}" data-cond="price">Price high to low</a>
                             </li>
                         </ul>
                     </div>
@@ -59,9 +60,8 @@
                 <div id="mainLogo">
                     <a href="{:url('Index/index')}"><img src="__PUBLIC__/images/art-logo_us.png" alt="Dealgogogo - Coupons and Deals" height="40"></a>
                 </div>
-                <form action="{//:U('Index/search')}" id="searchBar" class="J_formSearch" method="GET">
+                <form action="{:url('Index/index')}" id="searchBar" class="J_formSearch" method="GET">
                     <span class="twitter-typeahead" style="position: relative; display: inline-block;">
-                        <input type="hidden" class="J_category" name="category" value=""/>
                         <input type="text" id="search" class="J_searchInput searchInput tt-query" placeholder="Search Amazon, product, ASIN" name="search" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
                         <span style="position: absolute; left: -9999px; visibility: hidden; white-space: nowrap; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></span>
                         <span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0; z-index: 100; display: none;"></span>

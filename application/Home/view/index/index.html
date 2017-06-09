@@ -31,7 +31,7 @@
 
 <div id="mainContent" class="pb300">
     <div class="contentContainer container mt50">
-        <h1 class="J_pageTitle pageTitle"><span>Amazon Free Samples For Your Reviews <a href="{//:U('Index/introduce')}" class='howITwork'>How it work?</a></span></h1>
+        <h1 class="J_pageTitle pageTitle"><span>Amazon Free Samples For Your Reviews <a href="{:url('Index/introduce')}" class='howITwork'>How it work?</a></span></h1>
     </div>
     <!--产品列表-->
     <div id="container" class="contentContainer container pr"></div>
@@ -61,41 +61,23 @@
         };
 
 
-        filterValue = '<?php echo $filterValue = (isset($_GET['cond']))?$_GET['cond']:'';?>';//利用php 原生语法获取url链接的参数
+        filterValue = "{$Think.get.cond}";//采用Thinkphp5 系统变量的方式{Think 打头
+        // filterValue = '<?php echo $filterValue = (isset($_GET['cond']))?$_GET['cond']:'';?>';//利用php 原生语法获取url链接的参数
         // filterValue = getQueryString('cond');//index.js 里面的方法:获取url链接中的的参数
 
-        categoryValue = '<?php echo $filterValue = (isset($_GET['ca']))?$_GET['ca']:'';?>';
+        categoryValue = "{$Think.get.ca}";
 
-        console.log('filterValue',filterValue,'categoryValue',categoryValue);
+        searchValue = "{$Think.get.search}";
 
-        if(filterValue !== '' && categoryValue === ''){
-            condition = {
-                cond: filterValue,
-            };
+        console.log('filterValue>>',filterValue,'|categoryValue>>',categoryValue,'|searchValue>>',searchValue);
 
-            console.log('waterfall_1');
-            waterfall(options,condition);
-        }else if(filterValue === '' && categoryValue !== ''){
-            condition = {
-                ca: categoryValue,
-            };
+        condition = {
+                        cond: filterValue,
+                        ca: categoryValue,
+                        search: searchValue,
+                    };
 
-            console.log('waterfall_2');
-            waterfall(options,condition);
-        }else if(filterValue !== '' && categoryValue !== ''){
-            condition = {
-                cond: filterValue,
-                ca: categoryValue,
-            };
-
-            console.log('waterfall_3');
-            waterfall(options,condition);
-        }else{
-            condition = 'undefined';
-
-            console.log('waterfall_4');
-            waterfall(options);
-        }
+        waterfall(options,condition);
         
     })(jQuery);
 </script>

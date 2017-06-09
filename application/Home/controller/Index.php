@@ -34,13 +34,15 @@ class Index extends Base
 			$page = $request->post('page/d',1);
 			$filter = $request->post('cond','orderDate');
 			$ca = $request->post('ca');
+			$search = $request->post('search');
 
-			trace("leeprince page>>$page|filter>>$filter|ca>>$ca",'debug');
+			trace("leeprince debug:page>>$page|filter>>$filter|ca>>$ca|search>>$search",'debug');
 
 			$data = [
 				'page'=>$page,
 				'filter'=>$filter,
 				'ca'=>$ca,
+				'search'=>$search,
 			];
 
 			$allProduct = $model->findAllProduct($data);
@@ -91,11 +93,23 @@ class Index extends Base
 	// 点击申请产品的 Deal
 	public function requestDeal()
 	{
+		// Request::instance() 的助手函数为:request()
+		if(request()->isPost()){
 
-		// return $this->fetch();
+			// Request::instance() 的助手函数为:request();
+			// Request::instance()->请求类型('变量名'); =>使用助手函数为:request()->请求类型('变量名'); =>使用助手函数为:input('请求类型.变量名'); 或者input('变量名');[input函数默认就采用PARAM变量读取方式。param 获取当前请求的变量]
+			$orderID = input('orderid');
+
+			$model = new IndexModel();
+			$requestInfo = $model -> requestProduct($orderID);
+
+		}else{
+			$requestInfo = IndexModel::DEAL_FAILED;
+		}
+		return $requestInfo;
 	}
 
-	// 点击申请产品的 Deal
+	// 网站的帮助页面
 	public function help()
 	{
 
@@ -111,7 +125,7 @@ class Index extends Base
 			$name = input('name');
 			$email = input('email');
 			$subject = input('subject');
-			$request = input('request');
+			$requestID = input('request');
 			$message = input('message');
 
 			$data['name'] = $name;
@@ -138,7 +152,7 @@ class Index extends Base
 				$subject = $data['subject'];
 				$body = "buyerID:$buyerID\n
 						name:$name\n
-						request:$request\n
+						requestID:$request\n
 						message:$message"
 						.config('EMAILABOUNT'); // HTML  tags
 				$emailReturn = send_emial_163($to,$cc,$subject,$body);//163邮箱发送邮件
@@ -151,6 +165,12 @@ class Index extends Base
 
 			return $this->fetch();
 		}
+	}
+
+	// 网站介绍
+	public function introduce()
+	{
+		return $this->fetch();
 	}
 
 }

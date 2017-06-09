@@ -6,11 +6,25 @@ use \think\Db;
 
 class IndexModel extends Model
 {
+	// 定义需要的表,配置文件中已设置好表前缀
 	protected $tableNameOrder = 'order';
-
 	protected $tableNameRequest = 'request';
-
 	protected $tableNameRequestLimt = 'request_limit';
+	protected $tableNameBuyer = 'buyer';
+	protected $tableNameBuyerRank = 'buyerrank';
+
+	// 定义首页一次性加载的产品数量的常量
+	const ONE_PAGE_NUM = 10;
+
+	// 同一个买家 buyer 每天能领取同一个卖家 seller的多个产品的上限
+	const SAME_SELLER_LIMIT = 2;
+
+	// // 自定义设置 buyer 能够领取该产品 totalLimit 的倍数
+	const FINAL_MULTIPLE = 1;
+
+	static protected $tody = "date('Y-m-d')";
+
+	static protected $currentDate = "date('Y-m-d H:i:s')";
 
 	// 查找首页全部产品的 join 数组形式的静态属性
 	static $joinFind = [
@@ -25,6 +39,7 @@ class IndexModel extends Model
 			['__STORE__ s','s.storeID=o.storeID'],
 	];
 
+
 	// 首页排序规则
 	static private function getFilter($filter)
 	{
@@ -38,10 +53,21 @@ class IndexModel extends Model
 			case 'price':
 				$filter = 'o.price desc';
 				break;
+			default:
+				$filter = 'o.orderDate desc';
 		}
 
 		return $filter;
 	}
+
+	// 申请产品 Deal 的常量定义
+	const DEAL_EXIST = "<p class='m-ack'>Oops，you already have this deal.</p>";
+	const DEAL_RANK_LIMIT = "<p class='m-ack'>Oops, your already approved deal num which exceed your rank limit. Please finish them first</p>";
+	const DEAL_SELLER_DAILY_LIMIT = "<p class='m-ack'>Oops, there are too many people requested it. Total approval exceed the daily limit. Please check it tomorrow</p>";
+	const DEAL_SELLER_TOTAL_LIMIT = "<p class='m-ack'>Oops, too many people requested it and the quota is out. Please check other deals</p>";
+	const DEAL_SAME_SELLER_LIMIT = "<p class='m-ack'>Oops, You have already requested two products of this seller. Please check other deals</p>";
+	const DEAL_SUCCESS = "<p class='m-ack pb10'>Yep!!! Application approved. Buy it ,write a review and submit review link then get full price rebate.</p><a href='dealManager'>Submit review link</a>";
+	const DEAL_FAILED = "<p class='m-ack'>Illgal Operation!</p>";
 
 	// 首页选择分类
 	static private function getCategory($ca)
@@ -65,31 +91,39 @@ class IndexModel extends Model
 			case 'health':
 				$category = 'l.categoryID = 5';
 				break;
+			default:
+				$category = 1;
 		}
 
 		return $category;
 	}
 
 
-	// 首页查找所有产品,不排除dailylimit,totallimit,requestLimit
+	// 首页查找所有产品,并排除不符合条件:dailylimit,totallimit,requestLimit的产品
 	public function findAllProduct($data)
 	{
-		$onePageNum = 10;
+		$onePageNum = self::ONE_PAGE_NUM;
 		$pageNum = $data['page'];
 		$filter = $data['filter'];
 		$ca = $data['ca'];
+		$search = $data['search'];
 
 		$orderIdStarted = ($pageNum-1)*$onePageNum;
 		$currentDate = date('Y-m-d H:i:s');
 
 		// $filter = $this->getFilter($filter);//private function getFilter($filter)
-		$filter = self::getFilter($filter);//static private function getFilter($filter) .this->getFilter($filter)也可以调用该方法,不过这不是验证静态方法访问方式
+		$filter = self::getFilter($filter);//static private function getFilter($filter) .this->getFilter($filter)也可以调用该方法,不过严格标准中这不是验证静态方法访问方式
 
-		if(!empty($ca)){
-			$whereCate = self::getCategory($ca);
+		$whereCate = self::getCategory($ca);
+
+		if(!empty($search)){
+			$whereSearch = [
+				'o.ASIN|l.listingName'=>['like',"%$search%"],
+			];
 		}else{
-			$whereCate = 1;
+			$whereSearch = 1;
 		}
+
 
 		$fieldFind = [
 				'o.orderID',
@@ -107,12 +141,17 @@ class IndexModel extends Model
 		];
 
 		$join = self::$joinFind;
+
+		// trace("leeprince debug:filter>>$filter|whereCate>>$whereCate",'debug');
+		// trace($whereSearch,'debug');
+
 		$orderList = Db::name($this->tableNameOrder)
 					->alias('o')
 					->field($fieldFind)
 					->join($join)
 					->where($whereFind)
 					->where($whereCate)
+					->where($whereSearch)
 					->order($filter)
 					->limit($orderIdStarted,$onePageNum)
 					->select();
@@ -172,7 +211,7 @@ class IndexModel extends Model
 		}
 
 		// 使用日志记录的助手函数进行调试; 可在config.php 配置文件中配置日志级别
-		// trace("requestAllNum>>$requestAllNum |　requestDayNum>>$requestDayNum",'debug');
+		// trace("leeprince debug:requestAllNum>>$requestAllNum |　requestDayNum>>$requestDayNum",'debug');
 
 		return $orderList;
 	}
@@ -185,7 +224,7 @@ class IndexModel extends Model
 		return $list;
 	}
 
-	// 根据订单ID orderID 查找 requst 请求个数
+	// 查找 requst 请求的个数
 	public function fromOrderIdR($where)
 	{
 		$num = Db::name($this->tableNameRequest)->where($where)->count('requestID');
@@ -229,6 +268,122 @@ class IndexModel extends Model
 			 ->join($join)
 			 ->where($where)
 			 ->find();
+
+		return $num;
+	}
+
+	// 申请产品 Deal
+	public function requestProduct($orderID){
+		$sameSellerLimit = self::SAME_SELLER_LIMIT;
+		$buyerID = session('BUYERID');
+
+		$fieldO = [
+			'sellerID',
+			'ASIN',
+			'dailyLimit',
+			'totalLimit',
+		];
+		$whereO = [
+			'orderID'=>$orderID,
+		];
+
+		// 获取订单信息
+		$orderInfo = $this->fromOrderIdO($fieldO,$whereO);
+		$sellerID = $orderInfo['sellerID'];
+		$ASIN = $orderInfo['ASIN'];
+		$dailyLimit = $orderInfo['dailyLimit'];
+		$totalLimit = $orderInfo['totalLimit'];
+
+		// 自定义设置 buyer 能够领取该产品 totalLimit 的倍数;
+		$finalLimit = $totalLimit*(self::FINAL_LIMIT);
+
+		// 获取买家等级
+		$buyerInfo = $this->findBuyerInfo($buyerID);
+
+		$rank = $buyerInfo['rank'];
+
+		// 根据等级确定能获得的 Deal 数量
+		$buyerTotalLimit = $this->determineRankNum($rank);
+
+		// 同一个买家 buyer 每天能领取同一个卖家 seller的多个产品的数量,最多为2
+		$sameSellerNum = $this -> requestSameSellerNum($buyerID,$sellerID);
+
+		// 今天该产品被申请(领取)的数量
+		$whereR = [
+			'orderID'=>$id,
+			'status'=>'taken',
+			"DATE_FORMAT(date,'%Y-%m-%d')"=>self::$tody
+		];
+		$orderRequestNum = $this -> fromOrderIdR($whereR);
+
+		// 买家当前总共申请的数量
+		$whereR = [
+			'buyerID'=>$id,
+			'status'=>['in',['taken','verifyFail','error']]
+		];
+		$buyerRequestNum = $this -> fromOrderIdR($whereR);
+
+		// 买家历史是否领取过此产品
+		$whereR = [
+			'buyerID'=>$buyerID,
+			'status'=>['in',['taken' ,'verifyFail','reviewed','error','rebated']],
+		];
+		$buyerRequestNum = $this -> fromOrderIdR($whereR);
+
+
+	}
+
+	// 根据买家 buyerID 在 t_rr_buyer 表中查询买家信息
+	public function findBuyerInfo($buyerID)
+	{
+		$fieldB = [
+			'rank',
+		];
+
+		$whereB = [
+			'buyerID'=>$buyerID,
+		];
+
+		// table方法必须指定完整的数据表名
+		// $info = Db::table('t_rr_buyer')->field($fieldB)->where($whereB)->find();
+		// // 如果设置了数据表前缀参数的话，可以使用
+		// $info = Db::name('buyer')->field($fieldB)->where($whereB)->find();
+
+		//使用助手函数
+		$info = db($this->tableNameBuyer)->field($fieldB)->where($whereB)->find();
+
+		return $info;
+	}
+
+	// 根据等级 rank 在 t_rr_buyerrank 表中确定等级对应的 Deal 限制limit
+	public function determineRankNum($rank)
+	{
+		//使用助手函数
+		$num = db($this->tableNameBuyerRank)->where(['rank'=>$rank])->value('maxLimit');
+
+		return $num;
+	}
+
+	// 同一个买家 buyer 当天领取该产品的卖家多少个产品
+	public function requestSameSellerNum($buyerID,$sellerID)
+	{
+		$joinR = [
+			['__ORDER__ o','o.orderID=r.orderID'],
+		];
+
+		$whereR = [
+			'r.sellerID'=>$sellerID,
+			'r.buyerID'=>$buyerID,
+			"DATE_FORMAT(r.date,'%Y-%m-%d')"=>self::$tody,
+			"r.status"=>'taken',
+		];
+
+		//使用助手函数
+		$num = db($this->tableNameRequest)
+				->alias('r')
+				->join($joinR)
+				->where($whereR)
+				->count('r.requestID');
 
 		return $num;
 	}
