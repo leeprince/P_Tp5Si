@@ -61,11 +61,17 @@ class IndexModel extends Model
 	}
 
 	// 申请产品 Deal 的常量定义
+	// 申请产品Deal应满足的限制条件:1.历史没有申请过该产品;2.不超过买家等级限制的申请数量;3.不超过卖家设置当天能申请的Deal数量;4:不超过卖家设置总共的review数量;5:当天最多能申请同一个卖家2个Deal
 	const DEAL_EXIST = "<p class='m-ack'>Oops，you already have this deal.</p>";
+	const DEAL_EXIST_MSG = "This Product Exist";
 	const DEAL_RANK_LIMIT = "<p class='m-ack'>Oops, your already approved deal num which exceed your rank limit. Please finish them first</p>";
+	const DEAL_RANK_LIMIT_MSG = "Exceeding Buyer Rank limit";
 	const DEAL_SELLER_DAILY_LIMIT = "<p class='m-ack'>Oops, there are too many people requested it. Total approval exceed the daily limit. Please check it tomorrow</p>";
+	const DEAL_SELLER_DAILY_LIMIT_MSG = "Exceeding Seller Daily Limit";
 	const DEAL_SELLER_TOTAL_LIMIT = "<p class='m-ack'>Oops, too many people requested it and the quota is out. Please check other deals</p>";
+	const DEAL_SELLER_TOTAL_LIMIT_MSG = "Exceeding Seller Total Limit";
 	const DEAL_SAME_SELLER_LIMIT = "<p class='m-ack'>Oops, You have already requested two products of this seller. Please check other deals</p>";
+	const DEAL_SAME_SELLER_LIMIT_MSG = "Exceeding Same Seller Request Max Limit";
 	const DEAL_SUCCESS = "<p class='m-ack pb10'>Yep!!! Application approved. Buy it ,write a review and submit review link then get full price rebate.</p><a href='dealManager'>Submit review link</a>";
 	const DEAL_FAILED = "<p class='m-ack'>Illgal Operation!</p>";
 
@@ -272,9 +278,9 @@ class IndexModel extends Model
 		return $num;
 	}
 
-	// 申请产品 Deal
+	// 申请产品 Deal 不超过卖家设置总共的review数量 当天最多能申请同一个卖家2个Deal
+	// 申请产品Deal应满足的限制条件:1.历史没有申请过该产品;2.不超过买家等级限制的申请数量;3.不超过卖家设置当天能申请的Deal数量;4:不超过卖家设置总共的review数量;5:当天最多能申请同一个卖家2个Deal
 	public function requestProduct($orderID){
-		$sameSellerLimit = self::SAME_SELLER_LIMIT;
 		$buyerID = session('BUYERID');
 
 		$fieldO = [
@@ -291,11 +297,13 @@ class IndexModel extends Model
 		$orderInfo = $this->fromOrderIdO($fieldO,$whereO);
 		$sellerID = $orderInfo['sellerID'];
 		$ASIN = $orderInfo['ASIN'];
-		$dailyLimit = $orderInfo['dailyLimit'];
+		$dailyLimit = $orderInfo['dailyLimit'];//限制条件3
 		$totalLimit = $orderInfo['totalLimit'];
 
-		// 自定义设置 buyer 能够领取该产品 totalLimit 的倍数;
-		$finalLimit = $totalLimit*(self::FINAL_LIMIT);
+		$sameSellerLimit = self::SAME_SELLER_LIMIT;//限制条件5
+
+		// 自定义设置 buyer 能够领取该产品 totalLimit 的倍数,也就是这个产品的总共review数量;//限制条件4
+		$finalLimit = $totalLimit*(self::FINAL_MULTIPLE);
 
 		// 获取买家等级
 		$buyerInfo = $this->findBuyerInfo($buyerID);
@@ -303,33 +311,84 @@ class IndexModel extends Model
 		$rank = $buyerInfo['rank'];
 
 		// 根据等级确定能获得的 Deal 数量
-		$buyerTotalLimit = $this->determineRankNum($rank);
+		$buyerTotalLimit = $this->determineRankNum($rank);//限制条件2
 
-		// 同一个买家 buyer 每天能领取同一个卖家 seller的多个产品的数量,最多为2
-		$sameSellerNum = $this -> requestSameSellerNum($buyerID,$sellerID);
-
-		// 今天该产品被申请(领取)的数量
+		// 买家历史是否领取过此产品
+		// 限制条件1
 		$whereR = [
-			'orderID'=>$id,
-			'status'=>'taken',
-			"DATE_FORMAT(date,'%Y-%m-%d')"=>self::$tody
+			'buyerID'=>$buyerID,
+			'orderID'=>$orderID,
+			'status'=>['in',['taken' ,'reviewed','verifyFail','error','rebated']],
 		];
-		$orderRequestNum = $this -> fromOrderIdR($whereR);
+		$isExistNum = $this -> fromOrderIdR($whereR);
 
-		// 买家当前总共申请的数量
+		// 买家历史总共申请的数量
 		$whereR = [
-			'buyerID'=>$id,
+			'buyerID'=>$buyerID,
 			'status'=>['in',['taken','verifyFail','error']]
 		];
 		$buyerRequestNum = $this -> fromOrderIdR($whereR);
 
-		// 买家历史是否领取过此产品
+		// 今天该产品被申请(领取)的数量
 		$whereR = [
-			'buyerID'=>$buyerID,
-			'status'=>['in',['taken' ,'verifyFail','reviewed','error','rebated']],
+			'orderID'=>$orderID,
+			'status'=>'taken',
+			"DATE_FORMAT(date,'%Y-%m-%d')"=>self::$tody
 		];
-		$buyerRequestNum = $this -> fromOrderIdR($whereR);
+		$daliyRequestNum = $this -> fromOrderIdR($whereR);
 
+		// 历史该产品总共被申请(领取)的数量
+		$whereR = [
+			'orderID'=>$orderID,
+			'status'=>['in',['taken','reviewed','verifyFail','error','rebated']]
+		];
+		$allRequestNum = $this -> fromOrderIdR($whereR);
+
+		// 该买家当天领取该产品卖家一共多少个产品,最多为2
+		$sameSellerNum = $this -> requestSameSellerNum($buyerID,$sellerID);
+
+		trace("leeprince debug:isExistNum>>$isExistNum",'debug');
+
+		if(($isExistNum == 0) && ($buyerTotalLimit > $buyerRequestNum) && ($dailyLimit > $daliyRequestNum) && ($finalLimit > $allRequestNum) && ($sameSellerLimit > $sameSellerNum)){
+			$status = 'taken';
+			$rejectedMessage = '';
+
+			$requestReturn = self::DEAL_SUCCESS;
+		}elseif($isExistNum > 0){
+			$status = 'reject';
+			$rejectedMessage = self::DEAL_EXIST_MSG;
+
+			$requestReturn = self::DEAL_EXIST;
+		}elseif($buyerTotalLimit <= $buyerRequestNum){
+			$status = 'reject';
+			$rejectedMessage = self::DEAL_RANK_LIMIT_MSG;
+
+			$requestReturn = self::DEAL_RANK_LIMIT;
+		}elseif($dailyLimit <= $daliyRequestNum){
+			$status = 'reject';
+			$rejectedMessage = self::DEAL_SELLER_DAILY_LIMIT_MSG;
+
+			$requestReturn = self::DEAL_SELLER_DAILY_LIMIT;
+		}elseif($finalLimit <= $allRequestNum){
+			$status = 'reject';
+			$rejectedMessage = self::DEAL_SELLER_TOTAL_LIMIT_MSG;
+
+			$requestReturn = self::DEAL_SELLER_TOTAL_LIMIT;
+		}elseif($sameSellerLimit > $sameSellerNum){
+			$status = 'reject';
+			$rejectedMessage = self::DEAL_SAME_SELLER_LIMIT_MSG;
+
+			$requestReturn = self::DEAL_SAME_SELLER_LIMIT;
+		}else{
+			$status = '';
+			$requestReturn = self::DEAL_FAILED;
+		}
+
+		if(!empyty($status)){
+			
+		}
+
+		return $requestReturn;
 
 	}
 
@@ -372,7 +431,7 @@ class IndexModel extends Model
 		];
 
 		$whereR = [
-			'r.sellerID'=>$sellerID,
+			'o.sellerID'=>$sellerID,
 			'r.buyerID'=>$buyerID,
 			"DATE_FORMAT(r.date,'%Y-%m-%d')"=>self::$tody,
 			"r.status"=>'taken',
