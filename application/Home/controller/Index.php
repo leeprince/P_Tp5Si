@@ -152,7 +152,7 @@ class Index extends Base
 				$subject = $data['subject'];
 				$body = "buyerID:$buyerID\n
 						name:$name\n
-						requestID:$request\n
+						requestID:$requestID\n
 						message:$message"
 						.config('EMAILABOUNT'); // HTML  tags
 				$emailReturn = send_emial_163($to,$cc,$subject,$body);//163邮箱发送邮件
