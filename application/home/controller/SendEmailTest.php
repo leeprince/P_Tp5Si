@@ -22,7 +22,7 @@ class SendEmailTest extends Controller
 		$mail->Host = "smtp.163.com";// 发送方的SMTP服务器地址			
 		$mail->SMTPAuth = true;// 是否使用身份验证			
 		$mail->Username = "leeprincehz@163.com";//</span><span style="color:#ff6666;">// 发送方的163邮箱用户名，就是你申请163的SMTP服务使用的163邮箱</span><span style="color:#333333;">			
-		$mail->Password = "leeprince163";//</span><span style="color:#ff6666;">// 发送方的邮箱密码，注意用163邮箱这里填写的是“客户端授权密码”而不是邮箱的登录密码！</span><span style="color:#333333;">	
+		$mail->Password = "xxxxxx";//</span><span style="color:#ff6666;">// 发送方的邮箱密码，注意用163邮箱这里填写的是“客户端授权密码”而不是邮箱的登录密码！</span><span style="color:#333333;">	
 		$mail->SMTPSecure = "ssl";//</span><span style="color:#ff6666;">// 使用ssl协议方式</span><span style="color:#333333;">			
 		$mail->Port = 994;// 163邮箱的ssl协议方式端口号是465/994			
 		$mail->setFrom("leeprincehz@163.com","LeePrince");// 设置发件人信息，如邮件格式说明中的发件人，这里会显示为Mailer(xxxx@163.com），Mailer是当做名字显示			
